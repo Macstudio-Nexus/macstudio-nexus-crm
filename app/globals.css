@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+
+@theme inline {
+  --font-plex: 'IBM Plex Serif', sans-serif;
+  --font-space: 'Space Grotesk', sans-serif;
+
+  --color-bg: #070707;
+  --color-accent: #cf5c36;
+  --color-text: #eee5e9;
+  --color-secondary: #7c7c7c;
+  --color-border: #444444;
+}
+
+@utility components {
+  .login-button {
+    @apply p-4;
+  }
+}
