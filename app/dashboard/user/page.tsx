@@ -1,10 +1,11 @@
 "use client";
 
+import withRoleProtection from "@/components/withRoleProtection";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default function UserDashboard() {
+function UserDashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
@@ -33,3 +34,5 @@ export default function UserDashboard() {
 
   return <div>User Dashboard</div>;
 }
+
+export default withRoleProtection(UserDashboard, {allowedRoles: [2]});

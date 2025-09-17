@@ -40,5 +40,5 @@ export default function Dashboard() {
     return <div>Loading...</div>;
   }
 
-  return <Loading />;
+  return <Loading text="Loading..."/>;
 }

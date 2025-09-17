@@ -3,7 +3,7 @@
 import { Input } from "@/components/ui/input";
 import { signIn, useSession } from "next-auth/react";
 import { useState } from "react";
-import { Mail, Loader } from "lucide-react";
+import { Loader } from "lucide-react";
 
 export default function Login() {
   const [email, setEmail] = useState<string>("");
@@ -28,25 +28,27 @@ export default function Login() {
     }
 
     setEmail("");
-    setMessage("Magic link sent! Check your email.");
+    setMessage("Link sent! Check your email to login");
   }
 
-  const { data:session } = useSession()
+  const { data: session } = useSession();
 
   return (
     <>
       <form
         action={handleSubmit}
-        className="bg-bg shadow-[0_0_5px_rgba(0,0,0,0.3)] shadow-black w-fit p-6 md:p-12 rounded-xl font-plex"
+        className="bg-bg full-shadow shadow-black w-fit p-6 md:p-12 rounded-xl font-plex"
       >
-      <h1 className="text-4xl md:text-5xl">Log In</h1>
-        <div className="flex rounded-lg p-2 my-8 md:my-12">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl">
+          Log In
+        </h1>
+        <div className="flex rounded-lg p-2 my-6 md:my-10">
           <Input
-            placeholder="Email"
+            placeholder="tonysoprano@gmail.com"
             name="email"
             type="email"
             onChange={(e) => setEmail(e.target.value)}
-            className="p-6"
+            className="p-4 md:p-6 lg:p-8"
           />
         </div>
         <button
@@ -59,12 +61,11 @@ export default function Login() {
               <Loader color="white" />
             </div>
           ) : (
-            "Send Magic Link"
+            <div className="font-plex text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">Send Magic Link</div>
           )}
         </button>
 
-          {/* {session?.user?.email} */}
-
+        {/* {session?.user?.email} */}
       </form>
       {message && (
         <>
