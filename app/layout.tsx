@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Provider from "@/components/provider";
 import { IBM_Plex_Serif, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
@@ -32,7 +33,7 @@ export default function RootLayout({
       <body
         className={`${ibmPlexSerif.variable} ${spaceGrotesk.variable} antialiased`}
       >
-        {children}
+        <Provider>{children}</Provider>
       </body>
     </html>
   );

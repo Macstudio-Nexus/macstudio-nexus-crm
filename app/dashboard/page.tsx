@@ -1,4 +1,4 @@
-import { auth } from "@/auth"
+import { auth } from "@/lib/auth"
   import { redirect } from "next/navigation"
   import AdminDashboard from "@/app/components/admin/AdminDashboard"
   import UserDashboard from "@/app/components/user/UserDashboard"
