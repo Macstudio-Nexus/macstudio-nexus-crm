@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Login from "./components/Login";
-import Logo from "./components/Logo";
+import Logo from "../components/Logo";
 import Footer from "./components/Footer";
 
 export default function Home() {

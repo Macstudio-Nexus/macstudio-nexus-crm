@@ -16,7 +16,7 @@ export default function Login() {
 
     const signInResult = await signIn("email", {
       email: email,
-      callbackUrl: `${window.location.origin}`,
+      callbackUrl: `${window.location.origin}/dashboard`,
       redirect: false,
     });
 
@@ -35,11 +35,11 @@ export default function Login() {
 
   return (
     <>
-      <h1 className="text-4xl md:text-5xl">Log In</h1>
       <form
         action={handleSubmit}
         className="bg-bg shadow-[0_0_5px_rgba(0,0,0,0.3)] shadow-black w-fit p-6 md:p-12 rounded-xl font-plex"
       >
+      <h1 className="text-4xl md:text-5xl">Log In</h1>
         <div className="flex rounded-lg p-2 my-8 md:my-12">
           <Input
             placeholder="Email"
@@ -63,7 +63,7 @@ export default function Login() {
           )}
         </button>
 
-          {session?.user?.email}
+          {/* {session?.user?.email} */}
 
       </form>
       {message && (
