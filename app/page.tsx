@@ -1,4 +1,4 @@
-import Image from "next/image";
+// import Image from "next/image";
 import Login from "./components/Login";
 import Logo from "../components/Logo";
 import Footer from "./components/Footer";

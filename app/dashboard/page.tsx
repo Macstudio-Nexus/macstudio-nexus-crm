@@ -37,7 +37,7 @@ export default function Dashboard() {
   }, [session, status, router]);
 
   if (status === "loading") {
-    return <div>Loading...</div>;
+    return <Loading text="Loading..."/>;
   }
 
   return <Loading text="Loading..."/>;

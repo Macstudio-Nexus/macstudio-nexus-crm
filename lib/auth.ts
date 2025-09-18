@@ -8,7 +8,7 @@ declare module "next-auth" {
   interface Session {
     user: {
       id: string;
-      roleId: Number;
+      roleId: number;
       name?: string | null;
       email?: string | null;
       image?: string | null;
@@ -33,7 +33,7 @@ export const authOptions: NextAuthOptions = {
     ],
     callbacks: {
         async signIn({ user, account, profile, email, credentials }) {
-            console.log('SignIn callback called with user:', user.email);
+            // console.log('SignIn callback called with user:', user.email);
 
             // Only allow sign in if user exists in database
             if (account?.provider === 'email') {
@@ -41,8 +41,8 @@ export const authOptions: NextAuthOptions = {
                     where: { email: user.email! }
                 });
 
-                console.log('Found existing user:', existingUser ? 'Yes' : 'No');
-                console.log('User roleId:', existingUser?.roleId, 'Type:', typeof existingUser?.roleId);
+                // console.log('Found existing user:', existingUser ? 'Yes' : 'No');
+                // console.log('User roleId:', existingUser?.roleId, 'Type:', typeof existingUser?.roleId);
 
                 return !!existingUser; // Only allow if user exists
             }
@@ -62,7 +62,7 @@ export const authOptions: NextAuthOptions = {
             return session;
         },
         async redirect({ url, baseUrl }) {
-            console.log('Redirect callback called with URL:', url);
+            // console.log('Redirect callback called with URL:', url);
 
             // Allow relative URLs
             if (url.startsWith("/")) return `${baseUrl}${url}`;

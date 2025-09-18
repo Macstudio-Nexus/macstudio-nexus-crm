@@ -10,7 +10,7 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  async function handleSubmit(formData: FormData) {
+  async function handleSubmit() {
     setIsLoading(true);
     setMessage("");
 

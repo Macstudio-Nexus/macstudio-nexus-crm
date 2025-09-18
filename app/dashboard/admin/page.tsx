@@ -5,6 +5,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
+import SideBar from "@/app/components/admin/SideBar";
+
 function AdminDashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -33,11 +35,10 @@ function AdminDashboard() {
   }
 
   return (
-    <>
-      <div>Admin Dashboard</div>
-    </>
+    <div className="bg-gray-950">
+      <SideBar />
+    </div>
   );
 }
 
-
-export default withRoleProtection(AdminDashboard, {allowedRoles: [1]});
+export default withRoleProtection(AdminDashboard, { allowedRoles: [1] });

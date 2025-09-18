@@ -1,6 +1,6 @@
 import { Loader } from "lucide-react";
 
-export default function Loading({ text }: { text: String }) {
+export default function Loading({ text }: { text: string }) {
   return (
     <div className="bg-black h-screen font-space text-2xl flex flex-col items-center justify-center gap-3">
       <Loader

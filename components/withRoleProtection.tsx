@@ -7,7 +7,7 @@ import { useEffect, ComponentType } from "react";
 import Loader from "@/components/Loading/Loading";
 
 interface RoleProtectionOptions {
-  allowedRoles: Number[];
+  allowedRoles: number[];
   redirectTo?: string;
   fallbackComponent?: ComponentType;
 }

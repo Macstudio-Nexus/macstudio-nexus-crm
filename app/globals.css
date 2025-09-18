@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-plex: 'IBM Plex Serif', sans-serif;
+  --font-plex: 'IBM Plex Sans', sans-serif;
   --font-space: 'Space Grotesk', sans-serif;
 
   --color-bg: #1b2e49;
@@ -20,6 +20,9 @@
   }
   .full-shadow {
     @apply shadow-[0_0_5px_rgba(0,0,0,0.3)]
+  }
+  .sidebar-link{
+    @apply p-2 pl-6 gap-4 hover:bg-gray-800 rounded-xl cursor-pointer 
   }
 }
 
