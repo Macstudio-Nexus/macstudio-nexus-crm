@@ -17,8 +17,12 @@ function AdminDashboard() {
 
   return (
     <div className="text-text font-plex">
-      <div className="flex items-center justify-between px-5 pt-10">
+      <div className="flex items-center justify-between px-5 pt-5">
+        <div className="flex flex-col items-start gap-1">
+
         <span className="text-3xl">Dashboard</span>
+        <span className="text-base">Welcome back, {session?.user?.name?.split(' ')[0] || 'User'}</span>
+        </div>
         <Logout />
       </div>
     </div>
