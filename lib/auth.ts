@@ -56,7 +56,8 @@ export const authOptions: NextAuthOptions = {
 
             if (dbUser && session.user) {
                 session.user.id = dbUser.id.toString();
-                session.user.roleId = dbUser.roleId;
+                session.user.roleId = Number(dbUser.roleId);
+                session.user.name = dbUser.name;
             }
 
             return session;

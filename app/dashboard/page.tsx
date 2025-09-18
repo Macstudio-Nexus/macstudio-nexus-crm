@@ -23,15 +23,19 @@ export default function Dashboard() {
       return;
     }
 
+    console.log("HEY BITCH", session.user?.roleId);
+
     // Redirect based on role
     if (session.user?.roleId === 1) {
+      console.log("SHould be here for sure cocksucler");
       router.push("/dashboard/admin");
     } else if (session.user?.roleId === 2) {
       router.push("/dashboard/user");
     } else if (session.user?.roleId === 3) {
       router.push("/dashboard/guest");
-    }else {
+    } else {
       // Default route
+      console.log("why are you here?")
       router.push("/dashboard/user");
     }
   }, [session, status, router]);

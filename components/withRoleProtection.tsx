@@ -34,7 +34,12 @@ function withRoleProtection<T extends object>(
       }
 
       // Check if user's role is in the allowed roles
-      if (!allowedRoles.includes(session.user?.roleId)) {
+      console.log("REDIRECT: session.user?.roleId:", session.user?.roleId);
+      console.log("REDIRECT: allowedRoles:", allowedRoles);
+      if (
+        !session.user?.roleId ||
+        !allowedRoles.includes(session.user?.roleId)
+      ) {
         // Redirect based on user's actual role
         if (session.user?.roleId === 1) {
           router.push("/dashboard/admin");
@@ -56,16 +61,22 @@ function withRoleProtection<T extends object>(
 
     // Not authenticated
     if (!session) {
-      return <Loader text="Redirecting to login"/>;
+      return <Loader text="Redirecting to login" />;
     }
 
     // Not authorized for this role
-    if (!allowedRoles.includes(session.user?.roleId)) {
+    console.log("REDIRECT: session.user?.roleId:", session.user?.roleId);
+    console.log("REDIRECT: allowedRoles:", allowedRoles);
+    if (!session.user?.roleId || !allowedRoles.includes(session.user?.roleId)) {
       if (FallbackComponent) {
         return <FallbackComponent />;
       }
-      return <Loader text="Redirecting..."/>;
+      return <Loader text="Redirecting..." />;
     }
+
+    console.log("allowedRoles:", allowedRoles);
+    console.log("session.user?.roleId:", session.user?.roleId);
+    console.log("includes check:", allowedRoles.includes(session.user?.roleId));
 
     // Authorized - render the wrapped component
     return <WrappedComponent {...props} />;

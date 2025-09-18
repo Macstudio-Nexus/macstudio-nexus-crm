@@ -22,7 +22,7 @@
     @apply shadow-[0_0_5px_rgba(0,0,0,0.3)]
   }
   .sidebar-link{
-    @apply p-2 pl-6 gap-4 hover:bg-gray-800 rounded-xl cursor-pointer 
+    @apply py-2 gap-4 hover:bg-gray-800 rounded-xl cursor-pointer text-xl lg:text-2xl;
   }
 }
 
