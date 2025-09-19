@@ -1,34 +1,43 @@
 "use client";
 import { useState } from "react";
-import { useUsers } from "@/hooks/useUsers";
-
 import withRoleProtection from "../withRoleProtection";
 import { Check, Loader, X } from "lucide-react";
 
-interface newSite {
-  name: string;
-  domain: string;
+import { useUsers } from "@/hooks/useUsers";
+import { useSites } from "@/hooks/useSites";
+
+interface newProject {
+  title: string;
+  description?: string;
+  domain?: string;
+  type: string;
   userId: string | number;
-  description: string;
+  siteId?: string | number;
 }
 
-interface NewSiteProps {
+interface NewProjectProps {
   onClose: () => void;
 }
 
-function AddSite({ onClose }: NewSiteProps) {
-  const { users, isLoading, isError } = useUsers();
+const typeOptions = [
+  { value: "web-dev", label: "Web Development" },
+  { value: "branding", label: "Branding" },
+];
+
+function AddProject({ onClose }: NewProjectProps) {
+  const { users } = useUsers();
+  const { sites } = useSites();
   const [isFormLoading, setIsFormLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const [formData, setFormData] = useState<newSite>({
-    name: "",
-    domain: "",
-    userId: 1,
+  const [formData, setFormData] = useState<newProject>({
+    title: "",
     description: "",
+    domain: "",
+    type: "web-dev",
+    userId: "",
+    siteId: "",
   });
-
-  console.log('Users data:', users);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,7 +45,7 @@ function AddSite({ onClose }: NewSiteProps) {
     setError(false);
 
     try {
-      const response = await fetch("/api/sites", {
+      const response = await fetch("/api/projects", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -45,18 +54,20 @@ function AddSite({ onClose }: NewSiteProps) {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to create site");
+        throw new Error("Failed to create project");
       }
 
       const result = await response.json();
-      console.log("Site created:", result);
+      console.log("Project created:", result);
 
       // Clear form and show success
       setFormData({
-        name: "",
-        domain: "",
-        userId: 1,
+        title: "",
         description: "",
+        domain: "",
+        type: "web-dev",
+        userId: "",
+        siteId: "",
       });
       setIsFormLoading(false);
       setSuccess(true);
@@ -65,7 +76,7 @@ function AddSite({ onClose }: NewSiteProps) {
         onClose();
       }, 2000);
     } catch (error) {
-      //   console.error("Error creating site:", error);
+      //   console.error("Error creating project:", error);
       setError(true);
       setIsFormLoading(false);
       // Handle error state
@@ -78,14 +89,14 @@ function AddSite({ onClose }: NewSiteProps) {
           <div className="text-3xl font-space flex flex-col justify-center items-center p-2">
             <Check className="size-15 text-neon-green" />
             <span className="text-center">
-              Site successfully added to database
+              Project successfully added to database
             </span>
           </div>
         ) : error ? (
           <div className="flex flex-col justify-center items-center p-6 gap-2">
             <X className="size-15 text-red-500" />
             <h2 className="font-space text-2xl text-red-500 text-center">
-              Error Creating Site, please try again
+              Error Creating Project, please try again
             </h2>
             <button onClick={onClose} className="form-button mt-4">
               Exit
@@ -94,7 +105,7 @@ function AddSite({ onClose }: NewSiteProps) {
         ) : (
           <>
             <h1 className="font-space text-2xl md:text-3xl lg:text-4xl text-center pt-4">
-              Add New Site
+              Add New Project
             </h1>
             <form
               onSubmit={handleSubmit}
@@ -102,26 +113,12 @@ function AddSite({ onClose }: NewSiteProps) {
             >
               <div>
                 <input
-                  id="name"
+                  id="title"
                   type="text"
-                  placeholder="Site Name*"
-                  value={formData.name}
+                  placeholder="Project Title*"
+                  value={formData.title}
                   onChange={(e) =>
-                    setFormData((prev) => ({ ...prev, name: e.target.value }))
-                  }
-                  className="form-inputs"
-                  required
-                />
-              </div>
-
-              <div>
-                <input
-                  id="domain"
-                  placeholder="Domain*"
-                  type="text"
-                  value={formData.domain}
-                  onChange={(e) =>
-                    setFormData((prev) => ({ ...prev, domain: e.target.value }))
+                    setFormData((prev) => ({ ...prev, title: e.target.value }))
                   }
                   className="form-inputs"
                   required
@@ -145,6 +142,46 @@ function AddSite({ onClose }: NewSiteProps) {
               </div>
 
               <div>
+                <input
+                  id="domain"
+                  placeholder="Domain"
+                  type="text"
+                  value={formData.domain}
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, domain: e.target.value }))
+                  }
+                  className="form-inputs"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="type"
+                  className="block text-sm lg:text-lg font-medium ml-1"
+                >
+                  Type*
+                </label>
+                <select
+                  id="type"
+                  value={formData.type}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      type: e.target.value,
+                    }))
+                  }
+                  className="form-inputs"
+                  required
+                >
+                  {typeOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
                 <label
                   htmlFor="userId"
                   className="block text-sm lg:text-lg font-medium ml-1"
@@ -163,15 +200,38 @@ function AddSite({ onClose }: NewSiteProps) {
                   className="form-inputs"
                   required
                 >
-                  {isLoading ? (
-                    <option className="text-lg">Loading Users...</option>
-                  ) : (
-                    users?.map((user: any) => (
-                      <option key={user.id} value={user.id}>
-                        {user.name}
-                      </option>
-                    ))
-                  )}
+                  {users?.map((user: any) => (
+                    <option key={user.id} value={user.id}>
+                      {user.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="siteId"
+                  className="block text-sm lg:text-lg font-medium ml-1"
+                >
+                  Site*
+                </label>
+                <select
+                  id="siteId"
+                  value={formData.siteId}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      siteId: e.target.value,
+                    }))
+                  }
+                  className="form-inputs"
+                >
+                  <option value="">Select a site...</option>
+                  {sites?.map((site: any) => (
+                    <option key={site.id} value={site.id}>
+                      {site.name}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div className="flex justify-center items-center gap-3 pt-4">
@@ -188,7 +248,7 @@ function AddSite({ onClose }: NewSiteProps) {
                       <Loader className="animate-[spin_2s_linear_infinite] size-6" />
                     </div>
                   ) : (
-                    "Create Site"
+                    "Create Project"
                   )}
                 </button>
               </div>
@@ -200,4 +260,4 @@ function AddSite({ onClose }: NewSiteProps) {
   );
 }
 
-export default withRoleProtection(AddSite, { allowedRoles: [1] });
+export default withRoleProtection(AddProject, { allowedRoles: [1] });

@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(site, { status: 201 });
   } catch (error) {
     return NextResponse.json(
-      { error: "Failed to create user" },
+      { error: "Failed to create site" },
       { status: 500 }
     );
   }

@@ -11,7 +11,7 @@ function AdminDashboard() {
   const { data: session, status } = useSession();
 
   if (status === "loading") {
-    return <Loading text="Loading..." />;
+    return <Loading text="..." />;
   }
 
   return (
