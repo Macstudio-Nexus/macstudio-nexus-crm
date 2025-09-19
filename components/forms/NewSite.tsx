@@ -1,46 +1,49 @@
 "use client";
 import { useState } from "react";
+import { useUsers } from "@/hooks/useUsers";
 
 import withRoleProtection from "../withRoleProtection";
 import { Check, Loader, X } from "lucide-react";
 
-interface newUser {
+interface newSite {
   name: string;
-  email: string;
-  phoneNumber: string;
-  companyName?: string;
-  roleId: number;
+  domain: string;
+  userId: string | number;
+  description: string;
 }
 
-interface NewUserProps {
+interface NewSiteProps {
   onClose: () => void;
 }
 
-const roleOptions = [
-  { value: 1, label: "Admin" },
-  { value: 2, label: "User" },
-  { value: 3, label: "Guest" },
+// This will need to be populated with actual users from API
+const userOptions = [
+  { value: 1, label: "Admin User" },
+  { value: 2, label: "Regular User" },
+  { value: 3, label: "Guest User" },
 ];
 
-function AddUser({ onClose }: NewUserProps) {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+function AddSite({ onClose }: NewSiteProps) {
+  const { users, isLoading, isError } = useUsers();
+  const [isFormLoading, setIsFormLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const [formData, setFormData] = useState<newUser>({
+  const [formData, setFormData] = useState<newSite>({
     name: "",
-    email: "",
-    phoneNumber: "",
-    companyName: "",
-    roleId: 2,
+    domain: "",
+    userId: 1,
+    description: "",
   });
+
+  console.log('Users data:', users);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsFormLoading(true);
     setError(false);
 
     try {
-      const response = await fetch("/api/users", {
+      const response = await fetch("/api/sites", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -49,30 +52,29 @@ function AddUser({ onClose }: NewUserProps) {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to create user");
+        throw new Error("Failed to create site");
       }
 
       const result = await response.json();
-      console.log("User created:", result);
+      console.log("Site created:", result);
 
       // Clear form and show success
       setFormData({
         name: "",
-        email: "",
-        phoneNumber: "",
-        companyName: "",
-        roleId: 2,
+        domain: "",
+        userId: 1,
+        description: "",
       });
-      setIsLoading(false);
+      setIsFormLoading(false);
       setSuccess(true);
 
       setTimeout(() => {
         onClose();
       }, 2000);
     } catch (error) {
-    //   console.error("Error creating user:", error);
+      //   console.error("Error creating site:", error);
       setError(true);
-      setIsLoading(false);
+      setIsFormLoading(false);
       // Handle error state
     }
   };
@@ -83,14 +85,14 @@ function AddUser({ onClose }: NewUserProps) {
           <div className="text-3xl font-space flex flex-col justify-center items-center p-2">
             <Check className="size-15 text-neon-green" />
             <span className="text-center">
-              User successfully added to database
+              Site successfully added to database
             </span>
           </div>
         ) : error ? (
           <div className="flex flex-col justify-center items-center p-6 gap-2">
             <X className="size-15 text-red-500" />
             <h2 className="font-space text-2xl text-red-500 text-center">
-              Error Creating User, please try again
+              Error Creating Site, please try again
             </h2>
             <button onClick={onClose} className="form-button mt-4">
               Exit
@@ -99,14 +101,17 @@ function AddUser({ onClose }: NewUserProps) {
         ) : (
           <>
             <h1 className="font-space text-2xl md:text-3xl lg:text-4xl text-center pt-4">
-              Add New User
+              Add New Site
             </h1>
-            <form onSubmit={handleSubmit} className="space-y-2 lg:space-y-4 p-6">
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-2 lg:space-y-4 p-6"
+            >
               <div>
                 <input
                   id="name"
                   type="text"
-                  placeholder="Name*"
+                  placeholder="Site Name*"
                   value={formData.name}
                   onChange={(e) =>
                     setFormData((prev) => ({ ...prev, name: e.target.value }))
@@ -118,93 +123,79 @@ function AddUser({ onClose }: NewUserProps) {
 
               <div>
                 <input
-                  id="email"
-                  placeholder="Email*"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData((prev) => ({ ...prev, email: e.target.value }))
-                  }
-                  className="form-inputs"
-                  required
-                />
-              </div>
-
-              <div>
-                <input
-                  id="phoneNumber"
-                  placeholder="Phone*"
-                  type="tel"
-                  value={formData.phoneNumber}
-                  onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      phoneNumber: e.target.value,
-                    }))
-                  }
-                  className="form-inputs"
-                  required
-                />
-              </div>
-
-              <div>
-                <input
-                  id="companyName"
-                  placeholder="Company Name"
+                  id="domain"
+                  placeholder="Domain*"
                   type="text"
-                  value={formData.companyName || ""}
+                  value={formData.domain}
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, domain: e.target.value }))
+                  }
+                  className="form-inputs"
+                  required
+                />
+              </div>
+
+              <div>
+                <textarea
+                  id="description"
+                  placeholder="Description"
+                  value={formData.description}
                   onChange={(e) =>
                     setFormData((prev) => ({
                       ...prev,
-                      companyName: e.target.value,
+                      description: e.target.value,
                     }))
                   }
                   className="form-inputs"
+                  rows={3}
                 />
               </div>
 
               <div>
                 <label
-                  htmlFor="roleId"
+                  htmlFor="userId"
                   className="block text-sm lg:text-lg font-medium ml-1"
                 >
-                  Role*
+                  User*
                 </label>
                 <select
-                  id="roleId"
-                  value={formData.roleId}
+                  id="userId"
+                  value={formData.userId}
                   onChange={(e) =>
                     setFormData((prev) => ({
                       ...prev,
-                      roleId: Number(e.target.value),
+                      userId: e.target.value,
                     }))
                   }
                   className="form-inputs"
                   required
                 >
-                  {roleOptions.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
+                  {isLoading ? (
+                    <option className="text-lg">Loading Users...</option>
+                  ) : (
+                    users?.map((user: any) => (
+                      <option key={user.id} value={user.id}>
+                        {user.name}
+                      </option>
+                    ))
+                  )}
                 </select>
               </div>
-
               <div className="flex justify-center items-center gap-3 pt-4">
                 <button
                   onClick={onClose}
                   className="form-button"
-                  disabled={isLoading}
+                  disabled={isFormLoading}
                 >
                   Close
                 </button>
                 <button type="submit" className="form-button">
-                  {isLoading ? (
+                  {isFormLoading ? (
                     <div className="flex justify-center items-center">
                       <Loader className="animate-[spin_2s_linear_infinite] size-6" />
                     </div>
                   ) : (
-                    "Create User"
+                    "Create Site"
                   )}
                 </button>
               </div>
@@ -216,4 +207,4 @@ function AddUser({ onClose }: NewUserProps) {
   );
 }
 
-export default withRoleProtection(AddUser, { allowedRoles: [1] });
+export default withRoleProtection(AddSite, { allowedRoles: [1] });

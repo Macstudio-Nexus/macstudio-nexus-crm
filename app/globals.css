@@ -33,5 +33,11 @@
   .Qa-button {
     @apply flex justify-start items-center w-full hover:bg-secondary-trans rounded-xl p-1 lg:p-2 cursor-pointer border-1 border-gray-800 active:scale-95 transition-all duration-100;
   }
+  .form-inputs {
+    @apply w-full p-2 lg:p-3 lg:text-xl rounded-xl border border-gray-600 bg-gray-700 text-white;
+  }
+  .form-button{
+    @apply w-1/2 lg:text-2xl bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg active:scale-95 transition-all duration-100;
+  }
 }
 
