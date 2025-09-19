@@ -20,17 +20,9 @@ import {
   ChevronsLeft,
   ChevronsRight,
 } from "lucide-react";
+import withRoleProtection from "@/components/withRoleProtection";
 
-const options = [
-  { title: "Dashboard", icon: House, href: "/dashboard/admin" },
-  { title: "Users", icon: UsersRound, href: "/dashboard/admin/users" },
-  { title: "Projects", icon: FolderKanban, href: "/dashboard/admin/projects" },
-  { title: "Sites", icon: Monitor, href: "/dashboard/admin/sites" },
-  { title: "Contacts", icon: Contact, href: "/dashboard/admin/contacts" },
-  { title: "Media", icon: Images, href: "/dashboard/admin/media" },
-];
-
-export default function SideBar() {
+function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const { data: session } = useSession();
@@ -143,3 +135,5 @@ export default function SideBar() {
     </>
   );
 }
+
+export default withRoleProtection(SideBar, { allowedRoles: [1] });

@@ -121,7 +121,7 @@ model Sites {
   createdAt   DateTime    @default(now())
   updatedAt   DateTime
   userId      String
-  description String
+  description String?
   BlogPosts   BlogPosts[]
   Projects    Projects[]
 }

@@ -8,7 +8,10 @@
   --color-accent: #cf5c36;
   --color-text: #eee5e9;
   --color-secondary: #7c7c7c;
+  --color-secondary-trans: #7c7c7c41;
   --color-border: #444444;
+  --color-neon-green: #07c367;
+  --color-neon-green-trans: #07c36841;
 }
 
 @layer components {
@@ -22,7 +25,13 @@
     @apply shadow-[0_0_5px_rgba(0,0,0,0.3)]
   }
   .sidebar-link{
-    @apply py-2 gap-4 hover:bg-gray-800 rounded-xl cursor-pointer text-xl lg:text-2xl;
+    @apply py-2 gap-4 hover:bg-gray-800 rounded-xl cursor-pointer text-xl lg:text-2xl active:scale-95 transition-all duration-100;
+  }
+  .form-icons{
+    @apply text-neon-green rounded-lg size-10 lg:size-12;
+  }
+  .Qa-button {
+    @apply flex justify-start items-center w-full hover:bg-secondary-trans rounded-xl p-1 lg:p-2 cursor-pointer border-1 border-gray-800 active:scale-95 transition-all duration-100;
   }
 }
 
