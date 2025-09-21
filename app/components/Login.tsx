@@ -1,7 +1,7 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { Loader } from "lucide-react";
 
@@ -31,13 +31,11 @@ export default function Login() {
     setMessage("Link sent! Check your email to login");
   }
 
-  const { data: session } = useSession();
-
   return (
     <>
       <form
         action={handleSubmit}
-        className="bg-bg full-shadow shadow-black w-fit p-6 md:p-12 rounded-xl font-plex"
+        className="bg-gray-900 border-1 border-neon-green-trans w-fit p-6 md:p-8 rounded-xl font-plex"
       >
         <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl">
           Log In

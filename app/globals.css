@@ -16,7 +16,7 @@
 
 @layer components {
   .login-button {
-    @apply py-2 px-4 border-1 md:text-xl border-border font-space rounded-lg cursor-pointer hover:bg-text hover:text-bg;
+    @apply py-2 px-4 border-1 md:text-xl border-neon-green-trans font-space rounded-lg cursor-pointer hover:bg-text hover:text-bg;
   }
   .pop-up-container {
     @apply fixed top-1/2 left-1/2 border-2 border-black -translate-x-1/2 -translate-y-1/2 text-center px-2 lg:px-6 py-6 lg:py-10 h-fit w-fit bg-accent text-white font-plex text-2xl md:text-4xl xl:text-5xl rounded-lg z-50 flex items-center justify-center
@@ -37,7 +37,7 @@
     @apply w-full p-2 lg:p-3 lg:text-xl rounded-xl border border-gray-600 bg-gray-700 text-white;
   }
   .form-button{
-    @apply w-1/2 lg:text-2xl bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg active:scale-95 transition-all duration-100;
+    @apply w-1/2 lg:text-2xl bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg active:scale-95 transition-all duration-100 cursor-pointer;
   }
 }
 
