@@ -84,7 +84,7 @@ function AddProject({ onClose }: NewProjectProps) {
   };
   return (
     <div className="inset-0 fixed z-50 bg-black/60">
-      <div className="h-fit rounded-xl w-4/5 sm:w-5/8 md:w-1/2 lg:w-3/8 2xl:w-1/4 fixed text-text top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-55 bg-gray-900 border-1 border-gray-800 py-2">
+      <div className="h-fit rounded-xl form-sizing fixed text-text top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-55 bg-gray-900 border-1 border-gray-800 py-2">
         {success ? (
           <div className="text-3xl font-space flex flex-col justify-center items-center p-2">
             <Check className="size-15 text-neon-green" />
@@ -115,7 +115,7 @@ function AddProject({ onClose }: NewProjectProps) {
                 <input
                   id="title"
                   type="text"
-                  placeholder="Project Title*"
+                  placeholder="Project Title *"
                   value={formData.title}
                   onChange={(e) =>
                     setFormData((prev) => ({ ...prev, title: e.target.value }))
@@ -159,7 +159,7 @@ function AddProject({ onClose }: NewProjectProps) {
                   htmlFor="type"
                   className="block text-sm lg:text-lg font-medium ml-1"
                 >
-                  Type*
+                  Type *
                 </label>
                 <select
                   id="type"
@@ -186,7 +186,7 @@ function AddProject({ onClose }: NewProjectProps) {
                   htmlFor="userId"
                   className="block text-sm lg:text-lg font-medium ml-1"
                 >
-                  User*
+                  User *
                 </label>
                 <select
                   id="userId"
@@ -200,6 +200,7 @@ function AddProject({ onClose }: NewProjectProps) {
                   className="form-inputs"
                   required
                 >
+                  <option value="">Select a user...</option>
                   {users?.map((user: any) => (
                     <option key={user.id} value={user.id}>
                       {user.name}
@@ -213,7 +214,7 @@ function AddProject({ onClose }: NewProjectProps) {
                   htmlFor="siteId"
                   className="block text-sm lg:text-lg font-medium ml-1"
                 >
-                  Site*
+                  Site
                 </label>
                 <select
                   id="siteId"

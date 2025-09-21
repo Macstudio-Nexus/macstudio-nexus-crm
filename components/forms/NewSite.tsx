@@ -73,7 +73,7 @@ function AddSite({ onClose }: NewSiteProps) {
   };
   return (
     <div className="inset-0 fixed z-50 bg-black/60">
-      <div className="h-fit rounded-xl w-4/5 sm:w-5/8 md:w-1/2 lg:w-3/8 2xl:w-1/4 fixed text-text top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-55 bg-gray-900 border-1 border-gray-800 py-2">
+      <div className="h-fit rounded-xl form-sizing fixed text-text top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-55 bg-gray-900 border-1 border-gray-800 py-2">
         {success ? (
           <div className="text-3xl font-space flex flex-col justify-center items-center p-2">
             <Check className="size-15 text-neon-green" />
@@ -104,7 +104,7 @@ function AddSite({ onClose }: NewSiteProps) {
                 <input
                   id="name"
                   type="text"
-                  placeholder="Site Name*"
+                  placeholder="Site Name *"
                   value={formData.name}
                   onChange={(e) =>
                     setFormData((prev) => ({ ...prev, name: e.target.value }))
@@ -117,7 +117,7 @@ function AddSite({ onClose }: NewSiteProps) {
               <div>
                 <input
                   id="domain"
-                  placeholder="Domain*"
+                  placeholder="Domain *"
                   type="text"
                   value={formData.domain}
                   onChange={(e) =>
@@ -149,7 +149,7 @@ function AddSite({ onClose }: NewSiteProps) {
                   htmlFor="userId"
                   className="block text-sm lg:text-lg font-medium ml-1"
                 >
-                  User*
+                  User *
                 </label>
                 <select
                   id="userId"
