@@ -28,7 +28,7 @@ function AddSite({ onClose }: NewSiteProps) {
     description: "",
   });
 
-  console.log('Users data:', users);
+  // console.log('Users data:', users);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

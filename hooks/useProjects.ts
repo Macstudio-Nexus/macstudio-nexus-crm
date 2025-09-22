@@ -2,13 +2,12 @@ import useSWR from "swr";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-export function useUsers() {
-  const { data, error, isLoading, mutate } = useSWR("/api/users", fetcher);
+export function useProjects() {
+  const { data, error, isLoading } = useSWR("/api/projects", fetcher);
 
   return {
-    users: data,
+    projects: data,
     isLoading,
     isError: error,
-    mutate
   };
 }

@@ -52,7 +52,7 @@ model ActionItems {
   dueDate     DateTime?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime
-  Users       User      @relation(fields: [userId], references: [id])
+  Users       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model BlogPosts {
@@ -69,7 +69,7 @@ model BlogPosts {
   publishedDate DateTime?
   status        String
   Sites         Sites     @relation(fields: [siteId], references: [id])
-  Users         User      @relation(fields: [userId], references: [id])
+  Users         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Comments {
@@ -80,7 +80,7 @@ model Comments {
   createdAt DateTime  @default(now())
   updatedAt DateTime
   Projects  Projects? @relation(fields: [projectId], references: [id])
-  Users     User      @relation(fields: [userId], references: [id])
+  Users     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Notifications {
@@ -91,7 +91,7 @@ model Notifications {
   type      NotificationType @default(INFO)
   read      Boolean          @default(false)
   createdAt DateTime         @default(now())
-  Users     User             @relation(fields: [userId], references: [id])
+  Users     User             @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Projects {
@@ -106,7 +106,7 @@ model Projects {
   type        String
   Comments    Comments[]
   Sites       Sites?     @relation(fields: [siteId], references: [id])
-  Users       User       @relation(fields: [userId], references: [id])
+  Users       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Roles {
