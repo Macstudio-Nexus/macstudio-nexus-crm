@@ -18,7 +18,7 @@ export default function Home() {
       <div className="place-items-center self-center row-span-2 mt-4">
         <Login />
       </div>
-      <div className="fixed bottom-0 w-full text-center py-2 border-t bg-gray-900 border-neon-green-trans">
+      <div className="fixed bottom-1 w-full text-center py-2 border-t bg-gray-900 border-neon-green-trans">
         <Footer />
       </div>
     </div>
