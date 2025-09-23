@@ -1,1 +1,1 @@
-Macstudio Nexus Content Management System
+Macstudio Nexus CRM
