@@ -43,107 +43,49 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model ActionItems {
-  id          String    @id @default(cuid())
-  title       String
-  description String
-  userId      String
-  status      Status    @default(PENDING)
-  priority    Int?
-  dueDate     DateTime?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime
-  Users       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model BlogPosts {
-  id            String    @id @default(cuid())
-  title         String
-  slug          String    @unique
-  content       String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime
-  userId        String
-  siteId        String
-  author        String
-  category      String
-  publishedDate DateTime?
-  status        String
-  Sites         Sites     @relation(fields: [siteId], references: [id])
-  Users         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model Comments {
-  id        String    @id @default(cuid())
-  userId    String
-  projectId String?
-  content   String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime
-  Projects  Projects? @relation(fields: [projectId], references: [id])
-  Users     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model Notifications {
-  id        String           @id @default(cuid())
-  userId    String
-  title     String
-  message   String
-  type      NotificationType @default(INFO)
-  read      Boolean          @default(false)
-  createdAt DateTime         @default(now())
-  Users     User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
 model Projects {
-  id          String     @id @default(cuid())
+  id          String   @id @default(cuid())
   title       String
-  createdAt   DateTime   @default(now())
+  createdAt   DateTime @default(now())
   updatedAt   DateTime
   userId      String
   siteId      String?
   description String?
-  domain      String?    @unique
+  domain      String?  @unique
   type        String
-  Comments    Comments[]
-  Sites       Sites?     @relation(fields: [siteId], references: [id])
-  Users       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Sites       Sites?   @relation(fields: [siteId], references: [id])
+  Users       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Roles {
-  id   Int    @id @default(autoincrement())
   name String @unique
+  id   Int    @id @default(autoincrement())
 }
 
 model Sites {
-  id          String      @id @default(cuid())
+  id          String     @id @default(cuid())
   name        String
-  domain      String      @unique
-  createdAt   DateTime    @default(now())
+  domain      String     @unique
+  createdAt   DateTime   @default(now())
   updatedAt   DateTime
   userId      String
   description String?
-  BlogPosts   BlogPosts[]
   Projects    Projects[]
 }
 
 model User {
-  id            String          @id @default(cuid())
+  id            String     @id @default(cuid())
   name          String?
-  email         String          @unique
-  createdAt     DateTime        @default(now())
+  email         String     @unique
+  createdAt     DateTime   @default(now())
   businessType  String?
   companyName   String?
   phoneNumber   String?
   image         String?
   emailVerified DateTime?
-  updatedAt     DateTime        @default(now()) @updatedAt
+  updatedAt     DateTime   @default(now()) @updatedAt
   roleId        Int
   accounts      Account[]
-  ActionItems   ActionItems[]
-  BlogPosts     BlogPosts[]
-  Comments      Comments[]
-  Notifications Notifications[]
   Projects      Projects[]
   sessions      Session[]
 }
