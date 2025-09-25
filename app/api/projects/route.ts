@@ -7,27 +7,27 @@ export async function GET() {
   return NextResponse.json(projects);
 }
 
-// POST create site
+// POST create project
 export async function POST(request: NextRequest) {
   try {
-    const { title, description, domain, type, userId, siteId} = await request.json();
+    const { title, description, domain, type, contactId, siteId} = await request.json();
 
     const project = await prisma.projects.create({
       data: {
         title,
-        description, 
-        domain, 
+        description,
+        domain,
         type,
-        userId, 
+        contactId,
         siteId: siteId || null,
-        updatedAt: new Date() 
       },
     });
 
     return NextResponse.json(project, { status: 201 });
   } catch (error) {
+    console.error("Project creation error:", error);
     return NextResponse.json(
-      { error: "Failed to create project" },
+      { error: "Failed to create project", details: error instanceof Error ? error.message : "Unknown error" },
       { status: 500 }
     );
   }

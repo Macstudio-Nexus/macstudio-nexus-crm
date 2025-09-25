@@ -47,15 +47,14 @@ model Projects {
   id          String   @id @default(cuid())
   title       String
   createdAt   DateTime @default(now())
-  updatedAt   DateTime
-  userId      String
+  updatedAt   DateTime @updatedAt
+  contactId      String
   siteId      String?
   description String?
   domain      String?  @unique
   type        String
   Sites       Sites?   @relation(fields: [siteId], references: [id])
-  Users       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  Contacts    Contact[] 
+  Contacts    Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
 }
 
 model Roles {
@@ -87,7 +86,6 @@ model User {
   updatedAt     DateTime   @default(now()) @updatedAt
   roleId        Int
   accounts      Account[]
-  Projects      Projects[]
   sessions      Session[]
 }
 

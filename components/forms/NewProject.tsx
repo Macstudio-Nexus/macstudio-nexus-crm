@@ -3,7 +3,7 @@ import { useState } from "react";
 import withRoleProtection from "../withRoleProtection";
 import { Check, Loader, X } from "lucide-react";
 
-import { useUsers } from "@/hooks/useUsers";
+import { useClients } from "@/hooks/useClients";
 import { useSites } from "@/hooks/useSites";
 
 interface newProject {
@@ -11,7 +11,7 @@ interface newProject {
   description?: string;
   domain?: string;
   type: string;
-  userId: string | number;
+  contactId: string | number;
   siteId?: string | number;
 }
 
@@ -25,7 +25,7 @@ const typeOptions = [
 ];
 
 function AddProject({ onClose }: NewProjectProps) {
-  const { users } = useUsers();
+  const { clients } = useClients();
   const { sites } = useSites();
   const [isFormLoading, setIsFormLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
@@ -34,8 +34,8 @@ function AddProject({ onClose }: NewProjectProps) {
     title: "",
     description: "",
     domain: "",
-    type: "web-dev",
-    userId: "",
+    type: "",
+    contactId: "",
     siteId: "",
   });
 
@@ -65,8 +65,8 @@ function AddProject({ onClose }: NewProjectProps) {
         title: "",
         description: "",
         domain: "",
-        type: "web-dev",
-        userId: "",
+        type: "",
+        contactId: "",
         siteId: "",
       });
       setIsFormLoading(false);
@@ -173,6 +173,7 @@ function AddProject({ onClose }: NewProjectProps) {
                   className="form-inputs"
                   required
                 >
+                  <option>Select a project type...</option>
                   {typeOptions.map((option) => (
                     <option key={option.value} value={option.value}>
                       {option.label}
@@ -183,27 +184,27 @@ function AddProject({ onClose }: NewProjectProps) {
 
               <div>
                 <label
-                  htmlFor="userId"
+                  htmlFor="contactId"
                   className="block text-sm lg:text-lg font-medium ml-1"
                 >
-                  User *
+                  Connected Contact *
                 </label>
                 <select
-                  id="userId"
-                  value={formData.userId}
+                  id="contactId"
+                  value={formData.contactId}
                   onChange={(e) =>
                     setFormData((prev) => ({
                       ...prev,
-                      userId: e.target.value,
+                      contactId: e.target.value,
                     }))
                   }
                   className="form-inputs"
                   required
                 >
-                  <option value="">Select a user...</option>
-                  {users?.map((user: any) => (
-                    <option key={user.id} value={user.id}>
-                      {user.name}
+                  <option value="">Select a contact...</option>
+                  {clients?.map((contact: any) => (
+                    <option key={contact.id} value={contact.id}>
+                      {contact.name}
                     </option>
                   ))}
                 </select>

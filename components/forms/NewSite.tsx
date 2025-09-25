@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useUsers } from "@/hooks/useUsers";
+import { useClients } from "@/hooks/useClients";
 
 import withRoleProtection from "../withRoleProtection";
 import { Check, Loader, X } from "lucide-react";
@@ -17,7 +17,7 @@ interface NewSiteProps {
 }
 
 function AddSite({ onClose }: NewSiteProps) {
-  const { users, isLoading, isError } = useUsers();
+  const { clients, isLoading, isError } = useClients();
   const [isFormLoading, setIsFormLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
@@ -149,7 +149,7 @@ function AddSite({ onClose }: NewSiteProps) {
                   htmlFor="userId"
                   className="block text-sm lg:text-lg font-medium ml-1"
                 >
-                  User *
+                  Connected Client *
                 </label>
                 <select
                   id="userId"
@@ -166,7 +166,7 @@ function AddSite({ onClose }: NewSiteProps) {
                   {isLoading ? (
                     <option className="text-lg">Loading Users...</option>
                   ) : (
-                    users?.map((user: any) => (
+                    clients?.map((user: any) => (
                       <option key={user.id} value={user.id}>
                         {user.name}
                       </option>

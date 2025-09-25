@@ -11,14 +11,13 @@ import { UserRoundPlus } from "lucide-react";
 import { useState } from "react";
 import { useUsers } from "@/hooks/useUsers";
 
-
 function Users() {
   const { data: session, status } = useSession();
   const [isShowing, setIsShowing] = useState<string | null>(null);
   const { mutate } = useUsers();
 
   const handleFormClose = () => {
-    setIsShowing(null)
+    setIsShowing(null);
     mutate();
   };
 
@@ -37,15 +36,15 @@ function Users() {
           </div>
           <Logout />
         </div>
-        <div className="flex flex-col md:flex-row justify-center lg:justify-start lg:pl-20 items-center md:items-start gap-5 space-x-5 mt-5 lg:mt-10">
-          <div>
-            <UserDisplay />
-          </div>
+        <div className="flex flex-col justify-center md:justify-start lg:pl-20 items-center lg:items-start gap-5 mt-5 lg:mt-10">
           <div className="w-fit bg-gray-900 p-4 rounded-xl border border-gray-800">
             <button className="Qa-button" onClick={() => setIsShowing("user")}>
               <UserRoundPlus className="form-icons p-1" />
               <span className="px-3 text-lg lg:text-2xl">Add User</span>
             </button>
+          </div>
+          <div>
+            <UserDisplay />
           </div>
         </div>
       </div>
