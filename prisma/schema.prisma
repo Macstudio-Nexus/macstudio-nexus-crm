@@ -55,6 +55,7 @@ model Projects {
   type        String
   Sites       Sites?   @relation(fields: [siteId], references: [id])
   Users       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Contacts    Contact[] 
 }
 
 model Roles {
@@ -70,16 +71,16 @@ model Sites {
   updatedAt   DateTime
   userId      String
   description String?
+
   Projects    Projects[]
+  contacts    Contact[]
 }
 
 model User {
   id            String     @id @default(cuid())
-  name          String?
+  name          String
   email         String     @unique
   createdAt     DateTime   @default(now())
-  businessType  String?
-  companyName   String?
   phoneNumber   String?
   image         String?
   emailVerified DateTime?
@@ -88,6 +89,23 @@ model User {
   accounts      Account[]
   Projects      Projects[]
   sessions      Session[]
+}
+
+model Contact {
+  id            String @id @default(cuid())
+  name          String
+  email         String
+  phoneNumber   String
+  industry      String
+  domain        String?
+  meetingNotes  String?
+  source        String?
+  stage         String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now()) @updatedAt
+
+  projects      Projects[]
+  sites         Sites[]
 }
 
 enum NotificationType {

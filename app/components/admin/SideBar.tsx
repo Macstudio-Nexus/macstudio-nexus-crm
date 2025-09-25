@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -22,7 +22,7 @@ import {
 import withRoleProtection from "@/components/withRoleProtection";
 
 function SideBar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const pathname = usePathname();
   const { data: session } = useSession();
 
@@ -35,13 +35,13 @@ function SideBar() {
   const options: Option[] = [
     { title: "Dashboard", icon: House, href: "/dashboard/admin" },
     { title: "Users", icon: UsersRound, href: "/dashboard/admin/users" },
+    { title: "Contacts", icon: Contact, href: "/dashboard/admin/contacts" },
     {
       title: "Projects",
       icon: FolderKanban,
       href: "/dashboard/admin/projects",
     },
     { title: "Sites", icon: Monitor, href: "/dashboard/admin/sites" },
-    { title: "Contacts", icon: Contact, href: "/dashboard/admin/contacts" },
     { title: "Media", icon: Images, href: "/dashboard/admin/media" },
   ];
 

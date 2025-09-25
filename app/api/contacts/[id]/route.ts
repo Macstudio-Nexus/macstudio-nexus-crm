@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import prisma from "@/lib/db";
 
-// Update user by ID
+// Update contact by ID
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -15,38 +15,43 @@ export async function PUT(
     } catch (error) {
       return Response.json({ error: "Invalid request body" }, { status: 400 });
     }
-    const { name, email, phoneNumber, roleId } = body;
+    const { name, email, phoneNumber, industry, domain, meetingNotes, source, stage } = body;
 
-    // Update user with Prisma
-    const updatedUser = await prisma.user.update({
+    // Update contact with Prisma
+    const updatedContact = await prisma.contact.update({
       where: {
         id: (await params).id,
       },
       data: {
         ...(name && { name }),
         ...(email && { email }),
-        ...(roleId && { roleId }),
         ...(phoneNumber && { phoneNumber }),
+        ...(industry && { industry }),
+        ...(domain && { domain }),
+        ...(meetingNotes && { meetingNotes }),
+        ...(source && { source }),
+        ...(stage && { stage }),
         updatedAt: new Date(),
       },
     });
 
     return Response.json({
       success: true,
-      user: updatedUser,
+      contact: updatedContact,
     });
   } catch (error: unknown) {
-    console.error("Update user error:", error);
-    return Response.json({ error: "Failed to update user" }, { status: 500 });
+    console.error("Update contact error:", error);
+    return Response.json({ error: "Failed to update contact" }, { status: 500 });
   }
 }
 
+// Delete contact by ID
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    await prisma.user.delete({
+    await prisma.contact.delete({
       where: {
         id: (await params).id,
       },
@@ -54,10 +59,10 @@ export async function DELETE(
 
     return Response.json({
       success: true,
-      message: "User deleted successfully",
+      message: "Contact deleted successfully",
     });
   } catch (error: unknown) {
-    console.error("Delete user error:", error);
-    return Response.json({ error: "Failed to delete user" }, { status: 500 });
+    console.error("Delete Contact error:", error);
+    return Response.json({ error: "Failed to delete contact" }, { status: 500 });
   }
 }

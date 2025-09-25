@@ -12,7 +12,7 @@ export default function Home() {
       <div className="lg:-mt-28 xl:-mt-38">
         <div className="font-space font-bold text-4xl md:text-6xl lg:text-7xl xl:text-8xl">Macstudio Nexus</div>
         <div className="font-space text-xl md:text-2xl lg:text-3xl xl:text-4xl mt-2 px-4">
-          Official Content Management System
+          Official CRM
         </div>
       </div>
       <div className="place-items-center self-center row-span-2 mt-4">

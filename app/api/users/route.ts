@@ -17,7 +17,6 @@ export async function POST(request: NextRequest) {
         name,
         email,
         phoneNumber,
-        companyName,
         roleId,
       },
     });

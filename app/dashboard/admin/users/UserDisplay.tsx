@@ -9,7 +9,6 @@ interface User {
   name: string;
   email: string;
   phoneNumber: string;
-  companyName?: string;
   roleId: number;
 }
 
@@ -31,7 +30,6 @@ export default function UserDisplay() {
     name: "",
     email: "",
     phoneNumber: "",
-    companyName: "",
     roleId: 0,
   });
 
@@ -54,7 +52,6 @@ export default function UserDisplay() {
           name: "",
           email: "",
           phoneNumber: "",
-          companyName: "",
           roleId: 0,
         });
         mutate();
@@ -89,7 +86,6 @@ export default function UserDisplay() {
           name: "",
           email: "",
           phoneNumber: "",
-          companyName: "",
           roleId: 0,
         });
         mutate();
@@ -110,7 +106,6 @@ export default function UserDisplay() {
         name: user.name || "",
         email: user.email || "",
         phoneNumber: user.phoneNumber || "",
-        companyName: user.companyName || "",
         roleId: user.roleId || 0,
       });
     } else {
@@ -119,7 +114,6 @@ export default function UserDisplay() {
         name: "",
         email: "",
         phoneNumber: "",
-        companyName: "",
         roleId: 0,
       });
     }
@@ -198,22 +192,6 @@ export default function UserDisplay() {
                 }
                 className="form-inputs"
                 required
-              />
-            </div>
-
-            <div>
-              <input
-                id="companyName"
-                placeholder="Company Name"
-                type="text"
-                value={formData.companyName || ""}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    companyName: e.target.value,
-                  }))
-                }
-                className="form-inputs"
               />
             </div>
 

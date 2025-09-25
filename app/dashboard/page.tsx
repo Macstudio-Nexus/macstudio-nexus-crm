@@ -29,19 +29,17 @@ export default function Dashboard() {
     if (session.user?.roleId === 1) {
       // console.log("SHould be here for sure cocksucler");
       router.push("/dashboard/admin");
-    } else if (session.user?.roleId === 2) {
-      router.push("/dashboard/user");
     } else if (session.user?.roleId === 3) {
       router.push("/dashboard/guest");
     } else {
       // Default route
       // console.log("why are you here?")
-      router.push("/dashboard/user");
+      router.push("/");
     }
   }, [session, status, router]);
 
   if (status === "loading") {
-    return <Loading text="Loading..."/>;
+    return <Loading text="..."/>;
   }
 
   return <Loading text="Loading..."/>;
