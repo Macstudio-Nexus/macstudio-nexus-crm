@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 import Logo from "@/components/Logo";
 
 import {
-  Monitor,
+  CircleDollarSign,
   UsersRound,
   FolderKanban,
   Contact,
@@ -41,7 +41,7 @@ function SideBar() {
       icon: FolderKanban,
       href: "/dashboard/admin/projects",
     },
-    { title: "Sites", icon: Monitor, href: "/dashboard/admin/sites" },
+    { title: "Finance", icon: CircleDollarSign, href: "/dashboard/admin/finance" },
     { title: "Media", icon: Images, href: "/dashboard/admin/media" },
   ];
 

@@ -1,7 +1,6 @@
 import withRoleProtection from "@/components/withRoleProtection";
 import { FolderPlus, MonitorCheck, Plus, UserPlus, UserRoundPlus } from "lucide-react";
 import NewUser from "@/components/forms/NewUser";
-import NewSite from "@/components/forms/NewSite";
 import NewProject from "@/components/forms/NewProject";
 
 import { useState } from "react";
@@ -30,10 +29,6 @@ function QuickActions() {
             <UserPlus className="form-icons p-1" />
             <span className="px-3 text-lg lg:text-2xl">Add Contact</span>
           </button>
-          <button className="Qa-button" onClick={() => setIsShowing('site')}>
-            <MonitorCheck className="form-icons p-1" />
-            <span className="px-3 text-lg lg:text-2xl">Add Site</span>
-          </button>
           <button className="Qa-button" onClick={() => setIsShowing('project')}>
             <FolderPlus className="form-icons p-1" />
             <span className="px-3 text-lg lg:text-2xl">Add Project</span>
@@ -42,7 +37,6 @@ function QuickActions() {
       </div>
 
       {isShowing ==='user' && (<NewUser onClose={handleFormClose}/>)}
-      {isShowing ==='site' && (<NewSite onClose={handleFormClose}/>)}
       {isShowing ==='project' && (<NewProject onClose={handleFormClose}/>)}
       {isShowing ==='contact' && (<NewContact onClose={handleFormClose}/>)}
     </>

@@ -53,26 +53,12 @@ model Projects {
   description String?
   domain      String?  @unique
   type        String
-  Sites       Sites?   @relation(fields: [siteId], references: [id])
   Contacts    Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
 }
 
 model Roles {
   name String @unique
   id   Int    @id @default(autoincrement())
-}
-
-model Sites {
-  id          String     @id @default(cuid())
-  name        String
-  domain      String     @unique
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime
-  userId      String
-  description String?
-
-  Projects    Projects[]
-  contacts    Contact[]
 }
 
 model User {
@@ -103,7 +89,6 @@ model Contact {
   updatedAt     DateTime @default(now()) @updatedAt
 
   projects      Projects[]
-  sites         Sites[]
 }
 
 enum NotificationType {

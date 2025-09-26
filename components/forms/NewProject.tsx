@@ -4,7 +4,6 @@ import withRoleProtection from "../withRoleProtection";
 import { Check, Loader, X } from "lucide-react";
 
 import { useClients } from "@/hooks/useClients";
-import { useSites } from "@/hooks/useSites";
 
 interface newProject {
   title: string;
@@ -26,7 +25,6 @@ const typeOptions = [
 
 function AddProject({ onClose }: NewProjectProps) {
   const { clients } = useClients();
-  const { sites } = useSites();
   const [isFormLoading, setIsFormLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
@@ -205,33 +203,6 @@ function AddProject({ onClose }: NewProjectProps) {
                   {clients?.map((contact: any) => (
                     <option key={contact.id} value={contact.id}>
                       {contact.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <label
-                  htmlFor="siteId"
-                  className="block text-sm lg:text-lg font-medium ml-1"
-                >
-                  Site
-                </label>
-                <select
-                  id="siteId"
-                  value={formData.siteId}
-                  onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      siteId: e.target.value,
-                    }))
-                  }
-                  className="form-inputs"
-                >
-                  <option value="">Select a site...</option>
-                  {sites?.map((site: any) => (
-                    <option key={site.id} value={site.id}>
-                      {site.name}
                     </option>
                   ))}
                 </select>
