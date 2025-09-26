@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -41,7 +41,11 @@ function SideBar() {
       icon: FolderKanban,
       href: "/dashboard/admin/projects",
     },
-    { title: "Finance", icon: CircleDollarSign, href: "/dashboard/admin/finance" },
+    {
+      title: "Finance",
+      icon: CircleDollarSign,
+      href: "/dashboard/admin/finance",
+    },
     { title: "Media", icon: Images, href: "/dashboard/admin/media" },
   ];
 
@@ -96,16 +100,12 @@ function SideBar() {
           <div className="text-xl py-10 flex flex-col gap-8">
             <span className="lg:text-2xl pl-4">ACCOUNT</span>
             <div className="flex flex-col gap-4">
-              <div className={`flex ${isOpen ? "justify-start px-6" : "justify-center px-2"} items-center gap-4 py-2 sidebar-link `}>
+              <div
+                className={`flex ${isOpen ? "justify-start px-6" : "justify-center px-2"} items-center gap-4 py-2 sidebar-link `}
+              >
                 <Settings className="mr-3 size-5 lg:size-7" />
                 {isOpen && (
                   <Link href="/dashboard/admin/settings">Settings</Link>
-                )}
-              </div>
-              <div className={`flex ${isOpen ? "justify-start px-6" : "justify-center px-2"} items-center gap-4 py-2 sidebar-link `}>
-                <CircleQuestionMark className="mr-3 size-5 lg:size-7" />
-                {isOpen && (
-                  <Link href="/dashboard/admin/help">Help & Support</Link>
                 )}
               </div>
             </div>
@@ -119,11 +119,7 @@ function SideBar() {
             {isOpen ? (
               <>
                 <ChevronsLeft className="size-10" />
-                <span
-                  className=""
-                >
-                  Hide
-                </span>
+                <span className="">Hide</span>
               </>
             ) : (
               <ChevronsRight className="size-10" />

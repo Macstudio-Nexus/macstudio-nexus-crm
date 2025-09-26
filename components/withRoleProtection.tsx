@@ -34,8 +34,8 @@ function withRoleProtection<T extends object>(
       }
 
       // Check if user's role is in the allowed roles
-      console.log("REDIRECT: session.user?.roleId:", session.user?.roleId);
-      console.log("REDIRECT: allowedRoles:", allowedRoles);
+      // console.log("REDIRECT: session.user?.roleId:", session.user?.roleId);
+      // console.log("REDIRECT: allowedRoles:", allowedRoles);
       if (
         !session.user?.roleId ||
         !allowedRoles.includes(session.user?.roleId)
@@ -43,8 +43,6 @@ function withRoleProtection<T extends object>(
         // Redirect based on user's actual role
         if (session.user?.roleId === 1) {
           router.push("/dashboard/admin");
-        } else if (session.user?.roleId === 2) {
-          router.push("/dashboard/user");
         } else if (session.user?.roleId === 3) {
           router.push("/dashboard/guest");
         } else {
@@ -56,7 +54,7 @@ function withRoleProtection<T extends object>(
 
     // Loading state
     if (status === "loading") {
-      return <Loader text="Loading..." />;
+      return <Loader text="..." />;
     }
 
     // Not authenticated
@@ -65,8 +63,8 @@ function withRoleProtection<T extends object>(
     }
 
     // Not authorized for this role
-    console.log("REDIRECT: session.user?.roleId:", session.user?.roleId);
-    console.log("REDIRECT: allowedRoles:", allowedRoles);
+    // console.log("REDIRECT: session.user?.roleId:", session.user?.roleId);
+    // console.log("REDIRECT: allowedRoles:", allowedRoles);
     if (!session.user?.roleId || !allowedRoles.includes(session.user?.roleId)) {
       if (FallbackComponent) {
         return <FallbackComponent />;
@@ -74,9 +72,9 @@ function withRoleProtection<T extends object>(
       return <Loader text="Redirecting..." />;
     }
 
-    console.log("allowedRoles:", allowedRoles);
-    console.log("session.user?.roleId:", session.user?.roleId);
-    console.log("includes check:", allowedRoles.includes(session.user?.roleId));
+    // console.log("allowedRoles:", allowedRoles);
+    // console.log("session.user?.roleId:", session.user?.roleId);
+    // console.log("includes check:", allowedRoles.includes(session.user?.roleId));
 
     // Authorized - render the wrapped component
     return <WrappedComponent {...props} />;

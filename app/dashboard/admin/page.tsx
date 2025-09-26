@@ -15,17 +15,17 @@ function AdminDashboard() {
   }
 
   return (
-    <div className="text-text font-plex">
+    <div className="text-text font-plex px-5">
       <div className="flex items-center justify-between px-5 lg:px-8 pt-5 lg:pt-8">
         <div className="flex flex-col items-start gap-1">
           <span className="text-3xl md:text-4xl lg:text-5xl 2xl:text-6xl">Dashboard</span>
-          <span className="text-sm md:text-base lg:text-xl 2xl:text-2xl">
+          <span className="text-sm md:text-base lg:text-xl 2xl:text-2xl pl-1">
             Welcome back, {session?.user?.name?.split(" ")[0] || "User"}
           </span>
         </div>
         <Logout />
       </div>
-      <div className="flex justify-center items-center py-8">
+      <div className="flex justify-start items-center py-8 lg:py-16 px-5 lg:px-6">
         <QuickActions />
       </div>
     </div>
