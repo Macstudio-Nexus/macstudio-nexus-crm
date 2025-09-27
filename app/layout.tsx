@@ -16,8 +16,8 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Macstudio Nexus CMS",
-  description: "Official Content Management System of Macstudio Nexus",
+  title: "Macstudio Nexus CRM",
+  description: "Official CRM of Macstudio Nexus",
   icons: {
     icon: "/temp-logo.svg",
   },
