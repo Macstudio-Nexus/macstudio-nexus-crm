@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-import Loading from "@/components/loading/Loading";
+import Loading from "@/components/Loading";
 
 export default function Dashboard() {
   const { data: session, status } = useSession();

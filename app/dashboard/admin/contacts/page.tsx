@@ -4,7 +4,7 @@ import withRoleProtection from "@/components/auth/withRoleProtection";
 import { useSession } from "next-auth/react";
 
 import Logout from "@/components/auth/Logout";
-import Loading from "@/components/loading/Loading";
+import Loading from "@/components/Loading";
 import ContactDisplay from "./ContactDisplay";
 import { UserRoundPlus } from "lucide-react";
 import { useState } from "react";
