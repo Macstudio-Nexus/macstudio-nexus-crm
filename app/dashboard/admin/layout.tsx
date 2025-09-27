@@ -1,5 +1,5 @@
-import Provider from "@/components/provider";
-import SideBar from "@/app/components/admin/SideBar";
+import Provider from "@/components/auth/provider";
+import SideBar from "@/components/ui/SideBar";
 
 export default function AdminLayout({
   children,
@@ -8,10 +8,10 @@ export default function AdminLayout({
 }) {
   return (
     <div className="flex w-full">
-        <header className="z-50 ">
-          <SideBar />
-        </header>
-        <main className="bg-gray-950 flex-1">{children}</main>
+      <header className="z-50 ">
+        <SideBar />
+      </header>
+      <main className="bg-gray-950 flex-1">{children}</main>
     </div>
   );
 }

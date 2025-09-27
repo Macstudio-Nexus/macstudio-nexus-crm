@@ -3,6 +3,7 @@
 import { useContacts } from "@/hooks/useContacts";
 import { Loader, Check, X } from "lucide-react";
 import { useState } from "react";
+import { Contact } from "@/types";
 
 import {
   useReactTable,
@@ -13,18 +14,6 @@ import {
   flexRender,
   createColumnHelper,
 } from "@tanstack/react-table";
-
-interface Contact {
-  id: string;
-  name: string;
-  email: string;
-  phoneNumber: string;
-  industry: string;
-  domain?: string;
-  meetingNotes?: string;
-  source?: string;
-  stage: string;
-}
 
 const columnHelper = createColumnHelper<Contact>();
 

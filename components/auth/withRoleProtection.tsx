@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, ComponentType } from "react";
 
-import Loader from "@/components/Loading/Loading";
+import Loader from "@/components/loading/Loading";
 
 interface RoleProtectionOptions {
   allowedRoles: number[];

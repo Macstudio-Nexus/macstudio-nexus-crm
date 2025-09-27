@@ -1,20 +1,12 @@
 "use client";
 import { useState } from "react";
-import withRoleProtection from "../withRoleProtection";
+import withRoleProtection from "../auth/withRoleProtection";
 import { Check, Loader, X } from "lucide-react";
+import { Project } from "@/types";
 
 import { useClients } from "@/hooks/useClients";
 
-interface newProject {
-  title: string;
-  description?: string;
-  domain?: string;
-  type: string;
-  contactId: string | number;
-  siteId?: string | number;
-}
-
-interface NewProjectProps {
+interface ProjectProps {
   onClose: () => void;
 }
 
@@ -23,12 +15,12 @@ const typeOptions = [
   { value: "branding", label: "Branding" },
 ];
 
-function AddProject({ onClose }: NewProjectProps) {
+function AddProject({ onClose }: ProjectProps) {
   const { clients } = useClients();
   const [isFormLoading, setIsFormLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const [formData, setFormData] = useState<newProject>({
+  const [formData, setFormData] = useState<Project>({
     title: "",
     description: "",
     domain: "",

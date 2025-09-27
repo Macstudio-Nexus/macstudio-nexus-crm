@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Provider from "@/components/provider";
+import Provider from "@/components/auth/provider";
 import { IBM_Plex_Sans, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 

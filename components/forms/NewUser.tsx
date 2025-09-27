@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-import withRoleProtection from "../withRoleProtection";
+import withRoleProtection from "../auth/withRoleProtection";
 import { Check, Loader, X } from "lucide-react";
 
 interface newUser {
@@ -66,7 +66,7 @@ function AddUser({ onClose }: NewUserProps) {
         onClose();
       }, 2000);
     } catch (error) {
-    //   console.error("Error creating user:", error);
+      //   console.error("Error creating user:", error);
       setError(true);
       setIsLoading(false);
       // Handle error state
@@ -97,7 +97,10 @@ function AddUser({ onClose }: NewUserProps) {
             <h1 className="font-space text-2xl md:text-3xl lg:text-4xl text-center pt-4">
               Add New User
             </h1>
-            <form onSubmit={handleSubmit} className="space-y-2 lg:space-y-4 p-6">
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-2 lg:space-y-4 p-6"
+            >
               <div>
                 <input
                   id="name"

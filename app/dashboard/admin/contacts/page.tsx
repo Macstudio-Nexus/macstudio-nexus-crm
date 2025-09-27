@@ -1,10 +1,10 @@
 "use client";
 
-import withRoleProtection from "@/components/withRoleProtection";
+import withRoleProtection from "@/components/auth/withRoleProtection";
 import { useSession } from "next-auth/react";
 
-import Logout from "@/components/Logout";
-import Loading from "@/components/Loading/Loading";
+import Logout from "@/components/auth/Logout";
+import Loading from "@/components/loading/Loading";
 import ContactDisplay from "./ContactDisplay";
 import { UserRoundPlus } from "lucide-react";
 import { useState } from "react";

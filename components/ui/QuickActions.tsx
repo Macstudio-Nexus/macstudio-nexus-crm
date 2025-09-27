@@ -1,12 +1,16 @@
-import withRoleProtection from "@/components/withRoleProtection";
-import { FolderPlus, MonitorCheck, Plus, UserPlus, UserRoundPlus } from "lucide-react";
+import withRoleProtection from "@/components/auth/withRoleProtection";
+import {
+  FolderPlus,
+  MonitorCheck,
+  Plus,
+  UserPlus,
+  UserRoundPlus,
+} from "lucide-react";
 import NewUser from "@/components/forms/NewUser";
 import NewProject from "@/components/forms/NewProject";
 
 import { useState } from "react";
 import NewContact from "@/components/forms/NewContact";
-
-// interface ParentProps {}
 
 function QuickActions() {
   const [isShowing, setIsShowing] = useState<string | null>(null);
@@ -21,24 +25,24 @@ function QuickActions() {
           <span className="px-3 text-2xl lg:text-3xl">Quick Actions</span>
         </div>
         <div className="flex flex-col justify-center items-center w-full space-y-3">
-          <button className="Qa-button"  onClick={() => setIsShowing('user')}>
+          <button className="Qa-button" onClick={() => setIsShowing("user")}>
             <UserRoundPlus className="form-icons p-1" />
             <span className="px-3 text-lg lg:text-2xl">Add User</span>
           </button>
-          <button className="Qa-button"  onClick={() => setIsShowing('contact')}>
+          <button className="Qa-button" onClick={() => setIsShowing("contact")}>
             <UserPlus className="form-icons p-1" />
             <span className="px-3 text-lg lg:text-2xl">Add Contact</span>
           </button>
-          <button className="Qa-button" onClick={() => setIsShowing('project')}>
+          <button className="Qa-button" onClick={() => setIsShowing("project")}>
             <FolderPlus className="form-icons p-1" />
             <span className="px-3 text-lg lg:text-2xl">Add Project</span>
           </button>
         </div>
       </div>
 
-      {isShowing ==='user' && (<NewUser onClose={handleFormClose}/>)}
-      {isShowing ==='project' && (<NewProject onClose={handleFormClose}/>)}
-      {isShowing ==='contact' && (<NewContact onClose={handleFormClose}/>)}
+      {isShowing === "user" && <NewUser onClose={handleFormClose} />}
+      {isShowing === "project" && <NewProject onClose={handleFormClose} />}
+      {isShowing === "contact" && <NewContact onClose={handleFormClose} />}
     </>
   );
 }

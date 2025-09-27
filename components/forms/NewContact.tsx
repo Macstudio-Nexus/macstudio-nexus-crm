@@ -1,21 +1,11 @@
 "use client";
 import { useState } from "react";
 
-import withRoleProtection from "../withRoleProtection";
+import withRoleProtection from "../auth/withRoleProtection";
 import { Check, Loader, X } from "lucide-react";
+import { Contact } from "@/types";
 
-interface newContact {
-  name: string;
-  email: string;
-  phoneNumber: string;
-  industry: string;
-  domain?: string;
-  meetingNotes?: string;
-  source?: string;
-  stage: string;
-}
-
-interface NewContactProps {
+interface ContactProps {
   onClose: () => void;
 }
 
@@ -40,11 +30,12 @@ const sourceOptions = [
   { value: "other", label: "Other" },
 ];
 
-function AddContact({ onClose }: NewContactProps) {
+function AddContact({ onClose }: ContactProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const [formData, setFormData] = useState<newContact>({
+  const [formData, setFormData] = useState<Contact>({
+    id: "",
     name: "",
     email: "",
     phoneNumber: "",
@@ -78,6 +69,7 @@ function AddContact({ onClose }: NewContactProps) {
 
       // Clear form and show success
       setFormData({
+        id: "",
         name: "",
         email: "",
         phoneNumber: "",
@@ -94,7 +86,7 @@ function AddContact({ onClose }: NewContactProps) {
         onClose();
       }, 2000);
     } catch (error) {
-    //   console.error("Error creating user:", error);
+      //   console.error("Error creating user:", error);
       setError(true);
       setIsLoading(false);
       // Handle error state
@@ -125,7 +117,10 @@ function AddContact({ onClose }: NewContactProps) {
             <h1 className="font-space text-2xl md:text-3xl lg:text-4xl text-center pt-4">
               Add New Contact
             </h1>
-            <form onSubmit={handleSubmit} className="space-y-2 lg:space-y-4 p-6">
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-2 lg:space-y-4 p-6"
+            >
               <div>
                 <input
                   id="name"

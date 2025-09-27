@@ -1,7 +1,7 @@
 // import Image from "next/image";
-import Login from "./components/Login";
-import Logo from "../components/Logo";
-import Footer from "./components/Footer";
+import Login from "../components/auth/Login";
+import Logo from "../components/ui/Logo";
+import Footer from "../components/ui/Footer";
 
 export default function Home() {
   return (
@@ -10,7 +10,9 @@ export default function Home() {
         <Logo />
       </div>
       <div className="lg:-mt-28 xl:-mt-38">
-        <div className="font-space font-bold text-4xl md:text-6xl lg:text-7xl xl:text-8xl">Macstudio Nexus</div>
+        <div className="font-space font-bold text-4xl md:text-6xl lg:text-7xl xl:text-8xl">
+          Macstudio Nexus
+        </div>
         <div className="font-space text-xl md:text-2xl lg:text-3xl xl:text-4xl mt-2 px-4">
           Official CRM
         </div>

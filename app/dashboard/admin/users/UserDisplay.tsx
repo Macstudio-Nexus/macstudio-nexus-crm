@@ -3,6 +3,7 @@
 import { useUsers } from "@/hooks/useUsers";
 import { Loader, Check, X } from "lucide-react";
 import { useState } from "react";
+import { User } from "@/types";
 
 import {
   useReactTable,
@@ -13,14 +14,6 @@ import {
   flexRender,
   createColumnHelper,
 } from "@tanstack/react-table";
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  phoneNumber: string;
-  roleId: number;
-}
 
 const columnHelper = createColumnHelper<User>();
 

@@ -4,8 +4,9 @@ import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Option } from "@/types";
 
-import Logo from "@/components/Logo";
+import Logo from "@/components/ui/Logo";
 
 import {
   CircleDollarSign,
@@ -19,18 +20,12 @@ import {
   ChevronsLeft,
   ChevronsRight,
 } from "lucide-react";
-import withRoleProtection from "@/components/withRoleProtection";
+import withRoleProtection from "@/components/auth/withRoleProtection";
 
 function SideBar() {
   const [isOpen, setIsOpen] = useState(true);
   const pathname = usePathname();
   const { data: session } = useSession();
-
-  interface Option {
-    title: string;
-    icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
-    href: string;
-  }
 
   const options: Option[] = [
     { title: "Dashboard", icon: House, href: "/dashboard/admin" },
