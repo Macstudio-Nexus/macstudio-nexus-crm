@@ -35,7 +35,7 @@ export default function Login() {
     <>
       <form
         action={handleSubmit}
-        className="bg-gray-900 border-1 border-neon-green-trans w-fit p-6 md:p-8 rounded-xl font-plex"
+        className="bg-component-bg border-1 border-neon-green-trans w-fit p-6 md:p-8 rounded-xl font-plex"
       >
         <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl">
           Log In
@@ -52,14 +52,18 @@ export default function Login() {
         <button
           type="submit"
           disabled={isLoading}
-          className={`login-button ${isLoading ? "hover:bg-bg" : "hover:bg-text"}`}
+          className={`login-button ${
+            isLoading ? "hover:componentcomponent-bg" : "hover:bg-text-light"
+          }`}
         >
           {isLoading ? (
             <div className="px-14 animate-[spin_2s_linear_infinite]">
               <Loader color="white" />
             </div>
           ) : (
-            <div className="font-plex text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">Send Magic Link</div>
+            <div className="font-plex text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">
+              Send Magic Link
+            </div>
           )}
         </button>
 

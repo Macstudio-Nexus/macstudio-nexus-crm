@@ -225,7 +225,7 @@ export default function ContactDisplay() {
 
   return (
     <>
-      <div className="lg:hidden bg-gray-900 border-1 border-gray-800 w-fit rounded-xl">
+      <div className="lg:hidden bg-component-bg border-1 border-border w-fit rounded-xl">
         <div className="flex flex-col justify-center items-center">
           <form className="p-6">
             <div className="space-y-2">
@@ -429,11 +429,11 @@ export default function ContactDisplay() {
         </div>
       </div>
 
-      <div className="hidden lg:block bg-gray-900 border-1 border-gray-800 rounded-xl p-6">
+      <div className="hidden lg:block bg-component-bg border-1 border-border rounded-xl p-6">
         <table className="w-full">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id} className="border-b border-gray-700">
+              <tr key={headerGroup.id} className="border-b border-border">
                 {headerGroup.headers.map((header) => (
                   <th key={header.id} className="text-left p-4 font-medium">
                     {flexRender(
@@ -450,7 +450,7 @@ export default function ContactDisplay() {
             {table.getRowModel().rows.map((row) => (
               <tr
                 key={row.id}
-                className="border-b border-gray-800 hover:bg-gray-800"
+                className="border-b border-border hover:bg-border"
               >
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id} className="p-4">
@@ -485,7 +485,7 @@ export default function ContactDisplay() {
 
       {showEditModal && (
         <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center">
-          <div className="bg-gray-900 border-1 border-gray-800 rounded-xl p-6 max-w-fit w-full mx-4">
+          <div className="bg-component-bg border-1 border-border rounded-xl p-6 max-w-fit w-full mx-4">
             {success ? (
               <div className="text-3xl font-space flex flex-col justify-center items-center p-2">
                 <Check className="size-15 text-neon-green" />
@@ -516,151 +516,151 @@ export default function ContactDisplay() {
                       Edit Contact:{" "}
                       <span className="text-accent">{formData.name}</span>
                     </h2>
-                  <div>
-                    <input
-                      id="name"
-                      placeholder="Name"
-                      type="text"
-                      value={formData.name || ""}
-                      onChange={(e) =>
-                        setFormData((prev) => ({
-                          ...prev,
-                          name: e.target.value,
-                        }))
-                      }
-                      className="form-inputs"
-                    />
-                  </div>
+                    <div>
+                      <input
+                        id="name"
+                        placeholder="Name"
+                        type="text"
+                        value={formData.name || ""}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            name: e.target.value,
+                          }))
+                        }
+                        className="form-inputs"
+                      />
+                    </div>
 
-                  <div>
-                    <input
-                      id="email"
-                      placeholder="Email"
-                      type="email"
-                      value={formData.email || ""}
-                      onChange={(e) =>
-                        setFormData((prev) => ({
-                          ...prev,
-                          email: e.target.value,
-                        }))
-                      }
-                      className="form-inputs"
-                      required
-                    />
-                  </div>
+                    <div>
+                      <input
+                        id="email"
+                        placeholder="Email"
+                        type="email"
+                        value={formData.email || ""}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            email: e.target.value,
+                          }))
+                        }
+                        className="form-inputs"
+                        required
+                      />
+                    </div>
 
-                  <div>
-                    <input
-                      id="phoneNumber"
-                      placeholder="Phone"
-                      type="tel"
-                      value={formData.phoneNumber || ""}
-                      onChange={(e) =>
-                        setFormData((prev) => ({
-                          ...prev,
-                          phoneNumber: e.target.value,
-                        }))
-                      }
-                      className="form-inputs"
-                      required
-                    />
-                  </div>
+                    <div>
+                      <input
+                        id="phoneNumber"
+                        placeholder="Phone"
+                        type="tel"
+                        value={formData.phoneNumber || ""}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            phoneNumber: e.target.value,
+                          }))
+                        }
+                        className="form-inputs"
+                        required
+                      />
+                    </div>
 
-                  <div>
-                    <input
-                      id="industry"
-                      placeholder="Industry"
-                      type="text"
-                      value={formData.industry || ""}
-                      onChange={(e) =>
-                        setFormData((prev) => ({
-                          ...prev,
-                          industry: e.target.value,
-                        }))
-                      }
-                      className="form-inputs"
-                      required
-                    />
-                  </div>
+                    <div>
+                      <input
+                        id="industry"
+                        placeholder="Industry"
+                        type="text"
+                        value={formData.industry || ""}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            industry: e.target.value,
+                          }))
+                        }
+                        className="form-inputs"
+                        required
+                      />
+                    </div>
 
-                  <div>
-                    <input
-                      id="domain"
-                      placeholder="Domain"
-                      type="text"
-                      value={formData.domain || ""}
-                      onChange={(e) =>
-                        setFormData((prev) => ({
-                          ...prev,
-                          domain: e.target.value,
-                        }))
-                      }
-                      className="form-inputs"
-                    />
-                  </div>
+                    <div>
+                      <input
+                        id="domain"
+                        placeholder="Domain"
+                        type="text"
+                        value={formData.domain || ""}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            domain: e.target.value,
+                          }))
+                        }
+                        className="form-inputs"
+                      />
+                    </div>
 
-                  <div>
-                    <textarea
-                      id="meetingNotes"
-                      placeholder="Meeting Notes"
-                      value={formData.meetingNotes || ""}
-                      onChange={(e) =>
-                        setFormData((prev) => ({
-                          ...prev,
-                          meetingNotes: e.target.value,
-                        }))
-                      }
-                      className="form-inputs"
-                      rows={3}
-                    />
-                  </div>
+                    <div>
+                      <textarea
+                        id="meetingNotes"
+                        placeholder="Meeting Notes"
+                        value={formData.meetingNotes || ""}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            meetingNotes: e.target.value,
+                          }))
+                        }
+                        className="form-inputs"
+                        rows={3}
+                      />
+                    </div>
 
-                  <div>
-                    <label className="block text-sm lg:text-lg font-medium ml-1">
-                      Source
-                    </label>
-                    <select
-                      id="source"
-                      value={formData.source || ""}
-                      onChange={(e) =>
-                        setFormData((prev) => ({
-                          ...prev,
-                          source: e.target.value,
-                        }))
-                      }
-                      className="form-inputs"
-                    >
-                      {sourceOptions.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                    <div>
+                      <label className="block text-sm lg:text-lg font-medium ml-1">
+                        Source
+                      </label>
+                      <select
+                        id="source"
+                        value={formData.source || ""}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            source: e.target.value,
+                          }))
+                        }
+                        className="form-inputs"
+                      >
+                        {sourceOptions.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
 
-                  <div>
-                    <label className="block text-sm lg:text-lg font-medium ml-1">
-                      Stage *
-                    </label>
-                    <select
-                      id="stage"
-                      value={formData.stage || ""}
-                      onChange={(e) =>
-                        setFormData((prev) => ({
-                          ...prev,
-                          stage: e.target.value,
-                        }))
-                      }
-                      className="form-inputs"
-                      required
-                    >
-                      {stageOptions.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                    <div>
+                      <label className="block text-sm lg:text-lg font-medium ml-1">
+                        Stage *
+                      </label>
+                      <select
+                        id="stage"
+                        value={formData.stage || ""}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            stage: e.target.value,
+                          }))
+                        }
+                        className="form-inputs"
+                        required
+                      >
+                        {stageOptions.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
 
                     <div className="flex flex-col lg:flex-row justify-center items-center gap-2 mt-2">
                       {isUpdating ? (

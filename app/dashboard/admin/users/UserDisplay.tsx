@@ -170,7 +170,7 @@ export default function UserDisplay() {
 
   return (
     <>
-      <div className="lg:hidden bg-gray-900 border-1 border-gray-800 w-fit rounded-xl">
+      <div className="lg:hidden bg-component-bg border-1 border-border w-fit rounded-xl">
         <div className="flex flex-col justify-center items-center">
           <form className="p-6">
             <div className="space-y-2">
@@ -297,11 +297,11 @@ export default function UserDisplay() {
         </div>
       </div>
 
-      <div className="hidden lg:block bg-gray-900 border-1 border-gray-800 rounded-xl p-6">
+      <div className="hidden lg:block bg-component-bg border-1 border-border rounded-xl p-6">
         <table className="w-full">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id} className="border-b border-gray-700">
+              <tr key={headerGroup.id} className="border-b border-border">
                 {headerGroup.headers.map((header) => (
                   <th key={header.id} className="text-left p-4 font-medium">
                     {flexRender(
@@ -318,7 +318,7 @@ export default function UserDisplay() {
             {table.getRowModel().rows.map((row) => (
               <tr
                 key={row.id}
-                className="border-b border-gray-800 hover:bg-gray-800"
+                className="border-b border-border hover:bg-border"
               >
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id} className="p-4">
@@ -353,13 +353,11 @@ export default function UserDisplay() {
 
       {showEditModal && (
         <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center">
-          <div className="bg-gray-900 border-1 border-gray-800 rounded-xl p-6 max-w-fit w-full mx-4">
+          <div className="bg-component-bg border-1 border-border rounded-xl p-6 max-w-fit w-full mx-4">
             {success ? (
               <div className="text-3xl font-space flex flex-col justify-center items-center p-2">
                 <Check className="size-15 text-neon-green" />
-                <span className="text-center">
-                  User successfully updated
-                </span>
+                <span className="text-center">User successfully updated</span>
               </div>
             ) : error ? (
               <div className="flex flex-col justify-center items-center p-6 gap-2">

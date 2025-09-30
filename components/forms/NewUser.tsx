@@ -74,7 +74,7 @@ function AddUser({ onClose }: NewUserProps) {
   };
   return (
     <div className="inset-0 fixed z-50 bg-black/60">
-      <div className="h-fit rounded-xl form-sizing fixed text-text top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-55 bg-gray-900 border-1 border-gray-800 py-2">
+      <div className="h-fit rounded-xl form-sizing fixed text-text-light top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-55 bg-component-bg border-1 border-border py-2">
         {success ? (
           <div className="text-3xl font-space flex flex-col justify-center items-center p-2">
             <Check className="size-15 text-neon-green" />

@@ -19,7 +19,7 @@ function QuickActions() {
 
   return (
     <>
-      <div className="bg-gray-900 h-fit w-fit p-4 rounded-xl border-1 border-gray-800 font-plex flex flex-col space-y-6 justify-center items-center mx-2">
+      <div className="bg-component-bg h-fit w-fit p-4 rounded-xl border-1 border-border font-plex flex flex-col space-y-6 justify-center items-center mx-2">
         <div className="flex justify-center items-center">
           <Plus className="form-icons bg-neon-green-trans" />
           <span className="px-3 text-2xl lg:text-3xl">Quick Actions</span>

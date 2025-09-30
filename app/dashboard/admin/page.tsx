@@ -15,7 +15,7 @@ function AdminDashboard() {
   }
 
   return (
-    <div className="text-text font-plex px-5">
+    <div className="text-text-light font-plex px-5">
       <div className="flex items-center justify-between px-5 lg:px-8 pt-5 lg:pt-8">
         <div className="flex flex-col items-start gap-1">
           <span className="text-3xl md:text-4xl lg:text-5xl 2xl:text-6xl">

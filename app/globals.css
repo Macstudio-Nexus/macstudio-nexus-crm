@@ -1,46 +1,47 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-plex: 'IBM Plex Sans', sans-serif;
-  --font-space: 'Space Grotesk', sans-serif;
+  --font-plex: "IBM Plex Sans", sans-serif;
+  --font-space: "Space Grotesk", sans-serif;
 
-  --color-bg: #1b2e49;
+  --color-component-bg: #111827;
+  --color-main-bg: #030712;
   --color-accent: #cf5c36;
-  --color-text: #eee5e9;
-  --color-secondary: #7c7c7c;
-  --color-secondary-trans: #7c7c7c41;
-  --color-border: #444444;
-  --color-neon-green: #07c367;
-  --color-neon-green-trans: #07c36841;
+  --color-text-light: #eee5e9;
+  --color-text-dark: #9ca3af;
+  --color-text-blue: #60a5fa;
+  --color-border-transparent: #7c7c7c41;
+  --color-border: #1f2937;
+  --color-neon-green: #4ade80;
+  --color-neon-green-trans: #4ade8041;
 }
 
 @layer components {
   .login-button {
-    @apply py-2 px-4 border-1 md:text-xl border-neon-green-trans font-space rounded-lg cursor-pointer hover:bg-text hover:text-bg;
+    @apply py-2 px-4 border-1 md:text-xl border-neon-green-trans font-space rounded-lg cursor-pointer hover:bg-text-light hover:text-component-bg;
   }
   .pop-up-container {
-    @apply fixed top-1/2 left-1/2 border-2 border-black -translate-x-1/2 -translate-y-1/2 text-center px-2 lg:px-6 py-6 lg:py-10 h-fit w-fit bg-accent text-white font-plex text-2xl md:text-4xl xl:text-5xl rounded-lg z-50 flex items-center justify-center
+    @apply fixed top-1/2 left-1/2 border-2 border-black -translate-x-1/2 -translate-y-1/2 text-center px-2 lg:px-6 py-6 lg:py-10 h-fit w-fit bg-accent text-white font-plex text-2xl md:text-4xl xl:text-5xl rounded-lg z-50 flex items-center justify-center;
   }
   .full-shadow {
-    @apply shadow-[0_0_5px_rgba(0,0,0,0.3)]
+    @apply shadow-[0_0_5px_rgba(0,0,0,0.3)];
   }
-  .sidebar-link{
-    @apply py-2 gap-4 hover:bg-gray-800 rounded-xl cursor-pointer text-xl lg:text-2xl active:scale-95 transition-all duration-100;
+  .sidebar-link {
+    @apply py-2 gap-4 hover:bg-border rounded-xl cursor-pointer text-xl lg:text-2xl active:scale-95 transition-all duration-100;
   }
-  .form-icons{
+  .form-icons {
     @apply text-neon-green rounded-lg size-10 lg:size-12;
   }
   .Qa-button {
-    @apply flex justify-start items-center w-full hover:bg-secondary-trans rounded-xl p-1 lg:p-2 cursor-pointer border-1 border-gray-800 active:scale-95 transition-all duration-100;
+    @apply flex justify-start items-center w-full hover:bg-border-transparent rounded-xl p-1 lg:p-2 cursor-pointer border-1 border-border active:scale-95 transition-all duration-100;
   }
   .form-inputs {
-    @apply min-w-full p-2 lg:p-3 lg:text-xl rounded-xl border border-gray-600 bg-gray-800 focus:border-neon-green-trans focus:ring-neon-green-trans focus:ring-[3px] text-white ;
+    @apply min-w-full p-2 lg:p-3 lg:text-xl rounded-xl border border-gray-600 bg-border focus:border-neon-green-trans focus:ring-neon-green-trans focus:ring-[3px] text-white;
   }
-  .form-button{
+  .form-button {
     @apply w-fit lg:text-2xl bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg active:scale-95 transition-all duration-100 cursor-pointer;
   }
   .form-sizing {
-    @apply w-full max-w-[90vw] md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl
+    @apply w-full max-w-[90vw] md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl;
   }
 }
-

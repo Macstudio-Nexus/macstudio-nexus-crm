@@ -27,7 +27,7 @@ function Users() {
 
   return (
     <>
-      <div className="text-text font-plex">
+      <div className="text-text-light font-plex">
         <div className="flex items-center justify-between px-5 lg:px-8 pt-5 lg:pt-8">
           <div className="flex flex-col items-start gap-1">
             <span className="text-3xl md:text-4xl lg:text-5xl 2xl:text-6xl">
@@ -37,7 +37,7 @@ function Users() {
           <Logout />
         </div>
         <div className="flex flex-col justify-center md:justify-start lg:pl-20 items-center lg:items-start gap-5 mt-5 lg:mt-10">
-          <div className="w-fit bg-gray-900 p-4 rounded-xl border border-gray-800">
+          <div className="w-fit bg-component-bg p-4 rounded-xl border border-border">
             <button
               className="Qa-button"
               onClick={() => setIsShowing("contact")}

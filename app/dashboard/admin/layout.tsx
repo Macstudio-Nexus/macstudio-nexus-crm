@@ -11,7 +11,7 @@ export default function AdminLayout({
       <header className="z-50 ">
         <SideBar />
       </header>
-      <main className="bg-gray-950 flex-1">{children}</main>
+      <main className="bg-main-bg flex-1">{children}</main>
     </div>
   );
 }

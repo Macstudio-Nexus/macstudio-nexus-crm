@@ -16,7 +16,6 @@ import {
   Images,
   House,
   Settings,
-  CircleQuestionMark,
   ChevronsLeft,
   ChevronsRight,
 } from "lucide-react";
@@ -51,21 +50,27 @@ function SideBar() {
   return (
     <>
       <div
-        className={`sticky top-0 min-h-screen ${isOpen ? "w-full px-3 " : "w-fit px-2 md:px-3 lg:px-5"} flex flex-col shrink-0 border-r transition-all duration-300 ease-in-out
-      border-gray-800 bg-gray-900 shadow-sm text-secondary font-plex`}
+        className={`sticky top-0 min-h-screen ${
+          isOpen ? "w-full px-3 " : "w-fit px-2 md:px-3 lg:px-5"
+        } flex flex-col shrink-0 border-r transition-all duration-300 ease-in-out
+      border-border bg-component-bg shadow-sm text-text-light font-plex`}
       >
         <div
-          className={`flex items-center py-6 md:py-10 ${isOpen ? "justify-start px-4" : "justify-center px-0"} border-b border-gray-700`}
+          className={`flex items-center py-6 md:py-10 ${
+            isOpen ? "justify-start px-4" : "justify-center px-0"
+          } border-b border-border`}
         >
           <div
-            className={`bg-white flex justify-center items-center rounded-xl  p-1 ${isOpen ? "size-20 mr-4" : "size-10"} `}
+            className={`bg-white flex justify-center items-center rounded-xl  p-1 ${
+              isOpen ? "size-20 mr-4" : "size-10"
+            } `}
           >
             <Logo />
           </div>
           {isOpen && (
             <>
               <div className=" flex flex-col ">
-                <span className="text-text text-xl lg:text-2xl font-bold">
+                <span className="text-text-light text-xl lg:text-2xl font-bold">
                   {session?.user?.name}
                 </span>
                 <span className="lg:text-lg">Admin</span>
@@ -73,12 +78,14 @@ function SideBar() {
             </>
           )}
         </div>
-        <div className=" px-0 py-10 flex flex-col gap-4 border-b border-gray-700">
+        <div className=" px-0 py-10 flex flex-col gap-4 border-b border-border">
           {options.map((option, index) => (
             <div
               key={index}
-              className={`flex ${isOpen ? "justify-start px-6" : "justify-center px-2"} items-center sidebar-link   ${
-                pathname === option.href ? "bg-gray-800 text-blue-400" : ""
+              className={`flex ${
+                isOpen ? "justify-start px-6" : "justify-center px-2"
+              } items-center sidebar-link   ${
+                pathname === option.href ? "bg-border text-text-blue" : ""
               }`}
             >
               <Link
@@ -96,7 +103,9 @@ function SideBar() {
             <span className="lg:text-2xl pl-4">ACCOUNT</span>
             <div className="flex flex-col gap-4">
               <div
-                className={`flex ${isOpen ? "justify-start px-6" : "justify-center px-2"} items-center gap-4 py-2 sidebar-link `}
+                className={`flex ${
+                  isOpen ? "justify-start px-6" : "justify-center px-2"
+                } items-center gap-4 py-2 sidebar-link `}
               >
                 <Settings className="mr-3 size-5 lg:size-7" />
                 {isOpen && (
@@ -106,10 +115,14 @@ function SideBar() {
             </div>
           </div>
         )}
-        <div className="mt-auto border-t border-gray-700">
+        <div className="mt-auto border-t border-border">
           <button
             onClick={handleClick}
-            className={`flex items-center cursor-pointer w-full hover:bg-gray-700 focus:border-1 border-0 ${isOpen ? " gap-6 pr-15 pl-2 justify-start" : "gap-0 px-0 justify-center"} text-xl py-4 `}
+            className={`flex items-center cursor-pointer w-full hover:bg-border focus:border-1 border-0 ${
+              isOpen
+                ? " gap-6 pr-15 pl-2 justify-start"
+                : "gap-0 px-0 justify-center"
+            } text-xl py-4 `}
           >
             {isOpen ? (
               <>
