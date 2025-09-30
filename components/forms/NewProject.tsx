@@ -4,7 +4,7 @@ import withRoleProtection from "../auth/withRoleProtection";
 import { Check, Loader, X } from "lucide-react";
 import { Project } from "@/types";
 
-import { useClients } from "@/hooks/useClients";
+import { useClients } from "@/hooks/useContacts";
 
 interface ProjectProps {
   onClose: () => void;

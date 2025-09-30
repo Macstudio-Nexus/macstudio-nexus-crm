@@ -12,3 +12,16 @@ export function useContacts() {
     mutate
   };
 }
+
+export function useClients() {
+  const { data, error, isLoading, mutate } = useSWR("/api/contacts/clients", fetcher);
+
+  return {
+    clients: data,
+    isLoading,
+    isError: error,
+    mutate
+  };
+}
+
+
