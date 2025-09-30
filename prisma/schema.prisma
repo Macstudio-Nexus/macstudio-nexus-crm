@@ -51,7 +51,7 @@ model Projects {
   contactId      String
   siteId      String?
   description String?
-  domain      String?  @unique
+  domain      String?  
   type        String
   Contacts    Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
 }

@@ -13,6 +13,7 @@ interface ProjectProps {
 const typeOptions = [
   { value: "web-dev", label: "Web Development" },
   { value: "branding", label: "Branding" },
+  { value: "full-package", label: "Full Package"}
 ];
 
 function AddProject({ onClose }: ProjectProps) {

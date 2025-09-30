@@ -53,7 +53,7 @@ function SideBar() {
         className={`sticky top-0 min-h-screen ${
           isOpen ? "w-full px-3 " : "w-fit px-2 md:px-3 lg:px-5"
         } flex flex-col shrink-0 border-r transition-all duration-300 ease-in-out
-      border-border bg-component-bg shadow-sm text-text-light font-plex`}
+      border-border bg-component-bg shadow-sm text-text-dark font-plex`}
       >
         <div
           className={`flex items-center py-6 md:py-10 ${
@@ -70,15 +70,15 @@ function SideBar() {
           {isOpen && (
             <>
               <div className=" flex flex-col ">
-                <span className="text-text-light text-xl lg:text-2xl font-bold">
+                <span className="text-text-light text-lg font-bold">
                   {session?.user?.name}
                 </span>
-                <span className="lg:text-lg">Admin</span>
+                <span className="lg:text-base">Admin</span>
               </div>
             </>
           )}
         </div>
-        <div className=" px-0 py-10 flex flex-col gap-4 border-b border-border">
+        <div className=" px-0 py-10 flex flex-col gap-2 border-b border-border">
           {options.map((option, index) => (
             <div
               key={index}
@@ -90,26 +90,26 @@ function SideBar() {
             >
               <Link
                 href={option.href}
-                className="flex justify-center items-center gap-4"
+                className="flex justify-center items-center gap-4 text-lg"
               >
-                <option.icon className="size-5 lg:size-7" />
+                <option.icon className="size-5" />
                 {isOpen && option.title}
               </Link>
             </div>
           ))}
         </div>
         {isOpen && (
-          <div className="text-xl py-10 flex flex-col gap-8">
-            <span className="lg:text-2xl pl-4">ACCOUNT</span>
-            <div className="flex flex-col gap-4">
+          <div className="text-xl py-6 flex flex-col gap-4">
+            <span className="lg:text-xl pl-4">ACCOUNT</span>
+            <div className="">
               <div
                 className={`flex ${
                   isOpen ? "justify-start px-6" : "justify-center px-2"
                 } items-center gap-4 py-2 sidebar-link `}
               >
-                <Settings className="mr-3 size-5 lg:size-7" />
+                <Settings className=" size-5" />
                 {isOpen && (
-                  <Link href="/dashboard/admin/settings">Settings</Link>
+                  <Link href="/dashboard/admin/settings" className="text-lg">Settings</Link>
                 )}
               </div>
             </div>
@@ -126,11 +126,11 @@ function SideBar() {
           >
             {isOpen ? (
               <>
-                <ChevronsLeft className="size-10" />
-                <span className="">Hide</span>
+                <ChevronsLeft className="size-6" />
+                <span className="text-base">Hide</span>
               </>
             ) : (
-              <ChevronsRight className="size-10" />
+              <ChevronsRight className="size-6" />
             )}
           </button>
         </div>

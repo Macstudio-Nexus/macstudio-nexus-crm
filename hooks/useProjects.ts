@@ -11,3 +11,25 @@ export function useProjects() {
     isError: error,
   };
 }
+
+export function useWebProjects() {
+  const { data, error, isLoading } = useSWR("/api/projects/web-dev", fetcher);
+
+  return {
+    webProjects: data,
+    isLoading,
+    isError: error,
+  };
+}
+
+export function useBrandingProjects() {
+  const { data, error, isLoading } = useSWR("/api/projects/branding", fetcher);
+
+  return {
+    BrandingProjects: data,
+    isLoading,
+    isError: error,
+  };
+}
+
+
