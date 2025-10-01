@@ -52,13 +52,11 @@ export default function Login() {
         <button
           type="submit"
           disabled={isLoading}
-          className={`login-button ${
-            isLoading ? "hover:componentcomponent-bg" : "hover:bg-text-light"
-          }`}
+          className={`login-button `}
         >
           {isLoading ? (
             <div className="px-14 animate-[spin_2s_linear_infinite]">
-              <Loader color="white" />
+              <Loader color="white" size={35}/>
             </div>
           ) : (
             <div className="font-plex text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">
