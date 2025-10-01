@@ -3,23 +3,45 @@ import prisma from "@/lib/db";
 
 // GET all Projects
 export async function GET() {
-  const projects = await prisma.projects.findMany();
+  const projects = await prisma.project.findMany();
   return NextResponse.json(projects);
 }
 
 // POST create project
 export async function POST(request: NextRequest) {
   try {
-    const { title, description, domain, type, contactId, siteId} = await request.json();
+    const { title, description, stage, type, contactId } = await request.json();
 
-    const project = await prisma.projects.create({
+    // Validate type
+    if (!["web-dev", "branding", "fullpackage"].includes(type)) {
+      return NextResponse.json(
+        { error: "Invalid project type" },
+        { status: 400 }
+      );
+    }
+
+    const project = await prisma.project.create({
       data: {
         title,
         description,
-        domain,
         type,
         contactId,
-        siteId: siteId || null,
+        stage,
+        ...(type === "web-dev" && {
+          webProject: {
+            create: {},
+          },
+        }),
+        ...(type === "branding" && {
+          brandingProject: {
+            create: {},
+          },
+        }),
+      },
+      include: {
+        webProject: true,
+        brandingProject: true,
+        Contacts: true,
       },
     });
 
@@ -27,7 +49,10 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Project creation error:", error);
     return NextResponse.json(
-      { error: "Failed to create project", details: error instanceof Error ? error.message : "Unknown error" },
+      {
+        error: "Failed to create project",
+        details: error instanceof Error ? error.message : "Unknown error",
+      },
       { status: 500 }
     );
   }

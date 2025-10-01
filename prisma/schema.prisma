@@ -43,17 +43,61 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model Projects {
-  id          String   @id @default(cuid())
+model Project {
+  id          Int   @id @default(autoincrement())
+
+  // basic info
   title       String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  contactId      String
-  siteId      String?
   description String?
-  domain      String?  
+  stage       String   @default("Not Started")
   type        String
+
+  // relations
+  contactId   String
   Contacts    Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  webProject  WebProject? 
+  brandingProject BrandingProject?
+}
+
+model WebProject {
+  id       Int @id @default(autoincrement())
+
+  // design/content
+  sitemap     String?
+  wireframes  String?
+  colorScheme Json?
+  typography  Json?
+  responsive  Boolean?
+
+  // dev
+  domain      String?  
+  githubLink  String?
+  vercelLink  String?
+  integrations Json?
+
+  // notes
+  projectNotes String?
+
+  // financials
+  expenses    Json?
+
+  // documents
+  questionnaire String?
+  quote         String?
+  contract      String?
+  invoice       String?
+
+  projectId  Int @unique
+  project    Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model BrandingProject {
+  id      Int @id @default(autoincrement())
+
+  projectId  Int @unique
+  project    Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }
 
 model Roles {
@@ -88,7 +132,7 @@ model Contact {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @default(now()) @updatedAt
 
-  projects      Projects[]
+  Project      Project[]
 }
 
 enum NotificationType {

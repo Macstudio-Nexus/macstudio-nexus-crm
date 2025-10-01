@@ -47,7 +47,7 @@
     @apply w-full max-w-[90vw] md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl;
   }
   .project-table-button {
-    @apply px-4 py-2 border-border border-t border-x text-lg cursor-pointer hover:bg-component-bg;
+    @apply px-4 py-2 border-border border-t border-x text-lg cursor-pointer hover:bg-component-bg hover:z-50;
   }
   .project-table-item {
     @apply border-border border w-full px-10 py-2 text-center h-full grid place-items-center;

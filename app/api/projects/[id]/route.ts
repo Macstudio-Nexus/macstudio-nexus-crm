@@ -7,7 +7,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    await prisma.projects.delete({
+    await prisma.project.delete({
       where: {
         id: (await params).id,
       },
@@ -19,6 +19,9 @@ export async function DELETE(
     });
   } catch (error: unknown) {
     console.error("Delete project error:", error);
-    return Response.json({ error: "Failed to delete project" }, { status: 500 });
+    return Response.json(
+      { error: "Failed to delete project" },
+      { status: 500 }
+    );
   }
 }

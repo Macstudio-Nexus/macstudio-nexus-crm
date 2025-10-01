@@ -68,8 +68,8 @@ export default function WebDevProjectTable() {
             className="col-span-6 grid grid-cols-6 w-full place-items-center"
           >
             <div className="project-table-item">{project.title}</div>
-            <div className="project-table-item">{project.domain}</div>
             <div className="project-table-item">{project.title}</div>
+            <div className="project-table-item">{project.stage}</div>
             <div className="project-table-item">{project.Contacts.name}</div>
             <div className="project-table-item">
               {formatDate(project.createdAt)}
