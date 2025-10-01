@@ -4,11 +4,11 @@ import prisma from "@/lib/db";
 export default async function ProjectPage({
   params,
 }: {
-  params: Promise<{ id: number }>;
+  params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
   const project = await prisma.project.findUnique({
-    where: { id: Number(id) },
+    where: { id: id },
     include: { Contacts: true },
   });
   return (

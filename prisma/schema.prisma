@@ -51,14 +51,14 @@ model Project {
   stage           String           @default("Not Started")
   type            String
   contactId       String
-  id              Int              @id @default(autoincrement())
+  id              String              @id @default(cuid())
   brandingProject BrandingProject?
   Contacts        Contact          @relation(fields: [contactId], references: [id], onDelete: Cascade)
   webProject      WebProject?
 }
 
 model WebProject {
-  id            Int      @id @default(autoincrement())
+  id            String      @id @default(cuid())
   sitemap       String?
   wireframes    String?
   colorScheme   Json?
@@ -74,13 +74,13 @@ model WebProject {
   quote         String?
   contract      String?
   invoice       String?
-  projectId     Int      @unique
+  projectId     String      @unique
   project       Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }
 
 model BrandingProject {
-  id        Int     @id @default(autoincrement())
-  projectId Int     @unique
+  id        String     @id @default(cuid())
+  projectId String     @unique
   project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }
 

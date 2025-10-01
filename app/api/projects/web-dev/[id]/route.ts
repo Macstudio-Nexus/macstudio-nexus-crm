@@ -33,12 +33,10 @@ export async function PUT(
       invoice,
     } = body;
 
-    const { id } = await params;
-
     // Update web dev project with prisma
     const updatedWebProject = await prisma.webProject.update({
       where: {
-        id: parseInt(id),
+        id: (await params).id,
       },
       data: {
         ...(sitemap && { sitemap }),
@@ -78,11 +76,10 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await params;
 
     await prisma.webProject.delete({
       where: {
-        id: parseInt(id),
+        id: (await params).id,
       },
     });
 
