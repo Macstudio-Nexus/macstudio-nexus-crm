@@ -72,16 +72,17 @@ export async function PUT(
   }
 }
 
-
 // delete web project
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: Promise<{ id: number }> }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
+
     await prisma.webProject.delete({
       where: {
-        id: (await params).id,
+        id: parseInt(id),
       },
     });
 
@@ -91,6 +92,9 @@ export async function DELETE(
     });
   } catch (error: unknown) {
     console.error("Delete web project error:", error);
-    return Response.json({ error: "Failed to delete web project" }, { status: 500 });
+    return Response.json(
+      { error: "Failed to delete web project" },
+      { status: 500 }
+    );
   }
 }
