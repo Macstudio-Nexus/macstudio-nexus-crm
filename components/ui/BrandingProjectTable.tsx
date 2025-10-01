@@ -79,10 +79,10 @@ export default function BrandingProjectTable() {
                   }}
                   className="bg-red-400 hover:bg-red-600 rounded-full p-2 cursor-pointer"
                 >
-                  <Trash />
+                  <Trash className="text-border"/>
                 </button>
                 <button className="bg-emerald-400 hover:bg-emerald-600 rounded-full p-2 cursor-pointer">
-                  <BookOpen />
+                  <BookOpen className="text-border"/>
                 </button>
               </div>
             </div>

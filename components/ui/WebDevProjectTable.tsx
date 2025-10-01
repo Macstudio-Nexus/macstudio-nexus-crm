@@ -19,12 +19,20 @@ export default function WebDevProjectTable() {
 
   const tableHeaders = [
     "Title",
-    "Domain",
+    "Description",
     "Stage",
     "Contact",
     "Created",
     "Actions",
   ];
+
+  
+
+   const stageColors: { [key: string]: string } = {
+    "Not Started": "text-red-400",
+    "In Progress": "text-sky-400",
+    "Completed": "text-green-400"
+  }
 
   const handleDelete = async (id: any) => {
     if (!id) return;
@@ -68,8 +76,10 @@ export default function WebDevProjectTable() {
             className="col-span-6 grid grid-cols-6 w-full place-items-center"
           >
             <div className="project-table-item">{project.title}</div>
-            <div className="project-table-item">{project.title}</div>
-            <div className="project-table-item">{project.stage}</div>
+            <div className="project-table-item">{project.description}</div>
+
+            <div className={`project-table-item ${stageColors[project.stage] || ""}`}>{project.stage}</div>
+
             <div className="project-table-item">{project.Contacts.name}</div>
             <div className="project-table-item">
               {formatDate(project.createdAt)}
@@ -82,13 +92,13 @@ export default function WebDevProjectTable() {
                   }}
                   className="bg-red-400 hover:bg-red-600 rounded-full p-2 cursor-pointer"
                 >
-                  <Trash />
+                  <Trash className="text-border"/>
                 </button>
                 <Link
                   href={`/dashboard/admin/projects/${project.id}`}
                   className="bg-emerald-400 hover:bg-emerald-600 rounded-full p-2 cursor-pointer"
                 >
-                  <BookOpen />
+                  <BookOpen className="text-border"/>
                 </Link>
               </div>
             </div>

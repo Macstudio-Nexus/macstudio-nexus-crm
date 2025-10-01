@@ -10,14 +10,14 @@ export async function GET() {
 // POST create contact
 export async function POST(request: NextRequest) {
   try {
-    const { name, email, phoneNumber, industry, domain, meetingNotes, source, stage } = await request.json();
+    const { name, email, phoneNumber, companyName, domain, meetingNotes, source, stage } = await request.json();
 
     const contacts = await prisma.contact.create({
       data: {
         name,
         email,
         phoneNumber,
-        industry,
+        companyName,
         domain,
         meetingNotes,
         source, 

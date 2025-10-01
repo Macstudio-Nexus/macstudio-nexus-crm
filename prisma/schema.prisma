@@ -44,60 +44,44 @@ model VerificationToken {
 }
 
 model Project {
-  id          Int   @id @default(autoincrement())
-
-  // basic info
-  title       String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  description String?
-  stage       String   @default("Not Started")
-  type        String
-
-  // relations
-  contactId   String
-  Contacts    Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
-  webProject  WebProject? 
+  title           String
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  description     String?
+  stage           String           @default("Not Started")
+  type            String
+  contactId       String
+  id              Int              @id @default(autoincrement())
   brandingProject BrandingProject?
+  Contacts        Contact          @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  webProject      WebProject?
 }
 
 model WebProject {
-  id       Int @id @default(autoincrement())
-
-  // design/content
-  sitemap     String?
-  wireframes  String?
-  colorScheme Json?
-  typography  Json?
-  responsive  Boolean?
-
-  // dev
-  domain      String?  
-  githubLink  String?
-  vercelLink  String?
-  integrations Json?
-
-  // notes
-  projectNotes String?
-
-  // financials
-  expenses    Json?
-
-  // documents
+  id            Int      @id @default(autoincrement())
+  sitemap       String?
+  wireframes    String?
+  colorScheme   Json?
+  typography    Json?
+  responsive    Boolean?
+  domain        String?
+  githubLink    String?
+  vercelLink    String?
+  integrations  Json?
+  projectNotes  String?
+  expenses      Json?
   questionnaire String?
   quote         String?
   contract      String?
   invoice       String?
-
-  projectId  Int @unique
-  project    Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId     Int      @unique
+  project       Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }
 
 model BrandingProject {
-  id      Int @id @default(autoincrement())
-
-  projectId  Int @unique
-  project    Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  id        Int     @id @default(autoincrement())
+  projectId Int     @unique
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }
 
 model Roles {
@@ -106,32 +90,31 @@ model Roles {
 }
 
 model User {
-  id            String     @id @default(cuid())
+  id            String    @id @default(cuid())
   name          String
-  email         String     @unique
-  createdAt     DateTime   @default(now())
+  email         String    @unique
+  createdAt     DateTime  @default(now())
   phoneNumber   String?
   image         String?
   emailVerified DateTime?
-  updatedAt     DateTime   @default(now()) @updatedAt
+  updatedAt     DateTime  @default(now()) @updatedAt
   roleId        Int
   accounts      Account[]
   sessions      Session[]
 }
 
 model Contact {
-  id            String @id @default(cuid())
-  name          String
-  email         String
-  phoneNumber   String
-  industry      String
-  domain        String?
-  meetingNotes  String?
-  source        String?
-  stage         String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @default(now()) @updatedAt
-
+  id           String    @id @default(cuid())
+  name         String
+  email        String
+  phoneNumber  String
+  companyName  String
+  domain       String?
+  meetingNotes String?
+  source       String?
+  stage        String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @default(now()) @updatedAt
   Project      Project[]
 }
 

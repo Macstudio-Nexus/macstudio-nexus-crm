@@ -4,7 +4,7 @@ import prisma from "@/lib/db";
 // Update web dev project by ID
 export async function PUT(
   request: NextRequest,
-  { params }: { params: Promise<{ id: number }> }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     let body;
@@ -33,10 +33,12 @@ export async function PUT(
       invoice,
     } = body;
 
+    const { id } = await params;
+
     // Update web dev project with prisma
     const updatedWebProject = await prisma.webProject.update({
       where: {
-        id: (await params).id,
+        id: parseInt(id),
       },
       data: {
         ...(sitemap && { sitemap }),
