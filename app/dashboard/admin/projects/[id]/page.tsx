@@ -1,4 +1,3 @@
-import Logout from "@/components/auth/Logout";
 import prisma from "@/lib/db";
 
 export default async function ProjectPage({
