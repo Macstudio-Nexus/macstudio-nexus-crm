@@ -1,4 +1,9 @@
 import prisma from "@/lib/db";
+import ProjectContactViewer from "@/components/ui/projects/ProjectContactViewer";
+import ProjectDocumentsViewer from "@/components/ui/projects/ProjectDocumentsViewer";
+import ProjectExpensesViewer from "@/components/ui/projects/ProjectExpensesViewer";
+import { BasicContact, WebProjectDocs } from "@/types";
+import { Key } from "lucide-react";
 
 export default async function ProjectPage({
   params,
@@ -8,47 +13,47 @@ export default async function ProjectPage({
   const { id } = await params;
   const project = await prisma.project.findUnique({
     where: { id: id },
-    include: { Contacts: true },
+    include: { Contacts: true, webProject: true },
   });
+
+  const contact: BasicContact = {
+    name: project?.Contacts.name,
+    email: project?.Contacts.email,
+    phoneNumber: project?.Contacts.phoneNumber,
+    companyName: project?.Contacts.companyName,
+  };
+
+  const docs: WebProjectDocs = {
+    questionnaire: project?.webProject?.questionnaire,
+    quote: project?.webProject?.quote,
+    contract: project?.webProject?.contract,
+    invoice: project?.webProject?.invoice,
+  };
+
   return (
     <>
-      <div className="flex flex-col gap-15 text-text-light font-plex w-fit px-5 lg:px-8 py-5 lg:py-8">
+      <div className="flex flex-col gap-20 text-text-light font-plex w-fit min-h-screen px-5 lg:px-8 py-5 lg:py-8">
         <div className="flex flex-col items-start gap-1">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl 2xl:text-7xl text-accent">
+          <h1 className="text-3xl lg:text-5xl 2xl:text-7xl text-accent font-semibold">
             {project?.title}
           </h1>
-          <h2 className="text-3xl">{project?.Contacts.companyName}</h2>
+          <h2 className="text-3xl">
+            Company:{" "}
+            <span className="text-accent">{project?.Contacts.companyName}</span>
+          </h2>
         </div>
-        <div className="grid grid-cols-3 grid-rows-5 text-xl bg-component-bg">
-          <div className="project-table-item col-span-3 !text-left !justify-items-start !py-4 text-3xl">
-            Documents
+        <div className="grid grid-cols-[1fr_1fr_auto] grid-rows-4 place-items-start space-x-5">
+          <div>
+            <ProjectContactViewer {...contact} />
           </div>
-          {/* titles */}
-          <div className="project-table-item font-bold">Name</div>
-          <div className="project-table-item font-bold">Uploaded</div>
-          <div className="project-table-item font-bold">Link</div>
-          {/* Questionnaire */}
-          <div className="project-table-item">Questionnaire</div>
-          <div className="project-table-item">
-            {project?.createdAt?.toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-            })}
+          <div>
+            <ProjectDocumentsViewer {...docs} />
           </div>
-          <div className="project-table-item">Link</div>
-          {/* Quote */}
-          <div className="project-table-item">Quote</div>
-          <div className="project-table-item">Uploaded</div>
-          <div className="project-table-item">Link</div>
-          {/* Contract */}
-          <div className="project-table-item">Contract</div>
-          <div className="project-table-item">Uploaded</div>
-          <div className="project-table-item">Link</div>
-          {/* Invoice */}
-          <div className="project-table-item">Invoice</div>
-          <div className="project-table-item">Uploaded</div>
-          <div className="project-table-item">Link</div>
+          <div>
+            <ProjectExpensesViewer
+              expenses={project?.webProject?.expenses as Record<string, number>}
+            />
+          </div>
         </div>
       </div>
     </>

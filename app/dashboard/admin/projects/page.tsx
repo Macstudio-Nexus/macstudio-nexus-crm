@@ -3,8 +3,8 @@
 import { useState } from "react";
 
 import Logout from "@/components/auth/Logout";
-import WebDevProjectTable from "@/components/ui/WebDevProjectTable";
-import BrandingProjectTable from "@/components/ui/BrandingProjectTable";
+import WebDevProjectTable from "@/components/ui/projects/WebDevProjectTable";
+import BrandingProjectTable from "@/components/ui/projects/BrandingProjectTable";
 import { FilePlus } from "lucide-react";
 
 import { useProjects } from "@/hooks/useProjects";

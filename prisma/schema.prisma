@@ -69,7 +69,8 @@ model WebProject {
   githubLink    String?
   vercelLink    String?
   integrations  Json?
-  projectNotes  String?
+  projectNotes  Json?
+  pages         Json?
   expenses      Json?
   questionnaire String?
   quote         String?

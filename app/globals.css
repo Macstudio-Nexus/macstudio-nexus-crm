@@ -13,7 +13,7 @@
   --color-border-transparent: #7c7c7c41;
   --color-border: #1f2937;
   --color-neon-green: #4ade80;
-  --color-neon-green-trans: #4ade8041;
+  --color-neon-green-trans: #4ade8020;
 }
 
 @custom-variant hover (&:hover);
@@ -51,5 +51,8 @@
   }
   .project-table-item {
     @apply border-border border w-full px-8 py-2 text-center h-full grid place-items-center;
+  }
+  .project-page-button {
+    @apply border border-border rounded-xl px-2 py-1 hover:bg-main-bg cursor-pointer;
   }
 }
