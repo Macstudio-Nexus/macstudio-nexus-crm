@@ -39,7 +39,7 @@ function AddContact({ onClose }: ContactProps) {
     name: "",
     email: "",
     phoneNumber: "",
-    industry: "",
+    companyName: "",
     domain: "",
     meetingNotes: "",
     source: "",
@@ -73,7 +73,7 @@ function AddContact({ onClose }: ContactProps) {
         name: "",
         email: "",
         phoneNumber: "",
-        industry: "",
+        companyName: "",
         domain: "",
         meetingNotes: "",
         source: "",
@@ -168,14 +168,14 @@ function AddContact({ onClose }: ContactProps) {
 
               <div>
                 <input
-                  id="industry"
-                  placeholder="Industry *"
+                  id="companyName"
+                  placeholder="Company Name *"
                   type="text"
-                  value={formData.industry}
+                  value={formData.companyName}
                   onChange={(e) =>
                     setFormData((prev) => ({
                       ...prev,
-                      industry: e.target.value,
+                      companyName: e.target.value,
                     }))
                   }
                   className="form-inputs"

@@ -11,7 +11,7 @@ export interface Contact {
   name: string;
   email: string;
   phoneNumber: string;
-  industry: string;
+  companyName: string;
   domain?: string;
   meetingNotes?: string;
   source?: string;
