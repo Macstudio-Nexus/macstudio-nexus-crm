@@ -62,8 +62,8 @@ const columns = [
   columnHelper.accessor("phoneNumber", {
     header: "Phone",
   }),
-  columnHelper.accessor("industry", {
-    header: "Industry",
+  columnHelper.accessor("companyName", {
+    header: "Company Name",
   }),
   columnHelper.accessor("domain", {
     header: "Domain",
@@ -100,7 +100,7 @@ export default function ContactDisplay() {
     name: "",
     email: "",
     phoneNumber: "",
-    industry: "",
+    companyName: "",
     domain: "",
     meetingNotes: "",
     source: "",
@@ -137,7 +137,7 @@ export default function ContactDisplay() {
           name: "",
           email: "",
           phoneNumber: "",
-          industry: "",
+          companyName: "",
           domain: "",
           meetingNotes: "",
           source: "",
@@ -177,7 +177,7 @@ export default function ContactDisplay() {
           name: "",
           email: "",
           phoneNumber: "",
-          industry: "",
+          companyName: "",
           domain: "",
           meetingNotes: "",
           source: "",
@@ -202,7 +202,7 @@ export default function ContactDisplay() {
         name: contact.name || "",
         email: contact.email || "",
         phoneNumber: contact.phoneNumber || "",
-        industry: contact.industry || "",
+        companyName: contact.companyName || "",
         domain: contact.domain || "",
         meetingNotes: contact.meetingNotes || "",
         source: contact.source || "",
@@ -214,7 +214,7 @@ export default function ContactDisplay() {
         name: "",
         email: "",
         phoneNumber: "",
-        industry: "",
+        companyName: "",
         domain: "",
         meetingNotes: "",
         source: "",
@@ -302,14 +302,14 @@ export default function ContactDisplay() {
 
               <div>
                 <input
-                  id="industry"
-                  placeholder="Industry"
+                  id="companyName"
+                  placeholder="Company Name"
                   type="text"
-                  value={formData.industry || ""}
+                  value={formData.companyName || ""}
                   onChange={(e) =>
                     setFormData((prev) => ({
                       ...prev,
-                      industry: e.target.value,
+                      companyName: e.target.value,
                     }))
                   }
                   className="form-inputs"
@@ -568,14 +568,14 @@ export default function ContactDisplay() {
 
                     <div>
                       <input
-                        id="industry"
-                        placeholder="Industry"
+                        id="companyName"
+                        placeholder="Company Name"
                         type="text"
-                        value={formData.industry || ""}
+                        value={formData.companyName || ""}
                         onChange={(e) =>
                           setFormData((prev) => ({
                             ...prev,
-                            industry: e.target.value,
+                            companyName: e.target.value,
                           }))
                         }
                         className="form-inputs"
