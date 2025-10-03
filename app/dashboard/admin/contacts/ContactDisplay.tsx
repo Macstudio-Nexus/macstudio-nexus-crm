@@ -483,7 +483,7 @@ export default function ContactDisplay({
             {table.getRowModel().rows.map((row) => (
               <tr
                 key={row.id}
-                className="border-b border-border hover:bg-border"
+                className="border-b border-border"
               >
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id} className="p-4">

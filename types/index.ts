@@ -52,10 +52,10 @@ export interface Project {
 // Web Project related interfaces
 
 export interface WebProjectDocs {
-  questionnaire: string | null;
-  quote: string | null;
-  contract: string | null;
-  invoice: string | null;
+  questionnaire?: string | null;
+  quote?: string | null;
+  contract?: string | null;
+  invoice?: string | null;
 }
 
 export interface WebProjectDesign {
