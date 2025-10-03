@@ -64,6 +64,7 @@ export default function UserDisplay({
     name: "",
     email: "",
     phoneNumber: "",
+    image: "",
     roleId: 0,
   });
 
@@ -116,6 +117,7 @@ export default function UserDisplay({
         name: "",
         email: "",
         phoneNumber: "",
+        image: "",
         roleId: 0,
       });
 
@@ -158,6 +160,7 @@ export default function UserDisplay({
         name: "",
         email: "",
         phoneNumber: "",
+        image: "",
         roleId: 0,
       });
 
@@ -180,6 +183,7 @@ export default function UserDisplay({
         name: user.name || "",
         email: user.email || "",
         phoneNumber: user.phoneNumber || "",
+        image: user.image || "",
         roleId: user.roleId || 0,
       });
     } else {
@@ -188,6 +192,7 @@ export default function UserDisplay({
         name: "",
         email: "",
         phoneNumber: "",
+        image: "",
         roleId: 0,
       });
     }
