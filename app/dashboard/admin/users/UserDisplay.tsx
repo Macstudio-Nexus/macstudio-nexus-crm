@@ -1,8 +1,7 @@
 "use client";
 
-import { useUsers } from "@/hooks/useUsers";
 import { Loader, Check, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { User } from "@/types";
 
 import {
@@ -47,8 +46,13 @@ const columns = [
   }),
 ];
 
-export default function UserDisplay() {
-  const { users, isLoading, mutate } = useUsers();
+export default function UserDisplay({
+  initialUsers,
+}: {
+  initialUsers: User[];
+}) {
+  const [users, setUsers] = useState<User[]>(initialUsers);
+  const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -72,40 +76,61 @@ export default function UserDisplay() {
     getPaginationRowModel: getPaginationRowModel(),
   });
 
+  // Refresh users data after mutations
+  const refreshUsers = async () => {
+    setIsLoading(true);
+    try {
+      const { getUsers } = await import("@/app/actions/users");
+      const updatedUsers = await getUsers();
+      setUsers(updatedUsers);
+    } catch (error) {
+      console.error("Failed to refresh users:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedUserId) return;
     setIsUpdating(true);
     setSuccess(false);
     setError(false);
-    // console.log("Sending data:", JSON.stringify(formData));
+
     try {
-      const response = await fetch(`/api/users/${selectedUserId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+      // Create FormData
+      const formDataObj = new FormData();
+      formDataObj.append("name", formData.name);
+      formDataObj.append("email", formData.email);
+      formDataObj.append("phoneNumber", formData.phoneNumber || "");
+      formDataObj.append("roleId", formData.roleId.toString());
+
+      // Dynamic import server action
+      const { updateUser } = await import("@/app/actions/users");
+      await updateUser(selectedUserId, formDataObj);
+
+      // Reset form
+      setSelectedUserId("");
+      setFormData({
+        id: "",
+        name: "",
+        email: "",
+        phoneNumber: "",
+        roleId: 0,
       });
 
-      if (response.ok) {
-        setSelectedUserId("");
-        setFormData({
-          id: "",
-          name: "",
-          email: "",
-          phoneNumber: "",
-          roleId: 0,
-        });
+      setIsUpdating(false);
+      setSuccess(true);
 
-        setIsUpdating(false);
-        setSuccess(true);
-        mutate();
+      // Refresh users list
+      await refreshUsers();
 
-        setTimeout(() => {
-          setShowEditModal(false);
-        }, 2000);
-      }
+      setTimeout(() => {
+        setShowEditModal(false);
+        setSuccess(false);
+      }, 2000);
     } catch (error) {
-      // console.error("Update error:", error);
+      console.error("Update error:", error);
       setError(true);
       setIsUpdating(false);
     }
@@ -122,22 +147,22 @@ export default function UserDisplay() {
     setIsDeleting(true);
 
     try {
-      const response = await fetch(`/api/users/${selectedUserId}`, {
-        method: "DELETE",
+      // Dynamic import server action
+      const { deleteUser } = await import("@/app/actions/users");
+      await deleteUser(selectedUserId);
+
+      // Reset selection after delete
+      setSelectedUserId("");
+      setFormData({
+        id: "",
+        name: "",
+        email: "",
+        phoneNumber: "",
+        roleId: 0,
       });
 
-      if (response.ok) {
-        // Reset selection after delete
-        setSelectedUserId("");
-        setFormData({
-          id: "",
-          name: "",
-          email: "",
-          phoneNumber: "",
-          roleId: 0,
-        });
-        mutate();
-      }
+      // Refresh users list
+      await refreshUsers();
     } catch (error) {
       console.error("Delete error:", error);
     } finally {
@@ -168,6 +193,10 @@ export default function UserDisplay() {
     }
   };
 
+  useEffect(() => {
+    setUsers(initialUsers);
+  }, [initialUsers]);
+
   return (
     <>
       <div className="lg:hidden bg-component-bg border-1 border-border w-fit rounded-xl">
@@ -190,7 +219,7 @@ export default function UserDisplay() {
                     <option value="" className="text-lg">
                       Select User
                     </option>
-                    {users?.map((user: any) => (
+                    {users.map((user) => (
                       <option key={user.id} value={user.id}>
                         {user.name}
                       </option>
@@ -278,7 +307,7 @@ export default function UserDisplay() {
                     Delete Selected User
                   </button>
                 )}
-                {isDeleting ? (
+                {isUpdating ? (
                   <div className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg active:scale-95 transition-all duration-100 cursor-pointer">
                     <Loader />
                   </div>
@@ -337,8 +366,8 @@ export default function UserDisplay() {
                   </button>
                   <button
                     onClick={() => {
-                      handleDelete();
                       handleUserSelect(row.original.id);
+                      handleDelete();
                     }}
                     className="bg-red-600 hover:bg-red-700 px-3 py-1 rounded cursor-pointer"
                   >
@@ -368,6 +397,7 @@ export default function UserDisplay() {
                 <button
                   onClick={() => {
                     setShowEditModal(false);
+                    setError(false);
                   }}
                   className="form-button mt-4"
                 >
@@ -458,8 +488,7 @@ export default function UserDisplay() {
                       ) : (
                         <>
                           <button
-                            type="button"
-                            onClick={handleUpdate}
+                            type="submit"
                             className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg active:scale-95 transition-all duration-100 cursor-pointer"
                           >
                             Update Selected User

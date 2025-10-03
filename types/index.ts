@@ -31,8 +31,12 @@ export interface User {
   id: string;
   name: string;
   email: string;
-  phoneNumber: string;
+  phoneNumber: string | null; 
   roleId: number;
+  createdAt?: Date;
+  updatedAt?: Date;
+  image?: string | null;
+  emailVerified?: Date | null;
 }
 
 // Project related interfaces

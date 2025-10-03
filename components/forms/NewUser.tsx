@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-
 import withRoleProtection from "../auth/withRoleProtection";
 import { Check, Loader, X } from "lucide-react";
 
@@ -37,19 +36,17 @@ function AddUser({ onClose }: NewUserProps) {
     setError(false);
 
     try {
-      const response = await fetch("/api/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      // Create FormData
+      const formDataObj = new FormData();
+      formDataObj.append("name", formData.name);
+      formDataObj.append("email", formData.email);
+      formDataObj.append("phoneNumber", formData.phoneNumber);
+      formDataObj.append("roleId", formData.roleId.toString());
 
-      if (!response.ok) {
-        throw new Error("Failed to create user");
-      }
+      // Dynamic import server action
+      const { createUser } = await import("@/app/actions/users");
+      const result = await createUser(formDataObj);
 
-      const result = await response.json();
       console.log("User created:", result);
 
       // Clear form and show success
@@ -66,10 +63,9 @@ function AddUser({ onClose }: NewUserProps) {
         onClose();
       }, 2000);
     } catch (error) {
-      //   console.error("Error creating user:", error);
+      console.error("Error creating user:", error);
       setError(true);
       setIsLoading(false);
-      // Handle error state
     }
   };
   return (
@@ -182,7 +178,11 @@ function AddUser({ onClose }: NewUserProps) {
                 >
                   Close
                 </button>
-                <button type="submit" className="form-button">
+                <button
+                  type="submit"
+                  className="form-button"
+                  disabled={isLoading}
+                >
                   {isLoading ? (
                     <div className="flex justify-center items-center">
                       <Loader className="animate-[spin_2s_linear_infinite] size-6" />
