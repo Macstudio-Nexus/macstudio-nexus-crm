@@ -1,3 +1,5 @@
+"use server";
+
 import prisma from "@/lib/db";
 import { WebProjectDocs, WebProjectDesign, WebProjectDev } from "@/types";
 import { revalidatePath } from "next/cache";
@@ -42,4 +44,23 @@ export async function updateWebProjectDev(id: string, formData: FormData) {
   });
 
   revalidatePath(`/dashboard/admin/projects/${id}`);
+}
+
+export async function updateExpenses(id: string, formData: FormData) {
+  const expenses = formData.get("expenses")
+    ? JSON.parse(formData.get("expenses") as string)
+    : {};
+
+  await prisma.webProject.update({
+    where: { projectId: id },
+    data: { expenses },
+  });
+
+  revalidatePath(`/dashboard/admin/projects/${id}`);
+}
+
+export async function deleteExpense(id: string) {
+  await prisma.webProject.delete({
+    where: {projectId: id}
+  })
 }

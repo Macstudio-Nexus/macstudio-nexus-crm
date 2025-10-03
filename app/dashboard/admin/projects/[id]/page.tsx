@@ -32,7 +32,7 @@ export default async function ProjectPage({
 
   return (
     <>
-      <div className="flex flex-col gap-20 text-text-light font-plex w-fit min-h-screen px-5 lg:px-8 py-5 lg:py-8">
+      <div className="flex flex-col gap-20 text-text-light font-plex w-full min-h-screen px-5 lg:px-8 py-5 lg:py-8">
         <div className="flex flex-col items-start gap-1">
           <h1 className="text-3xl lg:text-5xl 2xl:text-7xl text-accent font-semibold">
             {project?.title}
@@ -42,17 +42,22 @@ export default async function ProjectPage({
             <span className="text-accent">{project?.Contacts.companyName}</span>
           </h2>
         </div>
-        <div className="grid grid-cols-[1fr_1fr_auto] grid-rows-4 place-items-start space-x-5">
-          <div>
-            <ProjectContactViewer {...contact} />
-          </div>
-          <div>
-            <ProjectDocumentsViewer {...docs} />
-          </div>
-          <div>
-            <ProjectExpensesViewer
-              expenses={project?.webProject?.expenses as Record<string, number>}
-            />
+        <div className="items-center justify-center hidden lg:flex">
+          <div className="grid grid-cols-[1fr_1fr_auto] grid-rows-4 place-items-start space-x-5">
+            <div>
+              <ProjectContactViewer {...contact} />
+            </div>
+            <div>
+              <ProjectDocumentsViewer {...docs} />
+            </div>
+            <div>
+              <ProjectExpensesViewer
+                expenses={
+                  project?.webProject?.expenses as Record<string, number>
+                }
+                id={id}
+              />
+            </div>
           </div>
         </div>
       </div>

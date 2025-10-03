@@ -1,29 +1,137 @@
+"use client";
+
 import { HandCoins } from "lucide-react";
+import { useState } from "react";
+// import ProjectExpensesForm from "./ProjectExpensesForm";
 
 export default function ProjectExpensesViewer({
   expenses,
+  id,
 }: {
   expenses: Record<string, number>;
+  id: string;
 }) {
-  const total = Object.values(expenses).reduce((sum, value) => sum + value, 0);
+  const [showForm, setShowForm] = useState<boolean>(false);
+  const [expenseName, setExpenseName] = useState("");
+  const [expenseAmount, setExpenseAmount] = useState("");
+  const [isPending, setIsPending] = useState(false);
+  let total;
+
+  if (expenses) {
+    total = Object.values(expenses).reduce((sum, value) => sum + value, 0);
+  } else {
+    total = 0;
+  }
+
+  async function handleAddExpense(e: React.FormEvent) {
+    e.preventDefault();
+
+    // Validate
+    if (!expenseName || !expenseAmount) return;
+
+    setIsPending(true);
+
+    try {
+      // Create FormData
+      const formData = new FormData();
+
+      // MERGE new expense with existing expenses
+      const updatedExpenses = {
+        ...expenses,
+        [expenseName]: parseFloat(expenseAmount),
+      };
+
+      // Add as JSON string
+      formData.append("expenses", JSON.stringify(updatedExpenses));
+
+      // Dynamic import of server action
+      const { updateExpenses } = await import("@/app/actions/webProjects");
+
+      // Call the server action
+      await updateExpenses(id, formData);
+
+      // Success - reset form
+      setExpenseName("");
+      setExpenseAmount("");
+      setShowForm(false);
+    } catch (error) {
+      console.error("Failed to add expense:", error);
+    } finally {
+      setIsPending(false);
+    }
+  }
 
   return (
-    <div className="flex flex-col items-center justify-between gap-5 bg-component-bg rounded-xl border border-border p-4">
-      <div className="flex items-center justify-left gap-3 w-full">
-        <HandCoins className="size-12 text-neon-green bg-neon-green-trans rounded-xl p-2" />
-        <h1 className="text-2xl">Expenses</h1>
-        <span className="pl-5 text-green-500">Total: ${total}</span>
-      </div>
-      <div className="max-h-30 w-full overflow-y-auto bg-main-bg">
-        {expenses &&
-          Object.entries(expenses).map(([key, value]) => (
-            <div
-              key={key}
-              className="grid grid-cols-[2fr_1fr] border-b border-border"
-            >
-              <span className="font-semibold">{key}:</span> <span className="justify-self-end pr-4">${value}</span>
+    <div className="flex">
+      <div className="flex flex-col items-center gap-2 bg-component-bg rounded-xl border border-border p-4 min-w-sm">
+        <div className="flex items-center justify-around gap-3 w-full">
+          <HandCoins className="size-12 text-neon-green bg-neon-green-trans rounded-xl p-2" />
+          <h1 className="text-2xl">Expenses</h1>
+          <button
+            onClick={() => {
+              setShowForm(!showForm);
+            }}
+            className="project-page-button"
+          >
+            {showForm ? "Cancel" : "Add Expense"}
+          </button>
+        </div>
+        {showForm ? (
+          // Show the FORM when showForm is true
+          <form
+            onSubmit={handleAddExpense}
+            className="mt-4 p-4 bg-component-bg rounded-xl border border-border"
+          >
+            <div className="flex justify-center items-center gap-3">
+              <div className="flex flex-col gap-2">
+                <input
+                  type="text"
+                  placeholder="Expense"
+                  value={expenseName}
+                  onChange={(e) => setExpenseName(e.target.value)}
+                  className="flex-1 p-2 rounded border"
+                  required
+                />
+
+                <input
+                  type="number"
+                  step="1"
+                  placeholder="Amount"
+                  value={expenseAmount}
+                  onChange={(e) => setExpenseAmount(e.target.value)}
+                  className="w-32 p-2 rounded border"
+                  required
+                />
+              </div>
+              <div className="self-end">
+                <button
+                  type="submit"
+                  disabled={isPending}
+                  className="px-4 py-2 bg-neon-green text-black rounded cursor-pointer hover:bg-neon-green-trans hover:text-text-light"
+                >
+                  {isPending ? "Adding..." : "Add"}
+                </button>
+              </div>
             </div>
-          ))}
+          </form>
+        ) : (
+          // Show the EXPENSES LIST when showForm is false
+          <>
+            <div className="max-h-30 w-full overflow-y-auto bg-main-bg">
+              {expenses &&
+                Object.entries(expenses).map(([key, value]) => (
+                  <div
+                    key={key}
+                    className="grid grid-cols-[2fr_1fr] border-b border-border px-4"
+                  >
+                    <span className="font-semibold">{key}</span>{" "}
+                    <span className="justify-self-end">${value}</span>
+                  </div>
+                ))}
+            </div>
+            <span className="pl-5 text-green-500">Total: ${total}</span>
+          </>
+        )}
       </div>
     </div>
   );
