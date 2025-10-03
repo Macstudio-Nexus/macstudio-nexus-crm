@@ -50,19 +50,19 @@ function SideBar() {
   return (
     <>
       <div
-        className={`sticky top-0 min-h-screen ${
-          isOpen ? "w-full px-3 " : "w-fit px-2 md:px-3 lg:px-5"
+        className={`sticky top-0 h-screen ${
+          isOpen ? "w-fit px-1 md:px-3" : "w-fit px-2 md:px-3 lg:px-5"
         } flex flex-col shrink-0 border-r transition-all duration-300 ease-in-out
       border-border bg-component-bg shadow-sm text-text-dark font-plex`}
       >
         <div
-          className={`flex items-center py-6 md:py-10 ${
-            isOpen ? "justify-start px-4" : "justify-center px-0"
+          className={`flex flex-col md:flex-row gap-4 md:gap-0 items-center py-4 md:py-10 ${
+            isOpen ? "justify-start px-0" : "justify-center px-0"
           } border-b border-border`}
         >
           <div
-            className={`bg-white flex justify-center items-center rounded-xl  p-1 ${
-              isOpen ? "size-20 mr-4" : "size-10"
+            className={`bg-white flex justify-center items-center rounded-xl px-1 ${
+              isOpen ? "size-8 md:size-10 mr-4" : "size-5 md:size-8"
             } `}
           >
             <Logo />
@@ -70,66 +70,68 @@ function SideBar() {
           {isOpen && (
             <>
               <div className=" flex flex-col ">
-                <span className="text-text-light text-lg font-bold">
+                <span className="text-text-light text-xs md:text-lg font-bold">
                   {session?.user?.name}
                 </span>
-                <span className="lg:text-base">Admin</span>
+                <span className="text-[8px] md:text-base">Admin</span>
               </div>
             </>
           )}
         </div>
-        <div className=" px-0 py-10 flex flex-col gap-2 border-b border-border">
-          {options.map((option, index) => (
-            <div
-              key={index}
-              className={`flex ${
-                isOpen ? "justify-start px-6" : "justify-center px-2"
-              } items-center sidebar-link   ${
-                pathname === option.href ? "bg-border text-text-blue" : ""
-              }`}
-            >
-              <Link
-                href={option.href}
-                className="flex justify-center items-center gap-4 text-lg"
-              >
-                <option.icon className="size-5" />
-                {isOpen && option.title}
-              </Link>
-            </div>
-          ))}
-        </div>
-        {isOpen && (
-          <div className="text-xl py-6 flex flex-col gap-4">
-            <span className="lg:text-xl pl-4">ACCOUNT</span>
-            <div className="">
+        <div className="flex-1 overflow-y-auto flex flex-col bg-component-bg">
+          <div className="px-0 py-4 md:py-10 flex flex-col gap-2 border-b border-border w-fit">
+            {options.map((option, index) => (
               <div
+                key={index}
                 className={`flex ${
-                  isOpen ? "justify-start px-6" : "justify-center px-2"
-                } items-center gap-4 py-2 sidebar-link `}
+                  isOpen ? "justify-start px-2 md:pr-12" : "justify-center px-2"
+                } items-center sidebar-link   ${
+                  pathname === option.href ? "bg-border text-text-blue" : ""
+                }`}
               >
-                <Settings className=" size-5" />
-                {isOpen && (
-                  <Link href="/dashboard/admin/settings" className="text-lg">
-                    Settings
-                  </Link>
-                )}
+                <Link
+                  href={option.href}
+                  className="flex justify-center items-center gap-4 text-[10px] md:text-lg"
+                >
+                  <option.icon className="size-3 md:size-5" />
+                  {isOpen && option.title}
+                </Link>
+              </div>
+            ))}
+          </div>
+          {isOpen && (
+            <div className="text-xl py-6 flex flex-col gap-4">
+              <span className="text-xs lg:text-xl pl-4">ACCOUNT</span>
+              <div className="">
+                <div
+                  className={`flex ${
+                    isOpen ? "justify-start px-2" : "justify-center px-2"
+                  } items-center gap-4 py-2 sidebar-link `}
+                >
+                  <Settings className=" size-3 md:size-5" />
+                  {isOpen && (
+                    <Link href="/dashboard/admin/settings" className="text-[10px] md:text-lg">
+                      Settings
+                    </Link>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
         <div className="mt-auto border-t border-border">
           <button
             onClick={handleClick}
             className={`flex items-center cursor-pointer w-full hover:bg-border focus:border-1 border-0 ${
               isOpen
-                ? " gap-6 pr-15 pl-2 justify-start"
+                ? " gap-6 md:pr-15 pl-2 justify-start"
                 : "gap-0 px-0 justify-center"
             } text-xl py-4 `}
           >
             {isOpen ? (
               <>
-                <ChevronsLeft className="size-6" />
-                <span className="text-base">Hide</span>
+                <ChevronsLeft className="size-3 md:size-6" />
+                <span className="text-xs md:text-lg">Hide</span>
               </>
             ) : (
               <ChevronsRight className="size-6" />
