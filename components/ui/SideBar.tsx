@@ -109,7 +109,9 @@ function SideBar() {
               >
                 <Settings className=" size-5" />
                 {isOpen && (
-                  <Link href="/dashboard/admin/settings" className="text-lg">Settings</Link>
+                  <Link href="/dashboard/admin/settings" className="text-lg">
+                    Settings
+                  </Link>
                 )}
               </div>
             </div>

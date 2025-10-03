@@ -188,15 +188,18 @@ export default function ContactDisplay({
     }
   };
 
-  const handleDelete = async () => {
-    if (!selectedContactId) return;
+  const handleDelete = async (e: React.MouseEvent, contactId: string) => {
+    console.log("delete");
+    e.preventDefault();
+    e.stopPropagation();
+    if (!contactId) return;
     if (!confirm("Are you sure you want to delete this contact?")) return;
     setIsDeleting(true);
 
     try {
       // Dynamic import server action
       const { deleteContact } = await import("@/app/actions/contacts");
-      await deleteContact(selectedContactId);
+      await deleteContact(contactId);
 
       // Reset selection after delete
       setSelectedContactId("");
@@ -437,7 +440,9 @@ export default function ContactDisplay({
                 ) : (
                   <button
                     type="button"
-                    onClick={handleDelete}
+                    onClick={(e) => {
+                      handleDelete(e, selectedContactId);
+                    }}
                     className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg active:scale-95 transition-all duration-100 cursor-pointer"
                   >
                     Delete Selected Contact
@@ -481,10 +486,7 @@ export default function ContactDisplay({
           </thead>
           <tbody>
             {table.getRowModel().rows.map((row) => (
-              <tr
-                key={row.id}
-                className="border-b border-border"
-              >
+              <tr key={row.id} className="border-b border-border">
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id} className="p-4">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -501,9 +503,9 @@ export default function ContactDisplay({
                     Edit
                   </button>
                   <button
-                    onClick={() => {
+                    onClick={(e) => {
                       handleContactSelect(row.original.id);
-                      handleDelete();
+                      handleDelete(e, row.original.id);
                     }}
                     className="bg-red-600 hover:bg-red-800 px-3 py-1 rounded cursor-pointer"
                   >

@@ -138,8 +138,10 @@ export default function UserDisplay({
     }
   };
 
-  const handleDelete = async () => {
-    if (!selectedUserId) return;
+  const handleDelete = async (e: React.MouseEvent, userId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!userId) return;
     if (
       !confirm(
         "Are you sure you want to delete this user? This will delete all related projects, action items, blog posts, comments, and notifications"
@@ -151,7 +153,7 @@ export default function UserDisplay({
     try {
       // Dynamic import server action
       const { deleteUser } = await import("@/app/actions/users");
-      await deleteUser(selectedUserId);
+      await deleteUser(userId);
 
       // Reset selection after delete
       setSelectedUserId("");
@@ -306,7 +308,7 @@ export default function UserDisplay({
                 ) : (
                   <button
                     type="button"
-                    onClick={handleDelete}
+                    onClick={ (e) => {handleDelete(e, selectedUserId)}}
                     className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg active:scale-95 transition-all duration-100 cursor-pointer"
                   >
                     Delete Selected User
@@ -370,9 +372,9 @@ export default function UserDisplay({
                     Edit
                   </button>
                   <button
-                    onClick={() => {
+                    onClick={(e) => {
                       handleUserSelect(row.original.id);
-                      handleDelete();
+                      handleDelete(e, row.original.id);
                     }}
                     className="bg-red-600 hover:bg-red-700 px-3 py-1 rounded cursor-pointer"
                   >
