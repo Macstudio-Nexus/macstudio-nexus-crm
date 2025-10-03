@@ -1,10 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import withRoleProtection from "../auth/withRoleProtection";
 import { Check, Loader, X } from "lucide-react";
 import { Project } from "@/types";
-
-import { useClients } from "@/hooks/useContacts";
 
 interface ProjectProps {
   onClose: () => void;
@@ -17,7 +15,8 @@ const typeOptions = [
 ];
 
 function AddProject({ onClose }: ProjectProps) {
-  const { clients } = useClients();
+  const [clients, setClients] = useState<any[]>([]);
+  const [isLoadingClients, setIsLoadingClients] = useState(true);
   const [isFormLoading, setIsFormLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
@@ -29,6 +28,21 @@ function AddProject({ onClose }: ProjectProps) {
     contactId: "",
     siteId: "",
   });
+
+  useEffect(() => {
+    async function loadClients() {
+      try {
+        const { getClients } = await import("@/app/actions/contacts");
+        const clientsData = await getClients();
+        setClients(clientsData);
+      } catch (error) {
+        console.error("Error loading clients:", error);
+      } finally {
+        setIsLoadingClients(false);
+      }
+    }
+    loadClients();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -191,8 +205,11 @@ function AddProject({ onClose }: ProjectProps) {
                   }
                   className="form-inputs"
                   required
+                  disabled={isLoadingClients}
                 >
-                  <option value="">Select a contact...</option>
+                  <option value="">
+                    {isLoadingClients ? "Loading clients..." : "Select a contact..."}
+                  </option>
                   {clients?.map((contact: any) => (
                     <option key={contact.id} value={contact.id}>
                       {contact.name}
@@ -208,7 +225,7 @@ function AddProject({ onClose }: ProjectProps) {
                 >
                   Close
                 </button>
-                <button type="submit" className="form-button">
+                <button type="submit" className="form-button" disabled={isFormLoading}>
                   {isFormLoading ? (
                     <div className="flex justify-center items-center">
                       <Loader className="animate-[spin_2s_linear_infinite] size-6" />

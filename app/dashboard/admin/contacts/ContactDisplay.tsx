@@ -1,8 +1,7 @@
 "use client";
 
-import { useContacts } from "@/hooks/useContacts";
 import { Loader, Check, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Contact } from "@/types";
 
 import {
@@ -87,8 +86,13 @@ const columns = [
   }),
 ];
 
-export default function ContactDisplay() {
-  const { contacts, isLoading, mutate } = useContacts();
+export default function ContactDisplay({
+  initialContacts,
+}: {
+  initialContacts: Contact[];
+}) {
+  const [contacts, setContacts] = useState<Contact[]>(initialContacts);
+  const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -116,44 +120,69 @@ export default function ContactDisplay() {
     getPaginationRowModel: getPaginationRowModel(),
   });
 
+  // Refresh contacts data after mutations
+  const refreshContacts = async () => {
+    setIsLoading(true);
+    try {
+      const { getContacts } = await import("@/app/actions/contacts");
+      const updatedContacts = await getContacts();
+      setContacts(updatedContacts);
+    } catch (error) {
+      console.error("Failed to refresh contacts:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedContactId) return;
     setIsUpdating(true);
     setSuccess(false);
     setError(false);
-    // console.log("Sending data:", JSON.stringify(formData));
+
     try {
-      const response = await fetch(`/api/contacts/${selectedContactId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+      // Create FormData
+      const formDataObj = new FormData();
+      formDataObj.append("name", formData.name);
+      formDataObj.append("email", formData.email);
+      formDataObj.append("phoneNumber", formData.phoneNumber || "");
+      formDataObj.append("companyName", formData.companyName || "");
+      formDataObj.append("domain", formData.domain || "");
+      formDataObj.append("meetingNotes", formData.meetingNotes || "");
+      formDataObj.append("source", formData.source || "");
+      formDataObj.append("stage", formData.stage || "");
+
+      // Dynamic import server action
+      const { updateContact } = await import("@/app/actions/contacts");
+      await updateContact(selectedContactId, formDataObj);
+
+      // Reset form
+      setSelectedContactId("");
+      setFormData({
+        id: "",
+        name: "",
+        email: "",
+        phoneNumber: "",
+        companyName: "",
+        domain: "",
+        meetingNotes: "",
+        source: "",
+        stage: "",
       });
 
-      if (response.ok) {
-        setSelectedContactId("");
-        setFormData({
-          id: "",
-          name: "",
-          email: "",
-          phoneNumber: "",
-          companyName: "",
-          domain: "",
-          meetingNotes: "",
-          source: "",
-          stage: "",
-        });
+      setIsUpdating(false);
+      setSuccess(true);
 
-        setIsUpdating(false);
-        setSuccess(true);
-        mutate();
+      // Refresh contacts list
+      await refreshContacts();
 
-        setTimeout(() => {
-          setShowEditModal(false);
-        }, 2000);
-      }
+      setTimeout(() => {
+        setShowEditModal(false);
+        setSuccess(false);
+      }, 2000);
     } catch (error) {
-      // console.error("Update error:", error);
+      console.error("Update error:", error);
       setError(true);
       setIsUpdating(false);
     }
@@ -165,26 +194,26 @@ export default function ContactDisplay() {
     setIsDeleting(true);
 
     try {
-      const response = await fetch(`/api/contacts/${selectedContactId}`, {
-        method: "DELETE",
+      // Dynamic import server action
+      const { deleteContact } = await import("@/app/actions/contacts");
+      await deleteContact(selectedContactId);
+
+      // Reset selection after delete
+      setSelectedContactId("");
+      setFormData({
+        id: "",
+        name: "",
+        email: "",
+        phoneNumber: "",
+        companyName: "",
+        domain: "",
+        meetingNotes: "",
+        source: "",
+        stage: "",
       });
 
-      if (response.ok) {
-        // Reset selection after delete
-        setSelectedContactId("");
-        setFormData({
-          id: "",
-          name: "",
-          email: "",
-          phoneNumber: "",
-          companyName: "",
-          domain: "",
-          meetingNotes: "",
-          source: "",
-          stage: "",
-        });
-        mutate();
-      }
+      // Refresh contacts list
+      await refreshContacts();
     } catch (error) {
       console.error("Delete error:", error);
     } finally {
@@ -223,6 +252,10 @@ export default function ContactDisplay() {
     }
   };
 
+  useEffect(() => {
+    setContacts(initialContacts);
+  }, [initialContacts]);
+
   return (
     <>
       <div className="lg:hidden bg-component-bg border-1 border-border w-fit rounded-xl">
@@ -245,7 +278,7 @@ export default function ContactDisplay() {
                     <option value="" className="text-lg">
                       Select Contact
                     </option>
-                    {contacts?.map((contact: any) => (
+                    {contacts.map((contact) => (
                       <option key={contact.id} value={contact.id}>
                         {contact.name}
                       </option>
@@ -410,7 +443,7 @@ export default function ContactDisplay() {
                     Delete Selected Contact
                   </button>
                 )}
-                {isDeleting ? (
+                {isUpdating ? (
                   <div className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg active:scale-95 transition-all duration-100 cursor-pointer">
                     <Loader />
                   </div>
@@ -463,16 +496,16 @@ export default function ContactDisplay() {
                       handleContactSelect(row.original.id);
                       setShowEditModal(true);
                     }}
-                    className="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded mr-2 mb-2 cursor-pointer"
+                    className="bg-blue-600 hover:bg-blue-800 px-3 py-1 rounded mr-2 mb-2 cursor-pointer"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => {
-                      handleDelete();
                       handleContactSelect(row.original.id);
+                      handleDelete();
                     }}
-                    className="bg-red-600 hover:bg-red-700 px-3 py-1 rounded cursor-pointer"
+                    className="bg-red-600 hover:bg-red-800 px-3 py-1 rounded cursor-pointer"
                   >
                     Delete
                   </button>
@@ -502,6 +535,7 @@ export default function ContactDisplay() {
                 <button
                   onClick={() => {
                     setShowEditModal(false);
+                    setError(false);
                   }}
                   className="form-button mt-4"
                 >
@@ -670,8 +704,7 @@ export default function ContactDisplay() {
                       ) : (
                         <>
                           <button
-                            type="button"
-                            onClick={handleUpdate}
+                            type="submit"
                             className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg active:scale-95 transition-all duration-100 cursor-pointer"
                           >
                             Update Selected Contact

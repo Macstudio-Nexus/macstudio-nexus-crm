@@ -12,9 +12,9 @@ export interface Contact {
   email: string;
   phoneNumber: string;
   companyName: string;
-  domain?: string;
-  meetingNotes?: string;
-  source?: string;
+  domain: string | null;
+  meetingNotes: string | null;
+  source: string | null; 
   stage: string;
 }
 
@@ -35,7 +35,7 @@ export interface User {
   roleId: number;
   createdAt?: Date;
   updatedAt?: Date;
-  image?: string | null;
+  image: string | null;
   emailVerified?: Date | null;
 }
 
@@ -52,25 +52,25 @@ export interface Project {
 // Web Project related interfaces
 
 export interface WebProjectDocs {
-  questionnaire?: string | null;
-  quote?: string | null;
-  contract?: string | null;
-  invoice?: string | null;
+  questionnaire: string | null;
+  quote: string | null;
+  contract: string | null;
+  invoice: string | null;
 }
 
 export interface WebProjectDesign {
-  sitemap?: string;
-  wireframes?: string;
+  sitemap: string | null;
+  wireframes: string | null;
   colorScheme?: Record<string, string>;
   typography?: Record<string, string>;
   responsive?: boolean;
 }
 
 export interface WebProjectDev {
-  domain?: string;
-  githubLink?: string;
+  domain: string | null;
+  githubLink: string | null;
   pages?: Record<string, string[]>;
-  vercelLink?: string;
+  vercelLink: string | null;
   integrations?: Record<string, string>;
 }
 
