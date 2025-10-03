@@ -1,6 +1,6 @@
 "use client";
 
-import { HandCoins } from "lucide-react";
+import { HandCoins, Trash } from "lucide-react";
 import { useState } from "react";
 // import ProjectExpensesForm from "./ProjectExpensesForm";
 
@@ -56,6 +56,24 @@ export default function ProjectExpensesViewer({
       setShowForm(false);
     } catch (error) {
       console.error("Failed to add expense:", error);
+    } finally {
+      setIsPending(false);
+    }
+  }
+
+  async function handleDeleteExpense(expenseKey: string) {
+    if (!confirm(`Delete ${expenseKey}?`)) return;
+
+    setIsPending(true);
+
+    try {
+      // Dynamic import of server action
+      const { deleteExpense } = await import("@/app/actions/webProjects");
+
+      // Call the server action
+      await deleteExpense(id, expenseKey);
+    } catch (error) {
+      console.error("Failed to delete expense:", error);
     } finally {
       setIsPending(false);
     }
@@ -122,10 +140,17 @@ export default function ProjectExpensesViewer({
                 Object.entries(expenses).map(([key, value]) => (
                   <div
                     key={key}
-                    className="grid grid-cols-[2fr_1fr] border-b border-border px-4"
+                    className="grid grid-cols-[2fr_1fr_0.5fr] border-b border-border px-4"
                   >
                     <span className="font-semibold">{key}</span>{" "}
                     <span className="justify-self-end">${value}</span>
+                    <button
+                      onClick={() => handleDeleteExpense(key)}
+                      className="text-red-500 hover:text-red-900 cursor-pointer justify-self-center"
+                      type="button"
+                    >
+                      <Trash className="size-4"/>
+                    </button>
                   </div>
                 ))}
             </div>

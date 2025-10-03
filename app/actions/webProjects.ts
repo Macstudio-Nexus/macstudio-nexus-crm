@@ -59,8 +59,23 @@ export async function updateExpenses(id: string, formData: FormData) {
   revalidatePath(`/dashboard/admin/projects/${id}`);
 }
 
-export async function deleteExpense(id: string) {
-  await prisma.webProject.delete({
-    where: {projectId: id}
-  })
+export async function deleteExpense(id: string, expenseKey: string) {
+  const webProject = await prisma.webProject.findUnique({
+    where: { projectId: id },
+    select: { expenses: true },
+  });
+
+  if (!webProject) {
+    throw new Error("Project not found");
+  }
+
+  const currentExpenses = (webProject.expenses as Record<string, number>) || {};
+  delete currentExpenses[expenseKey];
+
+  await prisma.webProject.update({
+    where: { projectId: id },
+    data: { expenses: currentExpenses },
+  });
+
+  revalidatePath(`/dashboard/admin/projects/${id}`);
 }
