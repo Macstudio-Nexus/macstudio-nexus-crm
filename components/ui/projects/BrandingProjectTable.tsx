@@ -47,15 +47,21 @@ export default function BrandingProjectTable() {
   ];
 
   return (
-    <div className="relative grid grid-cols-6 text-lg place-items-center border bg-component-bg -mt-0.5 border-border p-4">
-      {tableHeaders.map((title: string, index) => (
-        <div
-          key={index}
-          className="project-table-item font-bold"
-        >
-          {title}
-        </div>
-      ))}
+    <div className="relative grid grid-cols-3 xl:grid-cols-6 text-lg place-items-center border bg-component-bg -mt-0.5 border-border p-4">
+      {tableHeaders.map((title: string, index) => {
+        // Hide Package (1), Pages (3), Created (4) on md-lg
+        const hideOnMdLg = [1, 3, 4].includes(index);
+        return (
+          <div
+            key={index}
+            className={`project-table-item font-bold ${
+              hideOnMdLg ? "hidden xl:block" : ""
+            }`}
+          >
+            {title}
+          </div>
+        );
+      })}
       {isLoading ? (
         <div className="absolute top-50 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <div className="flex flex-col items-center justify-center">
@@ -65,12 +71,12 @@ export default function BrandingProjectTable() {
         </div>
       ) : (
         project?.map((project: any, index: number) => (
-          <div key={project.id || index} className="col-span-6 grid grid-cols-6 w-full place-items-center">
+          <div key={project.id || index} className="col-span-3 xl:col-span-6 grid grid-cols-3 xl:grid-cols-6 w-full place-items-center">
             <div className="project-table-item">{project.title}</div>
-            <div className="project-table-item">{project.domain}</div>
-            <div className="project-table-item">{project.Contacts.name}</div>
+            <div className="project-table-item hidden xl:block">{project.domain}</div>
+            <div className="project-table-item hidden xl:block">{project.Contacts.name}</div>
             <div className="project-table-item">{project.title}</div>
-            <div className="project-table-item">{formatDate(project.createdAt)}</div>
+            <div className="project-table-item hidden xl:block">{formatDate(project.createdAt)}</div>
             <div className="project-table-item">
               <div className="flex justify-center items-center gap-5">
                 <button

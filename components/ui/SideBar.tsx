@@ -70,10 +70,10 @@ function SideBar() {
           {isOpen && (
             <>
               <div className=" flex flex-col ">
-                <span className="text-text-light text-xs md:text-lg font-bold">
+                <span className="text-text-light text-sm md:text-lg font-bold">
                   {session?.user?.name}
                 </span>
-                <span className="text-[8px] md:text-base">Admin</span>
+                <span className="text-[10px] md:text-base">Admin</span>
               </div>
             </>
           )}
@@ -91,9 +91,9 @@ function SideBar() {
               >
                 <Link
                   href={option.href}
-                  className="flex justify-center items-center gap-4 text-[10px] md:text-lg"
+                  className="flex justify-center items-center gap-2 text-[14px] md:text-lg"
                 >
-                  <option.icon className="size-3 md:size-5" />
+                  <option.icon className="size-4 md:size-5" />
                   {isOpen && option.title}
                 </Link>
               </div>
@@ -106,11 +106,11 @@ function SideBar() {
                 <div
                   className={`flex ${
                     isOpen ? "justify-start px-2" : "justify-center px-2"
-                  } items-center gap-4 py-2 sidebar-link `}
+                  } items-center gap-2 py-2 sidebar-link `}
                 >
-                  <Settings className=" size-3 md:size-5" />
+                  <Settings className=" size-4 md:size-5" />
                   {isOpen && (
-                    <Link href="/dashboard/admin/settings" className="text-[10px] md:text-lg">
+                    <Link href="/dashboard/admin/settings" className="text-[14px] md:text-lg">
                       Settings
                     </Link>
                   )}
@@ -130,8 +130,8 @@ function SideBar() {
           >
             {isOpen ? (
               <>
-                <ChevronsLeft className="size-3 md:size-6" />
-                <span className="text-xs md:text-lg">Hide</span>
+                <ChevronsLeft className="size-4 md:size-6" />
+                <span className="text-sm md:text-lg">Hide</span>
               </>
             ) : (
               <ChevronsRight className="size-6" />

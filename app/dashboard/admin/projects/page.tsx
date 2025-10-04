@@ -26,9 +26,9 @@ export default function Projects() {
 
   return (
     <>
-      <div className="flex flex-col gap-15 text-text-light font-plex w-full px-5 lg:px-8 py-5 lg:py-8">
+      <div className="flex flex-col gap-5 md:gap-15 text-text-light font-plex w-full px-5 lg:px-8 py-5 lg:py-8">
         <div className="flex items-center justify-between">
-          <div className="flex flex-col items-start gap-1">
+          <div className="flex flex-col items-center md:items-start gap-1">
             <h1 className="text-3xl md:text-4xl lg:text-5xl 2xl:text-6xl">
               Projects
             </h1>
@@ -46,7 +46,10 @@ export default function Projects() {
             </button>
           </div>
         </div>
-        <div className="flex flex-col justify-center items-start">
+        <div className="flex md:hidden">
+          <h1 className="uppercase text-center text-3xl mt-10">Full projects page only available on tablet screens and larger</h1>
+        </div>
+        <div className="hidden md:flex flex-col justify-center items-start">
           <div className="flex justify-center items-center gap-5">
             <button
               onClick={() => {

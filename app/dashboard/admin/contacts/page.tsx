@@ -65,7 +65,7 @@ function Contacts() {
               <span className="px-3 text-lg lg:text-2xl">Add Contact</span>
             </button>
           </div>
-          <div>
+          <div className="mb-3">
             <ContactDisplay initialContacts={contacts} />
           </div>
         </div>

@@ -26,13 +26,11 @@ export default function WebDevProjectTable() {
     "Actions",
   ];
 
-  
-
-   const stageColors: { [key: string]: string } = {
+  const stageColors: { [key: string]: string } = {
     "Not Started": "text-red-400",
     "In Progress": "text-sky-400",
-    "Completed": "text-green-400"
-  }
+    Completed: "text-green-400",
+  };
 
   const handleDelete = async (id: any) => {
     if (!id) return;
@@ -56,12 +54,20 @@ export default function WebDevProjectTable() {
   };
 
   return (
-    <div className="relative grid grid-cols-6 text-lg place-items-center h-full border bg-component-bg -mt-0.5 border-border p-4">
-      {tableHeaders.map((title: string, index) => (
-        <div key={index} className="project-table-item font-bold">
-          {title}
-        </div>
-      ))}
+    <div className="relative grid grid-cols-3 xl:grid-cols-6 text-lg place-items-center h-full border bg-component-bg -mt-0.5 border-border p-4">
+      {tableHeaders.map((title: string, index) => {
+        const hideOnMdLg = [1, 3, 4].includes(index);
+        return (
+          <div
+            key={index}
+            className={`project-table-item font-bold ${
+              hideOnMdLg ? "hidden xl:block" : ""
+            }`}
+          >
+            {title}
+          </div>
+        );
+      })}
       {isLoading ? (
         <div className="absolute top-50 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <div className="flex flex-col items-center justify-center">
@@ -73,15 +79,21 @@ export default function WebDevProjectTable() {
         project?.map((project: any, index: number) => (
           <div
             key={project.id || index}
-            className="col-span-6 grid grid-cols-6 w-full place-items-center"
+            className="col-span-3 xl:col-span-6 grid grid-cols-3 xl:grid-cols-6 w-full place-items-center"
           >
             <div className="project-table-item">{project.title}</div>
-            <div className="project-table-item">{project.description}</div>
+            <div className="project-table-item hidden xl:block">{project.description}</div>
 
-            <div className={`project-table-item ${stageColors[project.stage] || ""}`}>{project.stage}</div>
+            <div
+              className={`project-table-item ${
+                stageColors[project.stage] || ""
+              }`}
+            >
+              {project.stage}
+            </div>
 
-            <div className="project-table-item">{project.Contacts.name}</div>
-            <div className="project-table-item">
+            <div className="project-table-item hidden xl:block">{project.Contacts.name}</div>
+            <div className="project-table-item hidden xl:block">
               {formatDate(project.createdAt)}
             </div>
             <div className="project-table-item">
@@ -92,13 +104,13 @@ export default function WebDevProjectTable() {
                   }}
                   className="bg-red-400 hover:bg-red-600 rounded-full p-2 cursor-pointer"
                 >
-                  <Trash className="text-border"/>
+                  <Trash className="text-border" />
                 </button>
                 <Link
                   href={`/dashboard/admin/projects/${project.id}`}
                   className="bg-emerald-400 hover:bg-emerald-600 rounded-full p-2 cursor-pointer"
                 >
-                  <BookOpen className="text-border"/>
+                  <BookOpen className="text-border" />
                 </Link>
               </div>
             </div>
