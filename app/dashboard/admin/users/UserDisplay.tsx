@@ -3,6 +3,7 @@
 import { Loader, Check, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { User } from "@/types";
+import { useUsers } from "@/hooks/getInfo";
 
 import {
   useReactTable,
@@ -46,13 +47,9 @@ const columns = [
   }),
 ];
 
-export default function UserDisplay({
-  initialUsers,
-}: {
-  initialUsers: User[];
-}) {
-  const [users, setUsers] = useState<User[]>(initialUsers);
-  const [isLoading, setIsLoading] = useState(false);
+export default function UserDisplay() {
+  const { users, isLoading: isFetchingUsers, refetch } = useUsers();
+  const [isLocalLoading, setIsLocalLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -76,20 +73,6 @@ export default function UserDisplay({
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
-
-  // Refresh users data after mutations
-  const refreshUsers = async () => {
-    setIsLoading(true);
-    try {
-      const { getUsers } = await import("@/app/actions/users");
-      const updatedUsers = await getUsers();
-      setUsers(updatedUsers);
-    } catch (error) {
-      console.error("Failed to refresh users:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -125,7 +108,7 @@ export default function UserDisplay({
       setSuccess(true);
 
       // Refresh users list
-      await refreshUsers();
+      refetch();
 
       setTimeout(() => {
         setShowEditModal(false);
@@ -167,7 +150,7 @@ export default function UserDisplay({
       });
 
       // Refresh users list
-      await refreshUsers();
+      refetch();
     } catch (error) {
       console.error("Delete error:", error);
     } finally {
@@ -200,10 +183,6 @@ export default function UserDisplay({
     }
   };
 
-  useEffect(() => {
-    setUsers(initialUsers);
-  }, [initialUsers]);
-
   return (
     <>
       <div className="lg:hidden bg-component-bg border-1 border-border w-fit rounded-xl">
@@ -219,7 +198,7 @@ export default function UserDisplay({
                 className="form-inputs mb-10"
                 required
               >
-                {isLoading ? (
+                {isFetchingUsers ? (
                   <option className="text-lg">Loading Users...</option>
                 ) : (
                   <>

@@ -4,40 +4,18 @@ import withRoleProtection from "@/components/auth/withRoleProtection";
 import { useSession } from "next-auth/react";
 
 import Logout from "@/components/auth/Logout";
-import { Contact } from "@/types";
 import Loading from "@/components/Loading";
 import ContactDisplay from "./ContactDisplay";
 import { UserRoundPlus } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import NewContact from "@/components/forms/NewContact";
 
 function Contacts() {
   const { data: session, status } = useSession();
   const [isShowing, setIsShowing] = useState<string | null>(null);
-  const [contacts, setContacts] = useState<Contact[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    async function fetchContacts() {
-      try {
-        const { getContacts } = await import("@/app/actions/contacts");
-        const data = await getContacts();
-        setContacts(data);
-      } catch (error) {
-        console.error("Failed to fetch contacts:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    fetchContacts();
-  }, []);
-
-  const handleFormClose = async () => {
+  const handleFormClose = () => {
     setIsShowing(null);
-    // Refresh contacts
-    const { getContacts } = await import("@/app/actions/contacts");
-    const data = await getContacts();
-    setContacts(data);
   };
 
   if (status === "loading") {
@@ -66,7 +44,7 @@ function Contacts() {
             </button>
           </div>
           <div className="mb-3">
-            <ContactDisplay initialContacts={contacts} />
+            <ContactDisplay />
           </div>
         </div>
       </div>

@@ -4,40 +4,18 @@ import withRoleProtection from "@/components/auth/withRoleProtection";
 import { useSession } from "next-auth/react";
 
 import Logout from "@/components/auth/Logout";
-import { User } from "@/types";
 import Loading from "@/components/Loading";
 import UserDisplay from "./UserDisplay";
 import NewUser from "@/components/forms/NewUser";
 import { UserRoundPlus } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function Users() {
   const { data: session, status } = useSession();
   const [isShowing, setIsShowing] = useState<string | null>(null);
-  const [users, setUsers] = useState<User[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    async function fetchUsers() {
-      try {
-        const { getUsers } = await import("@/app/actions/users");
-        const data = await getUsers();
-        setUsers(data);
-      } catch (error) {
-        console.error("Failed to fetch users:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    fetchUsers();
-  }, []);
-
-  const handleFormClose = async () => {
+  const handleFormClose = () => {
     setIsShowing(null);
-    // Refresh users
-    const { getUsers } = await import("@/app/actions/users");
-    const data = await getUsers();
-    setUsers(data);
   };
   if (status === "loading") {
     return <Loading text="..." />;
@@ -62,7 +40,7 @@ function Users() {
             </button>
           </div>
           <div>
-            <UserDisplay initialUsers={users} />
+            <UserDisplay />
           </div>
         </div>
       </div>

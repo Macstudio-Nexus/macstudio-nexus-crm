@@ -58,6 +58,7 @@ function AddUser({ onClose }: NewUserProps) {
       });
       setIsLoading(false);
       setSuccess(true);
+      window.dispatchEvent(new CustomEvent('userCreated'));
 
       setTimeout(() => {
         onClose();
