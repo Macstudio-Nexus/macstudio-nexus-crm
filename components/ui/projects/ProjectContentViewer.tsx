@@ -77,7 +77,7 @@ export default function ProjectContentViewer({
   }
 
   return (
-    <div className="flex -mt-14">
+    <div className="flex">
       <div className="flex flex-col gap-2 bg-component-bg rounded-xl border border-border p-4 w-full h-fit">
         <div className="flex items-center justify-start gap-3 w-full">
           <FileText className="size-12 text-blue-400 bg-blue-400/20 rounded-xl p-2" />
@@ -97,7 +97,7 @@ export default function ProjectContentViewer({
             onSubmit={handleAddContent}
             className=" p-4 bg-component-bg rounded-xl border border-border"
           >
-            <div className="flex justify-center items-center gap-3">
+            <div className="flex justify-center items-center gap-4">
               <div className="flex flex-col gap-2">
                 <div className="flex gap-2">
                   <input
@@ -144,14 +144,20 @@ export default function ProjectContentViewer({
           // Show the CONTENT LIST when showForm is false
           <>
             <div className="w-full overflow-y-auto overflow-x-auto bg-main-bg max-h-60">
+              <div className="grid grid-cols-[1fr_1fr_3fr_0.5fr] items-center gap-5 border-b py-1 border-border px-4 text-accent">
+                <span className="text-lg font-semibold">Page</span>
+                <span className="text-lg font-semibold">Section</span>
+                <span className="text-lg font-semibold">Content</span>
+                <span className="text-base font-semibold justify-self-center">Actions</span>
+              </div>
               {content && content.length > 0 ? (
                 content.map((item, index) => (
                   <div
                     key={index}
-                    className="grid grid-cols-[1fr_1fr_3fr_0.5fr] gap-2 border-b border-border px-4 py-2"
+                    className="grid grid-cols-[1fr_1fr_3fr_0.5fr] gap-5 border-b items-center border-border px-4 py-2"
                   >
                     <span className="font-semibold">{item.page}</span>
-                    <span className="font-medium text-accent">
+                    <span className="font-medium">
                       {item.section}
                     </span>
                     <span className="text-sm break-words">{item.content}</span>
