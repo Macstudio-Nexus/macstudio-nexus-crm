@@ -1,13 +1,11 @@
 "use client";
 
-import { useWebProjects } from "@/hooks/useProjects";
 import { BookOpen, Loader, Trash } from "lucide-react";
 import Link from "next/link";
+import { useWebProjects } from "@/hooks/getInfo";
 
 export default function WebDevProjectTable() {
-  const { webProjects, isLoading, isError, mutate } = useWebProjects();
-
-  const project = webProjects;
+  const { webProjects, isLoading, error, refetch } = useWebProjects();
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -37,15 +35,9 @@ export default function WebDevProjectTable() {
     if (!confirm("Are you sure you want to delete this project?")) return;
 
     try {
-      const response = await fetch(`/api/projects/${id}`, {
-        method: "DELETE",
-      });
-
-      if (response.ok) {
-        // Rest selection after delete
-
-        mutate();
-      }
+      const { deleteProject } = await import("@/app/actions/projects");
+      await deleteProject(id);
+      refetch();
     } catch (error) {
       console.error("Delete error:", error);
     } finally {
@@ -76,13 +68,15 @@ export default function WebDevProjectTable() {
           </div>
         </div>
       ) : (
-        project?.map((project: any, index: number) => (
+        webProjects?.map((project: any, index: number) => (
           <div
             key={project.id || index}
             className="col-span-3 xl:col-span-6 grid grid-cols-3 xl:grid-cols-6 w-full place-items-center"
           >
             <div className="project-table-item">{project.title}</div>
-            <div className="project-table-item hidden xl:block">{project.description}</div>
+            <div className="project-table-item hidden xl:block">
+              {project.description}
+            </div>
 
             <div
               className={`project-table-item ${
@@ -92,7 +86,9 @@ export default function WebDevProjectTable() {
               {project.stage}
             </div>
 
-            <div className="project-table-item hidden xl:block">{project.Contacts.name}</div>
+            <div className="project-table-item hidden xl:block">
+              {project.Contacts.name}
+            </div>
             <div className="project-table-item hidden xl:block">
               {formatDate(project.createdAt)}
             </div>

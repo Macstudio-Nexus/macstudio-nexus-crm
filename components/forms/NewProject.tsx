@@ -11,7 +11,7 @@ interface ProjectProps {
 const typeOptions = [
   { value: "web-dev", label: "Web Development" },
   { value: "branding", label: "Branding" },
-  { value: "full-package", label: "Full Package"}
+  { value: "full-package", label: "Full Package" },
 ];
 
 function AddProject({ onClose }: ProjectProps) {
@@ -26,7 +26,7 @@ function AddProject({ onClose }: ProjectProps) {
     domain: "",
     type: "",
     contactId: "",
-    siteId: "",
+    stage: "Not Started",
   });
 
   useEffect(() => {
@@ -41,6 +41,7 @@ function AddProject({ onClose }: ProjectProps) {
         setIsLoadingClients(false);
       }
     }
+
     loadClients();
   }, []);
 
@@ -50,20 +51,17 @@ function AddProject({ onClose }: ProjectProps) {
     setError(false);
 
     try {
-      const response = await fetch("/api/projects", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const { createProject } = await import("@/app/actions/projects");
 
-      if (!response.ok) {
-        throw new Error("Failed to create project");
-      }
+      // Create FormData object
+      const formDataToSubmit = new FormData();
+      formDataToSubmit.append("title", formData.title);
+      formDataToSubmit.append("description", formData.description || "");
+      formDataToSubmit.append("type", formData.type);
+      formDataToSubmit.append("contactId", String(formData.contactId));
+      formDataToSubmit.append("stage", formData.stage || "Not Started");
 
-      const result = await response.json();
-      console.log("Project created:", result);
+      const result = await createProject(formDataToSubmit);
 
       // Clear form and show success
       setFormData({
@@ -72,21 +70,22 @@ function AddProject({ onClose }: ProjectProps) {
         domain: "",
         type: "",
         contactId: "",
-        siteId: "",
+        stage: "Not Started",
       });
       setIsFormLoading(false);
       setSuccess(true);
+      window.dispatchEvent(new CustomEvent('projectCreated'));
 
       setTimeout(() => {
         onClose();
       }, 2000);
     } catch (error) {
-      //   console.error("Error creating project:", error);
+      console.error("Error creating project:", error);
       setError(true);
       setIsFormLoading(false);
-      // Handle error state
     }
   };
+
   return (
     <div className="inset-0 fixed z-50 bg-black/60">
       <div className="h-fit rounded-xl form-sizing fixed text-text-light top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-55 bg-component-bg border-1 border-border py-2">
@@ -208,7 +207,9 @@ function AddProject({ onClose }: ProjectProps) {
                   disabled={isLoadingClients}
                 >
                   <option value="">
-                    {isLoadingClients ? "Loading clients..." : "Select a contact..."}
+                    {isLoadingClients
+                      ? "Loading clients..."
+                      : "Select a contact..."}
                   </option>
                   {clients?.map((contact: any) => (
                     <option key={contact.id} value={contact.id}>
@@ -225,7 +226,11 @@ function AddProject({ onClose }: ProjectProps) {
                 >
                   Close
                 </button>
-                <button type="submit" className="form-button" disabled={isFormLoading}>
+                <button
+                  type="submit"
+                  className="form-button"
+                  disabled={isFormLoading}
+                >
                   {isFormLoading ? (
                     <div className="flex justify-center items-center">
                       <Loader className="animate-[spin_2s_linear_infinite] size-6" />

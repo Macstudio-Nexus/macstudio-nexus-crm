@@ -7,13 +7,11 @@ import WebDevProjectTable from "@/components/ui/projects/WebDevProjectTable";
 import BrandingProjectTable from "@/components/ui/projects/BrandingProjectTable";
 import { FilePlus } from "lucide-react";
 
-import { useProjects } from "@/hooks/useProjects";
 import NewProject from "@/components/forms/NewProject";
 
 export default function Projects() {
   const [isShowing, setIsShowing] = useState<string | null>("WD");
   const [isAddShowing, setIsAddShowing] = useState<string | null>(null);
-  const { mutate } = useProjects();
 
   const onClick = (table: string) => {
     setIsShowing(table);
@@ -21,7 +19,6 @@ export default function Projects() {
 
   const handleFormClose = () => {
     setIsAddShowing(null);
-    mutate();
   };
 
   return (

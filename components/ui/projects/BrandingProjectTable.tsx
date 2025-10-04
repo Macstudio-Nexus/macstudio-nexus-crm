@@ -1,12 +1,10 @@
 "use client";
 
-import { useBrandingProjects } from "@/hooks/useProjects";
+import { useBrandingProjects } from "@/hooks/getInfo";
 import { BookOpen, Loader, Trash } from "lucide-react";
 
 export default function BrandingProjectTable() {
-  const { BrandingProjects, isLoading, isError, mutate } = useBrandingProjects();
-
-  const project = BrandingProjects;
+  const { brandingProjects, isLoading, error, refetch } = useBrandingProjects();
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -21,15 +19,9 @@ export default function BrandingProjectTable() {
     if (!confirm("Are you sure you want to delete this project?")) return;
 
     try {
-      const response = await fetch(`/api/projects/${id}`, {
-        method: "DELETE",
-      });
-
-      if (response.ok) {
-        // Rest selection after delete
-
-        mutate();
-      }
+      const { deleteProject } = await import("@/app/actions/projects");
+      await deleteProject(id);
+      refetch();
     } catch (error) {
       console.error("Delete error:", error);
     } finally {
@@ -70,13 +62,22 @@ export default function BrandingProjectTable() {
           </div>
         </div>
       ) : (
-        project?.map((project: any, index: number) => (
-          <div key={project.id || index} className="col-span-3 xl:col-span-6 grid grid-cols-3 xl:grid-cols-6 w-full place-items-center">
+        brandingProjects?.map((project: any, index: number) => (
+          <div
+            key={project.id || index}
+            className="col-span-3 xl:col-span-6 grid grid-cols-3 xl:grid-cols-6 w-full place-items-center"
+          >
             <div className="project-table-item">{project.title}</div>
-            <div className="project-table-item hidden xl:block">{project.domain}</div>
-            <div className="project-table-item hidden xl:block">{project.Contacts.name}</div>
+            <div className="project-table-item hidden xl:block">
+              {project.domain}
+            </div>
+            <div className="project-table-item hidden xl:block">
+              {project.Contacts.name}
+            </div>
             <div className="project-table-item">{project.title}</div>
-            <div className="project-table-item hidden xl:block">{formatDate(project.createdAt)}</div>
+            <div className="project-table-item hidden xl:block">
+              {formatDate(project.createdAt)}
+            </div>
             <div className="project-table-item">
               <div className="flex justify-center items-center gap-5">
                 <button
@@ -85,10 +86,10 @@ export default function BrandingProjectTable() {
                   }}
                   className="bg-red-400 hover:bg-red-600 rounded-full p-2 cursor-pointer"
                 >
-                  <Trash className="text-border"/>
+                  <Trash className="text-border" />
                 </button>
                 <button className="bg-emerald-400 hover:bg-emerald-600 rounded-full p-2 cursor-pointer">
-                  <BookOpen className="text-border"/>
+                  <BookOpen className="text-border" />
                 </button>
               </div>
             </div>

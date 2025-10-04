@@ -46,7 +46,7 @@ export interface Project {
   domain?: string;
   type: string;
   contactId: string | number;
-  siteId?: string | number;
+  stage?: string;
 }
 
 // Web Project related interfaces

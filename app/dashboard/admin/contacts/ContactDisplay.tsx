@@ -3,6 +3,7 @@
 import { Loader, Check, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Contact } from "@/types";
+import { useContacts } from "@/hooks/getInfo";
 
 import {
   useReactTable,
@@ -86,13 +87,9 @@ const columns = [
   }),
 ];
 
-export default function ContactDisplay({
-  initialContacts,
-}: {
-  initialContacts: Contact[];
-}) {
-  const [contacts, setContacts] = useState<Contact[]>(initialContacts);
-  const [isLoading, setIsLoading] = useState(false);
+export default function ContactDisplay() {
+  const { contacts, isLoading: isFetchingContacts, refetch } = useContacts();
+  const [isLocalLoading, setIsLocalLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -119,20 +116,6 @@ export default function ContactDisplay({
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
-
-  // Refresh contacts data after mutations
-  const refreshContacts = async () => {
-    setIsLoading(true);
-    try {
-      const { getContacts } = await import("@/app/actions/contacts");
-      const updatedContacts = await getContacts();
-      setContacts(updatedContacts);
-    } catch (error) {
-      console.error("Failed to refresh contacts:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -175,7 +158,7 @@ export default function ContactDisplay({
       setSuccess(true);
 
       // Refresh contacts list
-      await refreshContacts();
+      refetch();
 
       setTimeout(() => {
         setShowEditModal(false);
@@ -216,7 +199,7 @@ export default function ContactDisplay({
       });
 
       // Refresh contacts list
-      await refreshContacts();
+      refetch();
     } catch (error) {
       console.error("Delete error:", error);
     } finally {
@@ -255,10 +238,6 @@ export default function ContactDisplay({
     }
   };
 
-  useEffect(() => {
-    setContacts(initialContacts);
-  }, [initialContacts]);
-
   return (
     <>
       <div className="lg:hidden bg-component-bg border-1 border-border w-fit rounded-xl">
@@ -274,7 +253,7 @@ export default function ContactDisplay({
                 className="form-inputs mb-10"
                 required
               >
-                {isLoading ? (
+                {isFetchingContacts ? (
                   <option className="text-lg">Loading Contacts...</option>
                 ) : (
                   <>

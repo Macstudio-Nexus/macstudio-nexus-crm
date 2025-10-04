@@ -83,6 +83,7 @@ function AddContact({ onClose }: ContactProps) {
       });
       setIsLoading(false);
       setSuccess(true);
+      window.dispatchEvent(new CustomEvent('contactCreated'));
 
       setTimeout(() => {
         onClose();
