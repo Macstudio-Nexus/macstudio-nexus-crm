@@ -79,3 +79,40 @@ export async function deleteExpense(id: string, expenseKey: string) {
 
   revalidatePath(`/dashboard/admin/projects/${id}`);
 }
+
+export async function updateContent(id: string, formData: FormData) {
+  const content = formData.get("content")
+    ? JSON.parse(formData.get("content") as string)
+    : [];
+
+  await prisma.webProject.update({
+    where: { projectId: id },
+    data: { pages: content },
+  });
+
+  revalidatePath(`/dashboard/admin/projects/${id}`);
+}
+
+export async function deleteContent(id: string, contentIndex: string) {
+  const webProject = await prisma.webProject.findUnique({
+    where: { projectId: id },
+    select: { pages: true },
+  });
+
+  if (!webProject) {
+    throw new Error("Page not found");
+  }
+
+  const currentContent = Array.isArray(webProject.pages) ? webProject.pages : [];
+  const index = parseInt(contentIndex, 10);
+
+  // Remove the item at the specified index
+  const updatedContent = currentContent.filter((_, i) => i !== index);
+
+  await prisma.webProject.update({
+    where: { projectId: id },
+    data: { pages: updatedContent },
+  });
+
+  revalidatePath(`/dashboard/admin/projects/${id}`);
+}

@@ -14,7 +14,7 @@ export interface Contact {
   companyName: string;
   domain: string | null;
   meetingNotes: string | null;
-  source: string | null; 
+  source: string | null;
   stage: string;
 }
 
@@ -31,7 +31,7 @@ export interface User {
   id: string;
   name: string;
   email: string;
-  phoneNumber: string | null; 
+  phoneNumber: string | null;
   roleId: number;
   createdAt?: Date;
   updatedAt?: Date;
@@ -50,7 +50,6 @@ export interface Project {
 }
 
 // Web Project related interfaces
-
 export interface WebProjectDocs {
   questionnaire?: string | null;
   quote?: string | null;
@@ -74,4 +73,8 @@ export interface WebProjectDev {
   integrations?: Record<string, string>;
 }
 
-//
+export interface Content {
+  page: string;
+  section: string;
+  content: string;
+}

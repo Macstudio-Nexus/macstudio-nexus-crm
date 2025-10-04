@@ -82,14 +82,14 @@ export default function ProjectExpensesViewer({
   return (
     <div className="flex">
       <div className="flex flex-col items-center gap-2 bg-component-bg rounded-xl border border-border p-4 min-w-sm">
-        <div className="flex items-center justify-around gap-3 w-full">
+        <div className="flex items-center justify-start gap-3 w-full">
           <HandCoins className="size-12 text-neon-green bg-neon-green-trans rounded-xl p-2" />
           <h1 className="text-2xl">Expenses</h1>
           <button
             onClick={() => {
               setShowForm(!showForm);
             }}
-            className="project-page-button"
+            className="project-page-button ml-auto"
           >
             {showForm ? "Cancel" : "Add Expense"}
           </button>
@@ -154,7 +154,7 @@ export default function ProjectExpensesViewer({
                   </div>
                 ))}
             </div>
-            <span className="pl-5 text-green-500">Total: ${total}</span>
+            <span className="text-green-500 self-start text-lg">Total: ${total}</span>
           </>
         )}
       </div>

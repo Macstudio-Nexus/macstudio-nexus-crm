@@ -2,7 +2,8 @@ import prisma from "@/lib/db";
 import ProjectContactViewer from "@/components/ui/projects/ProjectContactViewer";
 import ProjectDocumentsViewer from "@/components/ui/projects/ProjectDocumentsViewer";
 import ProjectExpensesViewer from "@/components/ui/projects/ProjectExpensesViewer";
-import { BasicContact, WebProjectDocs } from "@/types";
+import ProjectContentViewer from "@/components/ui/projects/ProjectContentViewer";
+import { BasicContact, WebProjectDocs, Content } from "@/types";
 import { Key } from "lucide-react";
 
 export default async function ProjectPage({
@@ -43,7 +44,7 @@ export default async function ProjectPage({
           </h2>
         </div>
         <div className="items-center justify-center hidden lg:flex">
-          <div className="grid grid-cols-[1fr_1fr_auto] grid-rows-4 place-items-start space-x-5">
+          <div className="grid grid-cols-[minmax(300px,400px)_minmax(300px,400px)_minmax(250px,400px)] auto-rows-min place-items-start gap-5 max-w-fit">
             <div>
               <ProjectContactViewer {...contact} />
             </div>
@@ -55,6 +56,12 @@ export default async function ProjectPage({
                 expenses={
                   project?.webProject?.expenses as Record<string, number>
                 }
+                id={id}
+              />
+            </div>
+            <div className="col-span-2">
+              <ProjectContentViewer
+                content={(project?.webProject?.pages as unknown as Content[]) || []}
                 id={id}
               />
             </div>
