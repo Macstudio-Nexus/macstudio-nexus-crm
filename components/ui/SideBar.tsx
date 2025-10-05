@@ -56,13 +56,13 @@ function SideBar() {
       border-border bg-component-bg shadow-sm text-text-dark font-plex`}
       >
         <div
-          className={`flex flex-col md:flex-row gap-4 md:gap-0 items-center py-4 md:py-10 ${
-            isOpen ? "justify-start px-0" : "justify-center px-0"
+          className={`flex flex-col md:flex-row gap-4 md:gap-0 items-center justify-center py-4 md:py-10 ${
+            isOpen ? "px-0" : "px-0"
           } border-b border-border`}
         >
           <div
             className={`bg-white flex justify-center items-center rounded-xl px-1 ${
-              isOpen ? "size-8 md:size-10 mr-4" : "size-5 md:size-8"
+              isOpen ? "size-8 md:size-10 mr-4 md:mr-2" : "size-5 md:size-8"
             } `}
           >
             <Logo />
@@ -81,40 +81,33 @@ function SideBar() {
         <div className="flex-1 overflow-y-auto flex flex-col bg-component-bg">
           <div className="px-0 py-4 md:py-10 flex flex-col gap-2 border-b border-border w-fit">
             {options.map((option, index) => (
-              <div
+              <Link
                 key={index}
-                className={`flex ${
-                  isOpen ? "justify-start px-2 md:pr-12" : "justify-center px-2"
+                className={`flex justify-start items-center gap-2 md:gap-4 text-[14px] md:text-xl ${
+                  isOpen ? "justify-start px-2 md:pr-10" : "justify-center px-2"
                 } items-center sidebar-link   ${
                   pathname === option.href ? "bg-border text-text-blue" : ""
                 }`}
+                href={option.href}
               >
-                <Link
-                  href={option.href}
-                  className="flex justify-center items-center gap-2 text-[14px] md:text-lg"
-                >
-                  <option.icon className="size-4 md:size-5" />
-                  {isOpen && option.title}
-                </Link>
-              </div>
+                <option.icon className="size-4 md:size-5" />
+                {isOpen && option.title}
+              </Link>
             ))}
           </div>
           {isOpen && (
-            <div className="text-xl py-6 flex flex-col gap-4">
+            <div className="text-xl py-6 flex flex-col gap-6">
               <span className="text-xs lg:text-xl pl-4">ACCOUNT</span>
               <div className="">
-                <div
-                  className={`flex ${
+                <Link
+                  className={`flex text-[14px] md:text-xl ${
                     isOpen ? "justify-start px-2" : "justify-center px-2"
-                  } items-center gap-2 py-2 sidebar-link `}
+                  } items-center gap-2 md:gap-4 py-2 sidebar-link `}
+                  href="/dashboard/admin/settings"
                 >
                   <Settings className=" size-4 md:size-5" />
-                  {isOpen && (
-                    <Link href="/dashboard/admin/settings" className="text-[14px] md:text-lg">
-                      Settings
-                    </Link>
-                  )}
-                </div>
+                  <span>Settings</span>
+                </Link>
               </div>
             </div>
           )}
