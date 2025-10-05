@@ -80,8 +80,7 @@ export default function ProjectExpensesViewer({
   }
 
   return (
-    <div className="flex">
-      <div className="flex flex-col items-center gap-2 bg-component-bg rounded-xl border border-border p-4 min-w-sm">
+      <div className="flex flex-col items-center gap-2 bg-component-bg rounded-xl border border-border p-4 min-w-full min-h-[250px]">
         <div className="flex items-center justify-start gap-3 w-full">
           <HandCoins className="size-12 text-neon-green bg-neon-green-trans rounded-xl p-2" />
           <h1 className="text-2xl">Expenses</h1>
@@ -136,14 +135,19 @@ export default function ProjectExpensesViewer({
           // Show the EXPENSES LIST when showForm is false
           <>
             <div className="max-h-30 w-full overflow-y-auto bg-main-bg">
+              <div className="sticky top-0 grid grid-cols-[2fr_1.5fr_0.5fr] items-center border-b border-border px-4 text-accent bg-main-bg">
+                <span className="text-lg font-semibold">Expense</span>
+                <span className="text-lg font-semibold">Amount</span>
+                <span className="text-sm font-semibold justify-self-center">Delete</span>
+              </div>
               {expenses &&
                 Object.entries(expenses).map(([key, value]) => (
                   <div
                     key={key}
-                    className="grid grid-cols-[2fr_1fr_0.5fr] border-b border-border px-4"
+                    className="grid grid-cols-[2fr_1.5fr_0.5fr] border-b border-border px-4"
                   >
                     <span className="font-semibold">{key}</span>{" "}
-                    <span className="justify-self-end">${value}</span>
+                    <span className="">${value}</span>
                     <button
                       onClick={() => handleDeleteExpense(key)}
                       className="text-red-500 hover:text-red-900 cursor-pointer justify-self-center"
@@ -158,6 +162,5 @@ export default function ProjectExpensesViewer({
           </>
         )}
       </div>
-    </div>
   );
 }

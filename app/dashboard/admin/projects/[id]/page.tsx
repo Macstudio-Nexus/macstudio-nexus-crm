@@ -43,23 +43,21 @@ export default async function ProjectPage({
             <span className="text-accent">{project?.Contacts.companyName}</span>
           </h2>
         </div>
-        <div className="items-center justify-center hidden lg:flex">
-          <div className="grid grid-cols-[minmax(300px,400px)_minmax(300px,400px)_minmax(250px,400px)] auto-rows-min place-items-start gap-5 max-w-fit">
+        <div className="items-center justify-center hidden xl:flex">
+          <div className="flex flex-col 2xl:grid 2xl:grid-cols-[minmax(300px,400px)_minmax(300px,400px)_minmax(250px,400px)] 2xl:grid-rows-[auto_minmax(250px,auto)] items-stretch gap-5 max-w-fit">
             <div>
               <ProjectContactViewer {...contact} />
             </div>
             <div>
               <ProjectDocumentsViewer {...docs} />
             </div>
-            <div>
               <ProjectExpensesViewer
                 expenses={
                   project?.webProject?.expenses as Record<string, number>
                 }
                 id={id}
               />
-            </div>
-            <div className="col-span-2">
+            <div className="col-span-2 h-full min-h-[366px]">
               <ProjectContentViewer
                 content={(project?.webProject?.pages as unknown as Content[]) || []}
                 id={id}
