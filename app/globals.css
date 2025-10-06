@@ -55,4 +55,7 @@
   .project-page-button {
     @apply border border-border rounded-xl px-2 py-1 hover:bg-main-bg cursor-pointer;
   }
+  .design-table-button {
+    @apply border border-border px-2 py-1 rounded-lg cursor-pointer hover:bg-main-bg;
+  }
 }

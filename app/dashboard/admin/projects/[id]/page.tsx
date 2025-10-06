@@ -3,8 +3,14 @@ import ProjectContactViewer from "@/components/ui/projects/ProjectContactViewer"
 import ProjectDocumentsViewer from "@/components/ui/projects/ProjectDocumentsViewer";
 import ProjectExpensesViewer from "@/components/ui/projects/ProjectExpensesViewer";
 import ProjectContentViewer from "@/components/ui/projects/ProjectContentViewer";
-import { BasicContact, WebProjectDocs, Content } from "@/types";
+import {
+  BasicContact,
+  WebProjectDocs,
+  Content,
+  WebProjectDesign,
+} from "@/types";
 import { Key } from "lucide-react";
+import ProjectDesignViewer from "@/components/ui/projects/ProjectDesignViewer";
 
 export default async function ProjectPage({
   params,
@@ -31,6 +37,20 @@ export default async function ProjectPage({
     invoice: project?.webProject?.invoice,
   };
 
+  const design: WebProjectDesign = {
+    sitemap: project?.webProject?.sitemap ?? null,
+    wireframes: project?.webProject?.wireframes ?? null,
+    colorScheme: project?.webProject?.colorScheme as Record<
+      string,
+      string
+    > | null,
+    typography: project?.webProject?.typography as Record<
+      string,
+      string
+    > | null,
+    responsive: project?.webProject?.responsive ?? null,
+  };
+
   return (
     <>
       <div className="flex flex-col gap-20 text-text-light font-plex w-full min-h-screen px-5 lg:px-8 py-5 lg:py-8">
@@ -51,17 +71,20 @@ export default async function ProjectPage({
             <div>
               <ProjectDocumentsViewer {...docs} />
             </div>
-              <ProjectExpensesViewer
-                expenses={
-                  project?.webProject?.expenses as Record<string, number>
+            <ProjectExpensesViewer
+              expenses={project?.webProject?.expenses as Record<string, number>}
+              id={id}
+            />
+            <div className="col-span-2 h-full min-h-[366px]">
+              <ProjectContentViewer
+                content={
+                  (project?.webProject?.pages as unknown as Content[]) || []
                 }
                 id={id}
               />
-            <div className="col-span-2 h-full min-h-[366px]">
-              <ProjectContentViewer
-                content={(project?.webProject?.pages as unknown as Content[]) || []}
-                id={id}
-              />
+            </div>
+            <div className="justify-self-center row-span-2">
+              <ProjectDesignViewer {...design} id={id} />
             </div>
           </div>
         </div>

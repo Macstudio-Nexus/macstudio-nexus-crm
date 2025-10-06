@@ -5,7 +5,6 @@ export default function ProjectContactViewer({
   name,
   email,
   phoneNumber,
-  companyName,
 }: BasicContact) {
   return (
     <div className="flex flex-col items-center justify-center gap-5 bg-component-bg rounded-xl border border-border max-w-fit 2xl:min-w-sm p-4">

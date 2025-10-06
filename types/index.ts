@@ -58,9 +58,9 @@ export interface WebProjectDocs {
 export interface WebProjectDesign {
   sitemap: string | null;
   wireframes: string | null;
-  colorScheme?: Record<string, string>;
-  typography?: Record<string, string>;
-  responsive?: boolean;
+  colorScheme?: Record<string, string> | null;
+  typography?: Record<string, string> | null;
+  responsive?: boolean | null;
 }
 
 export interface WebProjectDev {

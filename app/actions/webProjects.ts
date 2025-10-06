@@ -8,21 +8,101 @@ import { requireAuth } from "./_auth";
 // UPDATE ITEM FROM DESIGN VIEWER
 export async function updateWebProjectDesign(id: string, formData: FormData) {
   await requireAuth();
-  const data: WebProjectDesign = {
-    sitemap: formData.get("sitemap") as string,
-    wireframes: formData.get("wireframes") as string,
-    colorScheme: formData.get("colorScheme")
-      ? JSON.parse(formData.get("colorScheme") as string)
+  const sitemap = formData.get("sitemap");
+  const wireframes = formData.get("wireframes");
+  const colorSchemeRaw = formData.get("colorScheme");
+  const typographyRaw = formData.get("typography");
+  const responsiveRaw = formData.get("responsive");
+
+  const data = {
+    sitemap: sitemap ? (sitemap as string) : undefined,
+    wireframes: wireframes ? (wireframes as string) : undefined,
+    colorScheme: colorSchemeRaw
+      ? JSON.parse(colorSchemeRaw as string)
       : undefined,
-    typography: formData.get("typography")
-      ? JSON.parse(formData.get("typography") as string)
-      : undefined,
-    responsive: formData.get("responsive") === "true",
+    typography: typographyRaw ? JSON.parse(typographyRaw as string) : undefined,
+    responsive: responsiveRaw ? responsiveRaw === "true" : undefined,
   };
 
   await prisma.webProject.update({
-    where: { id },
+    where: { projectId: id },
     data,
+  });
+
+  revalidatePath(`/dashboard/admin/projects/${id}`);
+}
+
+// DELETE ITEM FROM COLOR SCHEME
+export async function deleteColor(id: string, colorKey: string) {
+  await requireAuth();
+  const webProject = await prisma.webProject.findUnique({
+    where: { projectId: id },
+    select: { colorScheme: true },
+  });
+
+  if (!webProject) {
+    throw new Error("Project not found");
+  }
+
+  const currentColor = (webProject.colorScheme as Record<string, number>) || {};
+  delete currentColor[colorKey];
+
+  await prisma.webProject.update({
+    where: { projectId: id },
+    data: { colorScheme: currentColor },
+  });
+
+  revalidatePath(`/dashboard/admin/projects/${id}`);
+}
+
+// DELETE ITEM FROM FONTS
+export async function deleteFont(id: string, fontKey: string) {
+  await requireAuth();
+  const webProject = await prisma.webProject.findUnique({
+    where: { projectId: id },
+    select: { typography: true },
+  });
+
+  if (!webProject) {
+    throw new Error("Project not found");
+  }
+
+  const currentFont = (webProject.typography as Record<string, number>) || {};
+  delete currentFont[fontKey];
+
+  await prisma.webProject.update({
+    where: { projectId: id },
+    data: { typography: currentFont },
+  });
+
+  revalidatePath(`/dashboard/admin/projects/${id}`);
+}
+
+// ADD ITEM TO COLOR SCHEME
+export async function updateColorScheme(id: string, formData: FormData) {
+  await requireAuth();
+  const colorScheme = formData.get("colorScheme")
+    ? JSON.parse(formData.get("colorScheme") as string)
+    : {};
+
+  await prisma.webProject.update({
+    where: { projectId: id },
+    data: { colorScheme },
+  });
+
+  revalidatePath(`/dashboard/admin/projects/${id}`);
+}
+
+// ADD ITEM TO TYPOGRAPHY
+export async function updateTypography(id: string, formData: FormData) {
+  await requireAuth();
+  const typography = formData.get("typography")
+    ? JSON.parse(formData.get("typography") as string)
+    : {};
+
+  await prisma.webProject.update({
+    where: { projectId: id },
+    data: { typography },
   });
 
   revalidatePath(`/dashboard/admin/projects/${id}`);
@@ -129,4 +209,3 @@ export async function deleteContent(id: string, contentIndex: string) {
 
   revalidatePath(`/dashboard/admin/projects/${id}`);
 }
-
