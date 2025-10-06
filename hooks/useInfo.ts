@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+// HOOKS FOR READING ALL _____ 
+
 export function useProjects() {
   const [projects, setProjects] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);

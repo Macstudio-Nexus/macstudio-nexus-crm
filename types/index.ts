@@ -42,10 +42,8 @@ export interface User {
 // Project related interfaces
 export interface Project {
   title: string;
-  description?: string;
-  domain?: string;
   type: string;
-  contactId: string | number;
+  contactId: string;
   stage?: string;
 }
 

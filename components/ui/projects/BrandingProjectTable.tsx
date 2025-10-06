@@ -1,6 +1,6 @@
 "use client";
 
-import { useBrandingProjects } from "@/hooks/getInfo";
+import { useBrandingProjects } from "@/hooks/useInfo";
 import { BookOpen, Loader, Trash } from "lucide-react";
 
 export default function BrandingProjectTable() {
@@ -33,13 +33,12 @@ export default function BrandingProjectTable() {
     "Title",
     "Package",
     "Stage",
-    "Pages",
     "Created",
     "Actions",
   ];
 
   return (
-    <div className="relative grid grid-cols-3 xl:grid-cols-6 text-lg place-items-center border bg-component-bg -mt-0.5 border-border p-4">
+    <div className="relative grid grid-cols-3 xl:grid-cols-5 text-lg place-items-center border bg-component-bg -mt-0.5 border-border p-4">
       {tableHeaders.map((title: string, index) => {
         // Hide Package (1), Pages (3), Created (4) on md-lg
         const hideOnMdLg = [1, 3, 4].includes(index);
@@ -65,17 +64,14 @@ export default function BrandingProjectTable() {
         brandingProjects?.map((project: any, index: number) => (
           <div
             key={project.id || index}
-            className="col-span-3 xl:col-span-6 grid grid-cols-3 xl:grid-cols-6 w-full place-items-center"
+            className="col-span-3 xl:col-span-5 grid grid-cols-3 xl:grid-cols-5 w-full place-items-center"
           >
             <div className="project-table-item">{project.title}</div>
-            <div className="project-table-item hidden xl:block">
-              {project.domain}
-            </div>
-            <div className="project-table-item hidden xl:block">
+            <div className="project-table-item hidden xl:flex xl:justify-center">
               {project.Contacts.name}
             </div>
             <div className="project-table-item">{project.title}</div>
-            <div className="project-table-item hidden xl:block">
+            <div className="project-table-item hidden xl:flex xl:justify-center">
               {formatDate(project.createdAt)}
             </div>
             <div className="project-table-item">

@@ -22,8 +22,6 @@ function AddProject({ onClose }: ProjectProps) {
   const [error, setError] = useState<boolean>(false);
   const [formData, setFormData] = useState<Project>({
     title: "",
-    description: "",
-    domain: "",
     type: "",
     contactId: "",
     stage: "Not Started",
@@ -56,7 +54,6 @@ function AddProject({ onClose }: ProjectProps) {
       // Create FormData object
       const formDataToSubmit = new FormData();
       formDataToSubmit.append("title", formData.title);
-      formDataToSubmit.append("description", formData.description || "");
       formDataToSubmit.append("type", formData.type);
       formDataToSubmit.append("contactId", String(formData.contactId));
       formDataToSubmit.append("stage", formData.stage || "Not Started");
@@ -66,8 +63,6 @@ function AddProject({ onClose }: ProjectProps) {
       // Clear form and show success
       setFormData({
         title: "",
-        description: "",
-        domain: "",
         type: "",
         contactId: "",
         stage: "Not Started",
@@ -126,35 +121,6 @@ function AddProject({ onClose }: ProjectProps) {
                   }
                   className="form-inputs"
                   required
-                />
-              </div>
-
-              <div>
-                <textarea
-                  id="description"
-                  placeholder="Description"
-                  value={formData.description}
-                  onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      description: e.target.value,
-                    }))
-                  }
-                  className="form-inputs"
-                  rows={3}
-                />
-              </div>
-
-              <div>
-                <input
-                  id="domain"
-                  placeholder="Domain"
-                  type="text"
-                  value={formData.domain}
-                  onChange={(e) =>
-                    setFormData((prev) => ({ ...prev, domain: e.target.value }))
-                  }
-                  className="form-inputs"
                 />
               </div>
 

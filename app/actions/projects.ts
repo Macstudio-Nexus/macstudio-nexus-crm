@@ -3,6 +3,7 @@
 import prisma from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { requireAuth } from "./_auth";
+import { Project } from "@/types";
 
 // GET ALL PROJECTS
 export async function getProjects() {
@@ -23,6 +24,7 @@ export async function getWebProjects() {
     include: {
       Contacts: true,
     },
+    orderBy: { createdAt: "desc" },
   });
   revalidatePath("dashboard/admin/projects");
   return webProjects;
@@ -61,7 +63,6 @@ export async function createProject(formData: FormData) {
 
   try {
     const title = formData.get("title") as string;
-    const description = formData.get("description") as string;
     const stage = formData.get("stage") as string;
     const type = formData.get("type") as string;
     const contactId = formData.get("contactId") as string;
@@ -74,7 +75,6 @@ export async function createProject(formData: FormData) {
     const project = await prisma.project.create({
       data: {
         title,
-        description,
         type,
         contactId,
         stage,
@@ -103,6 +103,44 @@ export async function createProject(formData: FormData) {
     throw new Error(
       error instanceof Error ? error.message : "Failed to create project"
     );
+  }
+}
+
+// UPDATE PROJECT
+export async function updateProject(id: string, formData: FormData) {
+  const data: Project = {
+    stage: formData.get("stage") as string,
+    title: formData.get("title") as string,
+    contactId: formData.get("contactId") as string,
+    type: formData.get("title") as string,
+  };
+
+  await prisma.project.update({
+    where: { id },
+    data,
+  });
+}
+
+// UPDATE STAGE ON PROJECT
+export async function updateProjectStage(id: string, stage: string) {
+  await requireAuth();
+
+  // Validate stage
+  const validStages = ["Not Started", "In Progress", "Completed"];
+  if (!validStages.includes(stage)) {
+    throw new Error("Invalid stage value");
+  }
+
+  try {
+    await prisma.project.update({
+      where: { id },
+      data: { stage },
+    });
+
+    revalidatePath("/dashboard/admin/projects");
+  } catch (error) {
+    console.error("Stage update error:", error);
+    throw new Error("Failed to update project stage");
   }
 }
 

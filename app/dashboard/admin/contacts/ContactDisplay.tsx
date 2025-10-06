@@ -3,7 +3,7 @@
 import { Loader, Check, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Contact } from "@/types";
-import { useContacts } from "@/hooks/getInfo";
+import { useContacts } from "@/hooks/useInfo";
 
 import {
   useReactTable,

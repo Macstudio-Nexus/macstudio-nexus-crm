@@ -3,8 +3,11 @@
 import prisma from "@/lib/db";
 import { WebProjectDocs, WebProjectDesign, WebProjectDev } from "@/types";
 import { revalidatePath } from "next/cache";
+import { requireAuth } from "./_auth";
 
+// UPDATE ITEM FROM DESIGN VIEWER
 export async function updateWebProjectDesign(id: string, formData: FormData) {
+  await requireAuth();
   const data: WebProjectDesign = {
     sitemap: formData.get("sitemap") as string,
     wireframes: formData.get("wireframes") as string,
@@ -25,7 +28,9 @@ export async function updateWebProjectDesign(id: string, formData: FormData) {
   revalidatePath(`/dashboard/admin/projects/${id}`);
 }
 
+// UPDATE ITEM(S) FROM DEV VIEWER
 export async function updateWebProjectDev(id: string, formData: FormData) {
+  await requireAuth();
   const data: WebProjectDev = {
     domain: formData.get("domain") as string,
     githubLink: formData.get("githubLink") as string,
@@ -46,7 +51,9 @@ export async function updateWebProjectDev(id: string, formData: FormData) {
   revalidatePath(`/dashboard/admin/projects/${id}`);
 }
 
+// ADD ITEM TO EXPENSE TABLE
 export async function updateExpenses(id: string, formData: FormData) {
+  await requireAuth();
   const expenses = formData.get("expenses")
     ? JSON.parse(formData.get("expenses") as string)
     : {};
@@ -59,7 +66,9 @@ export async function updateExpenses(id: string, formData: FormData) {
   revalidatePath(`/dashboard/admin/projects/${id}`);
 }
 
+// DELETE ITEM FROM EXPENSE VIEWER
 export async function deleteExpense(id: string, expenseKey: string) {
+  await requireAuth();
   const webProject = await prisma.webProject.findUnique({
     where: { projectId: id },
     select: { expenses: true },
@@ -93,7 +102,9 @@ export async function updateContent(id: string, formData: FormData) {
   revalidatePath(`/dashboard/admin/projects/${id}`);
 }
 
+// DELETE ITEM FROM CONTENT VIEWER
 export async function deleteContent(id: string, contentIndex: string) {
+  await requireAuth();
   const webProject = await prisma.webProject.findUnique({
     where: { projectId: id },
     select: { pages: true },
@@ -103,7 +114,9 @@ export async function deleteContent(id: string, contentIndex: string) {
     throw new Error("Page not found");
   }
 
-  const currentContent = Array.isArray(webProject.pages) ? webProject.pages : [];
+  const currentContent = Array.isArray(webProject.pages)
+    ? webProject.pages
+    : [];
   const index = parseInt(contentIndex, 10);
 
   // Remove the item at the specified index
@@ -116,3 +129,4 @@ export async function deleteContent(id: string, contentIndex: string) {
 
   revalidatePath(`/dashboard/admin/projects/${id}`);
 }
+

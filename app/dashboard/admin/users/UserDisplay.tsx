@@ -3,7 +3,7 @@
 import { Loader, Check, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { User } from "@/types";
-import { useUsers } from "@/hooks/getInfo";
+import { useUsers } from "@/hooks/useInfo";
 
 import {
   useReactTable,
@@ -287,7 +287,9 @@ export default function UserDisplay() {
                 ) : (
                   <button
                     type="button"
-                    onClick={ (e) => {handleDelete(e, selectedUserId)}}
+                    onClick={(e) => {
+                      handleDelete(e, selectedUserId);
+                    }}
                     className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg active:scale-95 transition-all duration-100 cursor-pointer"
                   >
                     Delete Selected User

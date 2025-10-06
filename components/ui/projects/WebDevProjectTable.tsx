@@ -1,11 +1,13 @@
 "use client";
 
-import { BookOpen, Loader, Trash } from "lucide-react";
+import { BookOpen, Loader, RefreshCcwDot, Trash } from "lucide-react";
 import Link from "next/link";
-import { useWebProjects } from "@/hooks/getInfo";
+import { useWebProjects } from "@/hooks/useInfo";
+import { useState } from "react";
 
 export default function WebDevProjectTable() {
   const { webProjects, isLoading, error, refetch } = useWebProjects();
+  const [isPending, setIsPending] = useState<boolean>(false);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -15,14 +17,7 @@ export default function WebDevProjectTable() {
       .slice(-2)}`;
   };
 
-  const tableHeaders = [
-    "Title",
-    "Description",
-    "Stage",
-    "Contact",
-    "Created",
-    "Actions",
-  ];
+  const tableHeaders = ["Title", "Stage", "Contact", "Created", "Actions"];
 
   const stageColors: { [key: string]: string } = {
     "Not Started": "text-red-400",
@@ -45,10 +40,26 @@ export default function WebDevProjectTable() {
     }
   };
 
+  const handleUpdate = async (id: any, stage: string) => {
+    if (!id) return;
+    setIsPending(true);
+
+    try {
+      const { updateProjectStage } = await import("@/app/actions/projects");
+      await updateProjectStage(id, stage);
+      refetch();
+    } catch (error) {
+      console.error("update error", error);
+    } finally {
+      console.log("updated");
+      setIsPending(false);
+    }
+  };
+
   return (
-    <div className="relative grid grid-cols-3 xl:grid-cols-6 text-lg place-items-center h-full border bg-component-bg -mt-0.5 border-border p-4">
+    <div className="relative grid grid-cols-3 xl:grid-cols-5 text-lg place-items-center h-full border bg-component-bg -mt-0.5 border-border p-4">
       {tableHeaders.map((title: string, index) => {
-        const hideOnMdLg = [1, 3, 4].includes(index);
+        const hideOnMdLg = [2, 3].includes(index);
         return (
           <div
             key={index}
@@ -71,25 +82,50 @@ export default function WebDevProjectTable() {
         webProjects?.map((project: any, index: number) => (
           <div
             key={project.id || index}
-            className="col-span-3 xl:col-span-6 grid grid-cols-3 xl:grid-cols-6 w-full place-items-center"
+            className="col-span-3 xl:col-span-5 grid grid-cols-3 xl:grid-cols-5 w-full place-items-center"
           >
             <div className="project-table-item">{project.title}</div>
-            <div className="project-table-item hidden xl:block">
-              {project.description}
-            </div>
 
             <div
               className={`project-table-item ${
-                stageColors[project.stage] || ""
-              }`}
+                project.stage === "Not Started"
+                  ? "bg-red-400/5 text-red-400"
+                  : ""
+              }
+                ${
+                  project.stage === "In Progress"
+                    ? "bg-sky-400/5 text-sky-400"
+                    : ""
+                }
+                ${
+                  project.stage === "Completed"
+                    ? "bg-green-400/5 text-green-400"
+                    : ""
+                }`}
             >
-              {project.stage}
+              <select
+                value={project.stage}
+                onChange={(e) => handleUpdate(project.id, e.target.value)}
+                className={`
+                  text-xl rounded px-2 py-1
+              `}
+              >
+                <option value="Not Started" className="text-red-400">
+                  Not Started
+                </option>
+                <option value="In Progress" className="text-sky-400">
+                  In Progress
+                </option>
+                <option value="Completed" className="text-green-400">
+                  Completed
+                </option>
+              </select>
             </div>
 
-            <div className="project-table-item hidden xl:block">
+            <div className="project-table-item hidden xl:flex xl:justify-center">
               {project.Contacts.name}
             </div>
-            <div className="project-table-item hidden xl:block">
+            <div className="project-table-item hidden xl:flex xl:justify-center">
               {formatDate(project.createdAt)}
             </div>
             <div className="project-table-item">
@@ -99,14 +135,16 @@ export default function WebDevProjectTable() {
                     handleDelete(project.id);
                   }}
                   className="bg-red-400 hover:bg-red-600 rounded-full p-2 cursor-pointer"
+                  title="Delete Project"
                 >
-                  <Trash className="text-border" />
+                  <Trash className="text-border size-5 xl:size-6" />
                 </button>
                 <Link
                   href={`/dashboard/admin/projects/${project.id}`}
                   className="bg-emerald-400 hover:bg-emerald-600 rounded-full p-2 cursor-pointer"
+                  title="Open detailed view"
                 >
-                  <BookOpen className="text-border" />
+                  <BookOpen className="text-border size-5 xl:size-6" />
                 </Link>
               </div>
             </div>

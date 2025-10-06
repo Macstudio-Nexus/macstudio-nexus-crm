@@ -47,7 +47,6 @@ model Project {
   title           String
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
-  description     String?
   stage           String           @default("Not Started")
   type            String
   contactId       String

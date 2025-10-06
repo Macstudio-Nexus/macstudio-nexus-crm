@@ -50,7 +50,7 @@
     @apply px-4 py-2 border-border border-t border-x text-lg cursor-pointer hover:bg-component-bg hover:z-50;
   }
   .project-table-item {
-    @apply border-border border w-full px-8 py-2 text-center h-full grid place-items-center;
+    @apply border-border border w-full px-2 xl:px-8 py-2 text-center h-full grid place-items-center;
   }
   .project-page-button {
     @apply border border-border rounded-xl px-2 py-1 hover:bg-main-bg cursor-pointer;

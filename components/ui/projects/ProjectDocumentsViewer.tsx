@@ -8,7 +8,7 @@ export default function ProjectDocumentsViewer({
   invoice,
 }: WebProjectDocs) {
   return (
-    <div className="flex flex-col items-center justify-center gap-5 bg-component-bg rounded-xl border border-border h-full max-w-fit 2xl:min-w-sm p-4">
+    <div className="flex flex-col items-center justify-center gap-5 bg-component-bg rounded-xl border border-border h-fit max-w-fit 2xl:min-w-sm p-4">
       <div className="flex items-center justify-left gap-3 w-full">
         <Files className="size-12 text-neon-green bg-neon-green-trans rounded-xl p-2" />
         <h1 className="text-2xl">Documents</h1>
