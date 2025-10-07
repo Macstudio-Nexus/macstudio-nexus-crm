@@ -241,8 +241,7 @@ export default function ProjectDesignViewer({
         <button
           type="submit"
           disabled={isUpdating}
-          className="w-full design-table-button text-lg py-2 disabled:opacity-50
-  disabled:cursor-not-allowed"
+          className="w-full project-page-button disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isUpdating ? "Updating..." : "Update Design"}
         </button>
@@ -253,10 +252,7 @@ export default function ProjectDesignViewer({
         <h2 className="text-xl font-semibold text-text-light">Color Scheme</h2>
 
         {/* Add Color Form */}
-        <form
-          onSubmit={handleAddColor}
-          className="flex flex-col gap-2"
-        >
+        <form onSubmit={handleAddColor} className="flex flex-col gap-2">
           <div className="flex gap-3">
             <input
               type="text"
@@ -276,14 +272,14 @@ export default function ProjectDesignViewer({
           <button
             type="submit"
             disabled={isPending}
-            className="px-3 py-2 border text-text-light border-border rounded text-sm hover:bg-neon-green-trans disabled:opacity-50 cursor-pointer"
+            className="project-page-button"
           >
-            Add
+            Add Color
           </button>
         </form>
 
         {/* Color List */}
-        <div className="w-full overflow-y-auto max-h-40 bg-main-bg">
+        <div className="w-full overflow-y-auto scrollbar-hide max-h-40 bg-main-bg border border-border">
           <div className="sticky top-0 grid grid-cols-[52px_minmax(90px,1fr)_minmax(85px,1fr)_48px] items-center gap-3 border-b py-1 border-border px-4 text-accent bg-main-bg">
             <span className="text-sm font-semibold">Preview</span>
             <span className="text-sm font-semibold">Name</span>
@@ -347,14 +343,14 @@ export default function ProjectDesignViewer({
           <button
             type="submit"
             disabled={isPending}
-            className="px-3 py-2 border border-border text-text-light rounded text-sm hover:bg-neon-green-trans cursor-pointer disabled:opacity-50"
+            className="project-page-button"
           >
-            Add
+            Add Font
           </button>
         </form>
 
         {/* Font List */}
-        <div className="w-full overflow-y-auto max-h-40 bg-main-bg">
+        <div className="w-full overflow-y-auto scrollbar-hide max-h-40 bg-main-bg border border-border">
           <div className="sticky top-0 grid grid-cols-[minmax(100px,1fr)_minmax(100px,1fr)_48px] items-center gap-3 border-b py-1 border-border px-4 text-accent bg-main-bg">
             <span className="text-sm font-semibold">Font Name</span>
             <span className="text-sm font-semibold">Font Family</span>

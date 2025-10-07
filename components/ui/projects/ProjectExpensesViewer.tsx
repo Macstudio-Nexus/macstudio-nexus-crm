@@ -134,7 +134,7 @@ export default function ProjectExpensesViewer({
         ) : (
           // Show the EXPENSES LIST when showForm is false
           <>
-            <div className="max-h-30 w-full overflow-y-auto bg-main-bg">
+            <div className="max-h-30 w-full overflow-y-auto scrollbar-hide bg-main-bg border border-border">
               <div className="sticky top-0 grid grid-cols-[2fr_1.5fr_0.5fr] items-center border-b border-border px-4 text-accent bg-main-bg">
                 <span className="text-lg font-semibold">Expense</span>
                 <span className="text-lg font-semibold">Amount</span>
@@ -144,7 +144,7 @@ export default function ProjectExpensesViewer({
                 Object.entries(expenses).map(([key, value]) => (
                   <div
                     key={key}
-                    className="grid grid-cols-[2fr_1.5fr_0.5fr] border-b border-border px-4"
+                    className="grid grid-cols-[2fr_1.5fr_0.5fr] items-center border-b  border-border px-4 py-0.5"
                   >
                     <span className="font-semibold">{key}</span>{" "}
                     <span className="">${value}</span>

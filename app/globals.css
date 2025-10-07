@@ -53,9 +53,9 @@
     @apply border-border border w-full px-2 xl:px-8 py-2 text-center h-full grid place-items-center;
   }
   .project-page-button {
-    @apply border border-border rounded-xl px-2 py-1 hover:bg-main-bg cursor-pointer;
+    @apply border border-border rounded-xl px-2 py-1 bg-main-bg cursor-pointer hover:bg-accent hover:text-main-bg active:scale-95 transition-transform;
   }
-  .design-table-button {
-    @apply border border-border px-2 py-1 rounded-lg cursor-pointer hover:bg-main-bg;
+  .scrollbar-hide {
+    @apply [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none];
   }
 }
