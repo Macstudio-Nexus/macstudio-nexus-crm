@@ -4,7 +4,9 @@ import { useProjectsContext } from "@/context/ProjectsContext";
 import { BookOpen, Loader, Trash } from "lucide-react";
 
 export default function BrandingProjectTable() {
-const { brandingProjects: { brandingProjects, isLoading, error, refetch } } = useProjectsContext();
+  const {
+    brandingProjects: { brandingProjects, isLoading, error, refetch },
+  } = useProjectsContext();
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return `${date.getMonth() + 1}/${date.getDate()}/${date
@@ -18,7 +20,7 @@ const { brandingProjects: { brandingProjects, isLoading, error, refetch } } = us
     if (!confirm("Are you sure you want to delete this project?")) return;
 
     try {
-      const { deleteProject } = await import("@/app/actions/projects");
+      const { deleteProject } = await import("@/actions/projects");
       await deleteProject(id);
       refetch();
     } catch (error) {
@@ -28,13 +30,7 @@ const { brandingProjects: { brandingProjects, isLoading, error, refetch } } = us
     }
   };
 
-  const tableHeaders = [
-    "Title",
-    "Package",
-    "Stage",
-    "Created",
-    "Actions",
-  ];
+  const tableHeaders = ["Title", "Package", "Stage", "Created", "Actions"];
 
   return (
     <div className="relative grid grid-cols-3 xl:grid-cols-5 text-lg place-items-center border bg-component-bg -mt-0.5 border-border p-4">

@@ -30,7 +30,7 @@ function AddProject({ onClose }: ProjectProps) {
   useEffect(() => {
     async function loadClients() {
       try {
-        const { getClients } = await import("@/app/actions/contacts");
+        const { getClients } = await import("@/actions/contacts");
         const clientsData = await getClients();
         setClients(clientsData);
       } catch (error) {
@@ -49,7 +49,7 @@ function AddProject({ onClose }: ProjectProps) {
     setError(false);
 
     try {
-      const { createProject } = await import("@/app/actions/projects");
+      const { createProject } = await import("@/actions/projects");
 
       // Create FormData object
       const formDataToSubmit = new FormData();
@@ -69,7 +69,7 @@ function AddProject({ onClose }: ProjectProps) {
       });
       setIsFormLoading(false);
       setSuccess(true);
-      window.dispatchEvent(new CustomEvent('projectCreated'));
+      window.dispatchEvent(new CustomEvent("projectCreated"));
 
       setTimeout(() => {
         onClose();

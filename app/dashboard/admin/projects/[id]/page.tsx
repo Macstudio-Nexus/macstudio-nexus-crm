@@ -1,15 +1,15 @@
 import prisma from "@/lib/db";
-import ProjectContactViewer from "@/components/ui/projects/ProjectContactViewer";
-import ProjectDocumentsViewer from "@/components/ui/projects/ProjectDocumentsViewer";
-import ProjectExpensesViewer from "@/components/ui/projects/ProjectExpensesViewer";
-import ProjectContentViewer from "@/components/ui/projects/ProjectContentViewer";
+import ProjectContactViewer from "@/components/features/projects/byProject/ProjectContactViewer";
+import ProjectDocumentsViewer from "@/components/features/projects/byProject/ProjectDocumentsViewer";
+import ProjectExpensesViewer from "@/components/features/projects/byProject/ProjectExpensesViewer";
+import ProjectContentViewer from "@/components/features/projects/byProject/ProjectContentViewer";
 import {
   BasicContact,
   WebProjectDocs,
   Content,
   WebProjectDesign,
 } from "@/types";
-import ProjectDesignViewer from "@/components/ui/projects/ProjectDesignViewer";
+import ProjectDesignViewer from "@/components/features/projects/byProject/ProjectDesignViewer";
 
 export default async function ProjectPage({
   params,

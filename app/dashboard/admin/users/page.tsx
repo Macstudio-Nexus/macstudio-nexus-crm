@@ -4,9 +4,9 @@ import withRoleProtection from "@/components/auth/withRoleProtection";
 import { useSession } from "next-auth/react";
 
 import Logout from "@/components/auth/Logout";
-import Loading from "@/components/Loading";
-import UserDisplay from "./UserDisplay";
-import NewUser from "@/components/forms/NewUser";
+import Loading from "@/components/ui/Loading";
+import UserDisplay from "../../../../components/features/users/UserDisplay";
+import NewUser from "@/components/features/users/NewUser";
 import { UserRoundPlus } from "lucide-react";
 import { useState } from "react";
 
@@ -33,10 +33,10 @@ function Users() {
           <Logout />
         </div>
         <div className="flex flex-col justify-center md:justify-start lg:pl-20 items-center lg:items-start gap-5 mt-5 lg:mt-10">
-            <button className="Qa-button" onClick={() => setIsShowing("user")}>
-              <UserRoundPlus className="form-icons p-1" />
-              <span className="px-3 text-lg lg:text-2xl">Add User</span>
-            </button>
+          <button className="Qa-button" onClick={() => setIsShowing("user")}>
+            <UserRoundPlus className="form-icons p-1" />
+            <span className="px-3 text-lg lg:text-2xl">Add User</span>
+          </button>
           <div>
             <UserDisplay />
           </div>

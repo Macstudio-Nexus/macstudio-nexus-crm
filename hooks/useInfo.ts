@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-// HOOKS FOR READING ALL _____ 
+// HOOKS FOR READING ALL _____
 
 export function useProjects() {
   const [projects, setProjects] = useState<any[]>([]);
@@ -11,7 +11,7 @@ export function useProjects() {
     setIsLoading(true);
     setError(null);
     try {
-      const { getProjects } = await import("@/app/actions/projects");
+      const { getProjects } = await import("@/actions/projects");
       const projects = await getProjects();
       setProjects(projects);
     } catch (err) {
@@ -26,14 +26,13 @@ export function useProjects() {
     fetchProjects();
 
     const handleRefetch = () => fetchProjects();
-    window.addEventListener('projectCreated', handleRefetch);
+    window.addEventListener("projectCreated", handleRefetch);
 
-    return () => window.removeEventListener('projectCreated', handleRefetch);
+    return () => window.removeEventListener("projectCreated", handleRefetch);
   }, []);
 
   return { projects, isLoading, error, refetch: fetchProjects };
 }
-
 
 export function useWebProjects() {
   const [webProjects, setWebProjects] = useState<any[]>([]);
@@ -44,7 +43,7 @@ export function useWebProjects() {
     setIsLoading(true);
     setError(null);
     try {
-      const { getWebProjects } = await import("@/app/actions/projects");
+      const { getWebProjects } = await import("@/actions/projects");
       const projects = await getWebProjects();
       setWebProjects(projects);
     } catch (err) {
@@ -59,9 +58,9 @@ export function useWebProjects() {
     fetchWebProjects();
 
     const handleRefetch = () => fetchWebProjects();
-    window.addEventListener('projectCreated', handleRefetch);
+    window.addEventListener("projectCreated", handleRefetch);
 
-    return () => window.removeEventListener('projectCreated', handleRefetch);
+    return () => window.removeEventListener("projectCreated", handleRefetch);
   }, []);
 
   return { webProjects, isLoading, error, refetch: fetchWebProjects };
@@ -76,7 +75,7 @@ export function useBrandingProjects() {
     setIsLoading(true);
     setError(null);
     try {
-      const { getBrandProjects } = await import("@/app/actions/projects");
+      const { getBrandProjects } = await import("@/actions/projects");
       const projects = await getBrandProjects();
       setBrandingProjects(projects);
     } catch (err) {
@@ -91,9 +90,9 @@ export function useBrandingProjects() {
     fetchBrandingProjects();
 
     const handleRefetch = () => fetchBrandingProjects();
-    window.addEventListener('projectCreated', handleRefetch);
+    window.addEventListener("projectCreated", handleRefetch);
 
-    return () => window.removeEventListener('projectCreated', handleRefetch);
+    return () => window.removeEventListener("projectCreated", handleRefetch);
   }, []);
 
   return { brandingProjects, isLoading, error, refetch: fetchBrandingProjects };
@@ -108,7 +107,7 @@ export function useContacts() {
     setIsLoading(true);
     setError(null);
     try {
-      const { getContacts } = await import("@/app/actions/contacts");
+      const { getContacts } = await import("@/actions/contacts");
       const contactsData = await getContacts();
       setContacts(contactsData);
     } catch (err) {
@@ -123,9 +122,9 @@ export function useContacts() {
     fetchContacts();
 
     const handleRefetch = () => fetchContacts();
-    window.addEventListener('contactCreated', handleRefetch);
+    window.addEventListener("contactCreated", handleRefetch);
 
-    return () => window.removeEventListener('contactCreated', handleRefetch);
+    return () => window.removeEventListener("contactCreated", handleRefetch);
   }, []);
 
   return { contacts, isLoading, error, refetch: fetchContacts };
@@ -140,7 +139,7 @@ export function useClients() {
     setIsLoading(true);
     setError(null);
     try {
-      const { getClients } = await import("@/app/actions/contacts");
+      const { getClients } = await import("@/actions/contacts");
       const clientsData = await getClients();
       setClients(clientsData);
     } catch (err) {
@@ -155,9 +154,9 @@ export function useClients() {
     fetchClients();
 
     const handleRefetch = () => fetchClients();
-    window.addEventListener('contactCreated', handleRefetch);
+    window.addEventListener("contactCreated", handleRefetch);
 
-    return () => window.removeEventListener('contactCreated', handleRefetch);
+    return () => window.removeEventListener("contactCreated", handleRefetch);
   }, []);
 
   return { clients, isLoading, error, refetch: fetchClients };
@@ -172,7 +171,7 @@ export function useUsers() {
     setIsLoading(true);
     setError(null);
     try {
-      const { getUsers } = await import("@/app/actions/users");
+      const { getUsers } = await import("@/actions/users");
       const usersData = await getUsers();
       setUsers(usersData);
     } catch (err) {
@@ -187,9 +186,9 @@ export function useUsers() {
     fetchUsers();
 
     const handleRefetch = () => fetchUsers();
-    window.addEventListener('userCreated', handleRefetch);
+    window.addEventListener("userCreated", handleRefetch);
 
-    return () => window.removeEventListener('userCreated', handleRefetch);
+    return () => window.removeEventListener("userCreated", handleRefetch);
   }, []);
 
   return { users, isLoading, error, refetch: fetchUsers };

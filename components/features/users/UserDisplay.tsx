@@ -90,7 +90,7 @@ export default function UserDisplay() {
       formDataObj.append("roleId", formData.roleId.toString());
 
       // Dynamic import server action
-      const { updateUser } = await import("@/app/actions/users");
+      const { updateUser } = await import("@/actions/users");
       await updateUser(selectedUserId, formDataObj);
 
       // Reset form
@@ -135,7 +135,7 @@ export default function UserDisplay() {
 
     try {
       // Dynamic import server action
-      const { deleteUser } = await import("@/app/actions/users");
+      const { deleteUser } = await import("@/actions/users");
       await deleteUser(userId);
 
       // Reset selection after delete

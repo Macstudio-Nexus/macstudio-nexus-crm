@@ -1,33 +1,47 @@
 "use client";
 import { useState } from "react";
+
 import withRoleProtection from "../auth/withRoleProtection";
 import { Check, Loader, X } from "lucide-react";
+import { Contact } from "@/types";
 
-interface newUser {
-  name: string;
-  email: string;
-  phoneNumber: string;
-  roleId: number;
-}
-
-interface NewUserProps {
+interface ContactProps {
   onClose: () => void;
 }
 
-const roleOptions = [
-  { value: 1, label: "Admin" },
-  { value: 3, label: "Guest" },
+const stageOptions = [
+  { value: "lead", label: "Lead" },
+  { value: "prospect", label: "Prospect" },
+  { value: "qualified", label: "Qualified" },
+  { value: "proposal", label: "Proposal" },
+  { value: "negotiation", label: "Negotiation" },
+  { value: "closed-won", label: "Closed Won" },
+  { value: "closed-lost", label: "Closed Lost" },
+  { value: "client", label: "Client" },
 ];
 
-function AddUser({ onClose }: NewUserProps) {
+const sourceOptions = [
+  { value: "website", label: "Website" },
+  { value: "referral", label: "Referral" },
+  { value: "social-media", label: "Social Media" },
+  { value: "email-campaign", label: "Email Campaign" },
+  { value: "cold-outreach", label: "Cold Outreach" },
+  { value: "event", label: "Event" },
+  { value: "other", label: "Other" },
+];
+
+function AddContact({ onClose }: ContactProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const [formData, setFormData] = useState<newUser>({
+  const [formData, setFormData] = useState<Contact>({
+    id: "",
     name: "",
     email: "",
     phoneNumber: "",
-    roleId: 0,
+    companyName: "",
+    source: "",
+    stage: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -41,30 +55,35 @@ function AddUser({ onClose }: NewUserProps) {
       formDataObj.append("name", formData.name);
       formDataObj.append("email", formData.email);
       formDataObj.append("phoneNumber", formData.phoneNumber);
-      formDataObj.append("roleId", formData.roleId.toString());
+      formDataObj.append("companyName", formData.companyName);
+      formDataObj.append("source", formData.source || "");
+      formDataObj.append("stage", formData.stage);
 
       // Dynamic import server action
-      const { createUser } = await import("@/app/actions/users");
-      const result = await createUser(formDataObj);
+      const { createContact } = await import("@/actions/contacts");
+      const result = await createContact(formDataObj);
 
-      console.log("User created:", result);
+      console.log("Contact created:", result);
 
       // Clear form and show success
       setFormData({
+        id: "",
         name: "",
         email: "",
         phoneNumber: "",
-        roleId: 0,
+        companyName: "",
+        source: "",
+        stage: "",
       });
       setIsLoading(false);
       setSuccess(true);
-      window.dispatchEvent(new CustomEvent('userCreated'));
+      window.dispatchEvent(new CustomEvent("contactCreated"));
 
       setTimeout(() => {
         onClose();
       }, 2000);
     } catch (error) {
-      console.error("Error creating user:", error);
+      console.error("Error creating contact:", error);
       setError(true);
       setIsLoading(false);
     }
@@ -76,14 +95,14 @@ function AddUser({ onClose }: NewUserProps) {
           <div className="text-3xl font-space flex flex-col justify-center items-center p-2">
             <Check className="size-15 text-neon-green" />
             <span className="text-center">
-              User successfully added to database
+              Contact successfully added to database
             </span>
           </div>
         ) : error ? (
           <div className="flex flex-col justify-center items-center p-6 gap-2">
             <X className="size-15 text-red-500" />
             <h2 className="font-space text-2xl text-red-500 text-center">
-              Error Creating User, please try again
+              Error Creating Contact, please try again
             </h2>
             <button onClick={onClose} className="form-button mt-4">
               Exit
@@ -92,7 +111,7 @@ function AddUser({ onClose }: NewUserProps) {
         ) : (
           <>
             <h1 className="font-space text-2xl md:text-3xl lg:text-4xl text-center pt-4">
-              Add New User
+              Add New Contact
             </h1>
             <form
               onSubmit={handleSubmit}
@@ -144,26 +163,70 @@ function AddUser({ onClose }: NewUserProps) {
               </div>
 
               <div>
-                <label
-                  htmlFor="roleId"
-                  className="block text-sm lg:text-lg font-medium ml-1"
-                >
-                  Role *
-                </label>
-                <select
-                  id="roleId"
-                  value={formData.roleId}
+                <input
+                  id="companyName"
+                  placeholder="Company Name *"
+                  type="text"
+                  value={formData.companyName}
                   onChange={(e) =>
                     setFormData((prev) => ({
                       ...prev,
-                      roleId: Number(e.target.value),
+                      companyName: e.target.value,
+                    }))
+                  }
+                  className="form-inputs"
+                  required
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="source"
+                  className="block text-sm lg:text-lg font-medium ml-1"
+                >
+                  Source
+                </label>
+                <select
+                  id="source"
+                  value={formData.source || ""}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      source: e.target.value,
+                    }))
+                  }
+                  className="form-inputs"
+                >
+                  <option value="">Select a source...</option>
+                  {sourceOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="stage"
+                  className="block text-sm lg:text-lg font-medium ml-1"
+                >
+                  Stage *
+                </label>
+                <select
+                  id="stage"
+                  value={formData.stage}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      stage: e.target.value,
                     }))
                   }
                   className="form-inputs"
                   required
                 >
-                  <option value="">Select a role...</option>
-                  {roleOptions.map((option) => (
+                  <option value="">Select a stage...</option>
+                  {stageOptions.map((option) => (
                     <option key={option.value} value={option.value}>
                       {option.label}
                     </option>
@@ -189,7 +252,7 @@ function AddUser({ onClose }: NewUserProps) {
                       <Loader className="animate-[spin_2s_linear_infinite] size-6" />
                     </div>
                   ) : (
-                    "Create User"
+                    "Create Contact"
                   )}
                 </button>
               </div>
@@ -201,4 +264,4 @@ function AddUser({ onClose }: NewUserProps) {
   );
 }
 
-export default withRoleProtection(AddUser, { allowedRoles: [1] });
+export default withRoleProtection(AddContact, { allowedRoles: [1] });

@@ -4,7 +4,7 @@ import withRoleProtection from "@/components/auth/withRoleProtection";
 import { useSession } from "next-auth/react";
 
 import Logout from "@/components/auth/Logout";
-import Loading from "@/components/Loading";
+import Loading from "@/components/ui/Loading";
 import QuickActions from "@/components/ui/QuickActions";
 
 function AdminDashboard() {

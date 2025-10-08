@@ -40,7 +40,7 @@ export default function ProjectContentViewer({
       formData.append("content", JSON.stringify(updatedContent));
 
       // Dynamic import of server action
-      const { updateContent } = await import("@/app/actions/webProjects");
+      const { updateContent } = await import("@/actions/webProjects");
 
       // Call the server action
       await updateContent(id, formData);
@@ -65,7 +65,7 @@ export default function ProjectContentViewer({
 
     try {
       // Dynamic import of server action
-      const { deleteContent } = await import("@/app/actions/webProjects");
+      const { deleteContent } = await import("@/actions/webProjects");
 
       // Call the server action with the index as a string
       await deleteContent(id, String(index));

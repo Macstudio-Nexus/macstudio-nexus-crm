@@ -3,11 +3,11 @@
 import { useState } from "react";
 import { ProjectsProvider } from "@/context/ProjectsContext";
 import Logout from "@/components/auth/Logout";
-import WebDevProjectTable from "@/components/ui/projects/WebDevProjectTable";
-import BrandingProjectTable from "@/components/ui/projects/BrandingProjectTable";
+import WebDevProjectTable from "@/components/features/projects/WebDevProjectTable";
+import BrandingProjectTable from "@/components/features/projects/BrandingProjectTable";
 import { FilePlus } from "lucide-react";
 
-import NewProject from "@/components/forms/NewProject";
+import NewProject from "@/components/features/projects/NewProject";
 
 export default function Projects() {
   const [isShowing, setIsShowing] = useState<string | null>("WD");

@@ -127,7 +127,7 @@ export default function ContactDisplay() {
       formDataObj.append("stage", formData.stage || "");
 
       // Dynamic import server action
-      const { updateContact } = await import("@/app/actions/contacts");
+      const { updateContact } = await import("@/actions/contacts");
       await updateContact(selectedContactId, formDataObj);
 
       // Reset form
@@ -169,7 +169,7 @@ export default function ContactDisplay() {
 
     try {
       // Dynamic import server action
-      const { deleteContact } = await import("@/app/actions/contacts");
+      const { deleteContact } = await import("@/actions/contacts");
       await deleteContact(contactId);
 
       // Reset selection after delete
@@ -402,7 +402,10 @@ export default function ContactDisplay() {
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id} className="border-b border-border">
                 {headerGroup.headers.map((header) => (
-                  <th key={header.id} className="text-left px-4 py-1 font-medium">
+                  <th
+                    key={header.id}
+                    className="text-left px-4 py-1 font-medium"
+                  >
                     {flexRender(
                       header.column.columnDef.header,
                       header.getContext()
