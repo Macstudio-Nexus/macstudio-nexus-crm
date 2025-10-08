@@ -1,9 +1,8 @@
 import { createContext, useContext } from "react";
-import {
-  useProjects,
-  useWebProjects,
-  useBrandingProjects,
-} from "@/hooks/useInfo";
+import { useProjects } from "@/hooks/useProjects";
+import { useWebProjects } from "@/hooks/useWebProjects";
+import { useBrandingProjects } from "@/hooks/useBrandingProjects";
+
 import { PropsWithChildren } from "react";
 
 type ProjectsContextType = {

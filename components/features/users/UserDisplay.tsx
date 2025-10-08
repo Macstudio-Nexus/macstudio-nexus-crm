@@ -3,7 +3,7 @@
 import { Loader, Check, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { User } from "@/types";
-import { useUsers } from "@/hooks/useInfo";
+import { useUsers } from "@/hooks/useUsers";
 
 import {
   useReactTable,
