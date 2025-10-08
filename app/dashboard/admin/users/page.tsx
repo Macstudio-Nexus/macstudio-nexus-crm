@@ -33,12 +33,10 @@ function Users() {
           <Logout />
         </div>
         <div className="flex flex-col justify-center md:justify-start lg:pl-20 items-center lg:items-start gap-5 mt-5 lg:mt-10">
-          <div className="w-fit bg-component-bg p-4 rounded-xl border border-border">
             <button className="Qa-button" onClick={() => setIsShowing("user")}>
               <UserRoundPlus className="form-icons p-1" />
               <span className="px-3 text-lg lg:text-2xl">Add User</span>
             </button>
-          </div>
           <div>
             <UserDisplay />
           </div>

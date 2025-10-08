@@ -33,8 +33,7 @@ function Contacts() {
           </div>
           <Logout />
         </div>
-        <div className="flex flex-col justify-center md:justify-start lg:pl-20 items-center lg:items-start gap-5 mt-5 lg:mt-10">
-          <div className="w-fit bg-component-bg p-4 rounded-xl border border-border">
+        <div className="flex flex-col justify-center md:justify-start px-5 2xl:pl-20 items-center lg:items-start gap-5 mt-5 lg:mt-10">
             <button
               className="Qa-button"
               onClick={() => setIsShowing("contact")}
@@ -42,7 +41,6 @@ function Contacts() {
               <UserRoundPlus className="form-icons p-1" />
               <span className="px-3 text-lg lg:text-2xl">Add Contact</span>
             </button>
-          </div>
           <div className="mb-3">
             <ContactDisplay />
           </div>

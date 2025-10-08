@@ -35,7 +35,7 @@
     @apply text-neon-green rounded-lg size-10 lg:size-12;
   }
   .Qa-button {
-    @apply flex justify-start items-center w-full hover:bg-border-transparent rounded-xl p-1 lg:p-2 cursor-pointer border-1 border-border active:scale-95 transition-all duration-100;
+    @apply flex justify-start items-center w-fit hover:bg-border-transparent rounded-xl p-1 lg:p-2 cursor-pointer border-1 border-border active:scale-95 transition-all duration-100;
   }
   .form-inputs {
     @apply min-w-full p-2 lg:p-3 lg:text-xl rounded-xl border border-gray-600 bg-border focus:border-neon-green-trans focus:ring-neon-green-trans focus:ring-[3px] text-white;

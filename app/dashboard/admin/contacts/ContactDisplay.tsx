@@ -65,12 +65,6 @@ const columns = [
   columnHelper.accessor("companyName", {
     header: "Company Name",
   }),
-  columnHelper.accessor("domain", {
-    header: "Domain",
-  }),
-  columnHelper.accessor("meetingNotes", {
-    header: "Meeting Notes",
-  }),
   columnHelper.accessor("source", {
     header: "Source",
     cell: (info) => {
@@ -102,8 +96,6 @@ export default function ContactDisplay() {
     email: "",
     phoneNumber: "",
     companyName: "",
-    domain: "",
-    meetingNotes: "",
     source: "",
     stage: "",
   });
@@ -131,8 +123,6 @@ export default function ContactDisplay() {
       formDataObj.append("email", formData.email);
       formDataObj.append("phoneNumber", formData.phoneNumber || "");
       formDataObj.append("companyName", formData.companyName || "");
-      formDataObj.append("domain", formData.domain || "");
-      formDataObj.append("meetingNotes", formData.meetingNotes || "");
       formDataObj.append("source", formData.source || "");
       formDataObj.append("stage", formData.stage || "");
 
@@ -148,8 +138,6 @@ export default function ContactDisplay() {
         email: "",
         phoneNumber: "",
         companyName: "",
-        domain: "",
-        meetingNotes: "",
         source: "",
         stage: "",
       });
@@ -192,8 +180,6 @@ export default function ContactDisplay() {
         email: "",
         phoneNumber: "",
         companyName: "",
-        domain: "",
-        meetingNotes: "",
         source: "",
         stage: "",
       });
@@ -218,8 +204,6 @@ export default function ContactDisplay() {
         email: contact.email || "",
         phoneNumber: contact.phoneNumber || "",
         companyName: contact.companyName || "",
-        domain: contact.domain || "",
-        meetingNotes: contact.meetingNotes || "",
         source: contact.source || "",
         stage: contact.stage || "",
       });
@@ -230,8 +214,6 @@ export default function ContactDisplay() {
         email: "",
         phoneNumber: "",
         companyName: "",
-        domain: "",
-        meetingNotes: "",
         source: "",
         stage: "",
       });
@@ -333,38 +315,6 @@ export default function ContactDisplay() {
               </div>
 
               <div>
-                <input
-                  id="domain"
-                  placeholder="Domain"
-                  type="text"
-                  value={formData.domain || ""}
-                  onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      domain: e.target.value,
-                    }))
-                  }
-                  className="form-inputs"
-                />
-              </div>
-
-              <div>
-                <textarea
-                  id="meetingNotes"
-                  placeholder="Meeting Notes"
-                  value={formData.meetingNotes || ""}
-                  onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      meetingNotes: e.target.value,
-                    }))
-                  }
-                  className="form-inputs"
-                  rows={3}
-                />
-              </div>
-
-              <div>
                 <label className="block text-sm lg:text-lg font-medium ml-1">
                   Source
                 </label>
@@ -446,13 +396,13 @@ export default function ContactDisplay() {
         </div>
       </div>
 
-      <div className="hidden lg:block bg-component-bg border-1 border-border rounded-xl p-6">
+      <div className="hidden lg:block bg-component-bg border-1 border-border rounded-xl p-4">
         <table className="w-full">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id} className="border-b border-border">
                 {headerGroup.headers.map((header) => (
-                  <th key={header.id} className="text-left p-4 font-medium">
+                  <th key={header.id} className="text-left px-4 py-1 font-medium">
                     {flexRender(
                       header.column.columnDef.header,
                       header.getContext()
@@ -471,7 +421,7 @@ export default function ContactDisplay() {
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
-                <td className="p-4 text-center">
+                <td className="p-4">
                   <button
                     onClick={() => {
                       handleContactSelect(row.original.id);
@@ -595,38 +545,6 @@ export default function ContactDisplay() {
                         }
                         className="form-inputs"
                         required
-                      />
-                    </div>
-
-                    <div>
-                      <input
-                        id="domain"
-                        placeholder="Domain"
-                        type="text"
-                        value={formData.domain || ""}
-                        onChange={(e) =>
-                          setFormData((prev) => ({
-                            ...prev,
-                            domain: e.target.value,
-                          }))
-                        }
-                        className="form-inputs"
-                      />
-                    </div>
-
-                    <div>
-                      <textarea
-                        id="meetingNotes"
-                        placeholder="Meeting Notes"
-                        value={formData.meetingNotes || ""}
-                        onChange={(e) =>
-                          setFormData((prev) => ({
-                            ...prev,
-                            meetingNotes: e.target.value,
-                          }))
-                        }
-                        className="form-inputs"
-                        rows={3}
                       />
                     </div>
 

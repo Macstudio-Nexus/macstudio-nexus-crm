@@ -122,8 +122,6 @@ model Contact {
   email        String
   phoneNumber  String
   companyName  String
-  domain       String?
-  meetingNotes String?
   source       String?
   stage        String
   createdAt    DateTime  @default(now())

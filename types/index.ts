@@ -12,8 +12,6 @@ export interface Contact {
   email: string;
   phoneNumber: string;
   companyName: string;
-  domain: string | null;
-  meetingNotes: string | null;
   source: string | null;
   stage: string;
 }
