@@ -26,7 +26,7 @@ export default function WebDevProjectTable() {
     if (!confirm("Are you sure you want to delete this project?")) return;
 
     try {
-      const { deleteProject } = await import("@/actions/projects");
+      const { deleteProject } = await import("@/actions/projects/projects");
       await deleteProject(id);
       refetch();
     } catch (error) {
@@ -41,7 +41,7 @@ export default function WebDevProjectTable() {
     setIsPending(true);
 
     try {
-      const { updateProjectStage } = await import("@/actions/projects");
+      const { updateProjectStage } = await import("@/actions/projects/projects");
       await updateProjectStage(id, stage);
       refetch();
     } catch (error) {

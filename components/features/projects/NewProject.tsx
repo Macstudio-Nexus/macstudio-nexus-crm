@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import withRoleProtection from "../auth/withRoleProtection";
+import withRoleProtection from "../../auth/withRoleProtection";
 import { Check, Loader, X } from "lucide-react";
 import { Project } from "@/types";
 
@@ -49,7 +49,7 @@ function AddProject({ onClose }: ProjectProps) {
     setError(false);
 
     try {
-      const { createProject } = await import("@/actions/projects");
+      const { createProject } = await import("@/actions/projects/projects");
 
       // Create FormData object
       const formDataToSubmit = new FormData();

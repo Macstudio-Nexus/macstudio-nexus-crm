@@ -1,7 +1,7 @@
 // import Image from "next/image";
 import Login from "../components/auth/Login";
 import Logo from "../components/ui/Logo";
-import Footer from "../components/ui/Footer";
+import Footer from "../components/layout/Footer";
 
 export default function Home() {
   return (

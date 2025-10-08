@@ -45,7 +45,7 @@ export default function ProjectExpensesViewer({
       formData.append("expenses", JSON.stringify(updatedExpenses));
 
       // Dynamic import of server action
-      const { updateExpenses } = await import("@/actions/webProjects");
+      const { updateExpenses } = await import("@/actions/projects/webProjects");
 
       // Call the server action
       await updateExpenses(id, formData);
@@ -68,7 +68,7 @@ export default function ProjectExpensesViewer({
 
     try {
       // Dynamic import of server action
-      const { deleteExpense } = await import("@/actions/webProjects");
+      const { deleteExpense } = await import("@/actions/projects/webProjects");
 
       // Call the server action
       await deleteExpense(id, expenseKey);

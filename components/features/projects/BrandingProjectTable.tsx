@@ -20,7 +20,7 @@ export default function BrandingProjectTable() {
     if (!confirm("Are you sure you want to delete this project?")) return;
 
     try {
-      const { deleteProject } = await import("@/actions/projects");
+      const { deleteProject } = await import("@/actions/projects/projects");
       await deleteProject(id);
       refetch();
     } catch (error) {

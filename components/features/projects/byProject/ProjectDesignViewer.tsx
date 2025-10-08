@@ -41,7 +41,7 @@ export default function ProjectDesignViewer({
     // formData.append("typography", JSON.stringify(typography));
 
     try {
-      const { updateWebProjectDesign } = await import("@/actions/webProjects");
+      const { updateWebProjectDesign } = await import("@/actions/projects/webProjects");
       await updateWebProjectDesign(id, formData);
       setTitle("DESIGN UPDATED");
     } catch {
@@ -69,7 +69,7 @@ export default function ProjectDesignViewer({
       };
       formData.append("colorScheme", JSON.stringify(updatedColors));
 
-      const { updateColorScheme } = await import("@/actions/webProjects");
+      const { updateColorScheme } = await import("@/actions/projects/webProjects");
       await updateColorScheme(id, formData);
 
       setColorName("");
@@ -87,7 +87,7 @@ export default function ProjectDesignViewer({
     setIsPending(true);
 
     try {
-      const { deleteColor } = await import("@/actions/webProjects");
+      const { deleteColor } = await import("@/actions/projects/webProjects");
       await deleteColor(id, colorKey);
     } catch (error) {
       console.error("Failed to delete color:", error);
@@ -111,7 +111,7 @@ export default function ProjectDesignViewer({
       };
       formData.append("typography", JSON.stringify(updatedFonts));
 
-      const { updateTypography } = await import("@/actions/webProjects");
+      const { updateTypography } = await import("@/actions/projects/webProjects");
       await updateTypography(id, formData);
 
       setFontName("");
@@ -129,7 +129,7 @@ export default function ProjectDesignViewer({
     setIsPending(true);
 
     try {
-      const { deleteFont } = await import("@/actions/webProjects");
+      const { deleteFont } = await import("@/actions/projects/webProjects");
       await deleteFont(id, fontKey);
     } catch (error) {
       console.error("Failed to delete font:", error);

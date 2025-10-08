@@ -2,7 +2,7 @@
 
 import prisma from "@/lib/db";
 import { revalidatePath } from "next/cache";
-import { requireAuth } from "./_auth";
+import { requireAuth } from "../_auth";
 import { Project } from "@/types";
 
 // GET ALL PROJECTS

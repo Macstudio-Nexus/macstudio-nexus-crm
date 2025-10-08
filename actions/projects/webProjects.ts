@@ -3,7 +3,7 @@
 import prisma from "@/lib/db";
 import { WebProjectDocs, WebProjectDesign, WebProjectDev } from "@/types";
 import { revalidatePath } from "next/cache";
-import { requireAuth } from "./_auth";
+import { requireAuth } from "../_auth";
 
 // UPDATE ITEM FROM DESIGN VIEWER
 export async function updateWebProjectDesign(id: string, formData: FormData) {

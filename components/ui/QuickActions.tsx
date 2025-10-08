@@ -6,11 +6,11 @@ import {
   UserPlus,
   UserRoundPlus,
 } from "lucide-react";
-import NewUser from "@/components/forms/NewUser";
-import NewProject from "@/components/forms/NewProject";
+import NewUser from "@/components/features/users/NewUser";
+import NewProject from "@/components/features/projects/NewProject";
 
 import { useState } from "react";
-import NewContact from "@/components/forms/NewContact";
+import NewContact from "@/components/features/contacts/NewContact";
 
 function QuickActions() {
   const [isShowing, setIsShowing] = useState<string | null>(null);

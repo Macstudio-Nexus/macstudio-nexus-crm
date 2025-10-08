@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import withRoleProtection from "../auth/withRoleProtection";
+import withRoleProtection from "../../auth/withRoleProtection";
 import { Check, Loader, X } from "lucide-react";
 
 interface newUser {

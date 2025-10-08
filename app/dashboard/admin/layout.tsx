@@ -1,5 +1,5 @@
 import Provider from "@/components/auth/provider";
-import SideBar from "@/components/ui/SideBar";
+import SideBar from "@/components/layout/SideBar";
 
 export default function AdminLayout({
   children,

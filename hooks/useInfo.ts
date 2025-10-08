@@ -11,7 +11,7 @@ export function useProjects() {
     setIsLoading(true);
     setError(null);
     try {
-      const { getProjects } = await import("@/actions/projects");
+      const { getProjects } = await import("@/actions/projects/projects");
       const projects = await getProjects();
       setProjects(projects);
     } catch (err) {
@@ -43,7 +43,7 @@ export function useWebProjects() {
     setIsLoading(true);
     setError(null);
     try {
-      const { getWebProjects } = await import("@/actions/projects");
+      const { getWebProjects } = await import("@/actions/projects/projects");
       const projects = await getWebProjects();
       setWebProjects(projects);
     } catch (err) {
@@ -75,7 +75,7 @@ export function useBrandingProjects() {
     setIsLoading(true);
     setError(null);
     try {
-      const { getBrandProjects } = await import("@/actions/projects");
+      const { getBrandProjects } = await import("@/actions/projects/projects");
       const projects = await getBrandProjects();
       setBrandingProjects(projects);
     } catch (err) {
