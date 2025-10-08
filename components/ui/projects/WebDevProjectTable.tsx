@@ -1,12 +1,14 @@
 "use client";
 
-import { BookOpen, Loader, RefreshCcwDot, Trash } from "lucide-react";
+import { BookOpen, Loader, Trash } from "lucide-react";
 import Link from "next/link";
-import { useWebProjects } from "@/hooks/useInfo";
+import { useProjectsContext } from "@/context/ProjectsContext";
 import { useState } from "react";
 
 export default function WebDevProjectTable() {
-  const { webProjects, isLoading, error, refetch } = useWebProjects();
+  const {
+    webProjects: { webProjects, isLoading, error, refetch },
+  } = useProjectsContext();
   const [isPending, setIsPending] = useState<boolean>(false);
 
   const formatDate = (dateString: string) => {
@@ -18,12 +20,6 @@ export default function WebDevProjectTable() {
   };
 
   const tableHeaders = ["Title", "Stage", "Contact", "Created", "Actions"];
-
-  const stageColors: { [key: string]: string } = {
-    "Not Started": "text-red-400",
-    "In Progress": "text-sky-400",
-    Completed: "text-green-400",
-  };
 
   const handleDelete = async (id: any) => {
     if (!id) return;

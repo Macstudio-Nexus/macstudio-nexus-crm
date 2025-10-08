@@ -40,8 +40,6 @@ function AddContact({ onClose }: ContactProps) {
     email: "",
     phoneNumber: "",
     companyName: "",
-    domain: "",
-    meetingNotes: "",
     source: "",
     stage: "",
   });
@@ -58,8 +56,6 @@ function AddContact({ onClose }: ContactProps) {
       formDataObj.append("email", formData.email);
       formDataObj.append("phoneNumber", formData.phoneNumber);
       formDataObj.append("companyName", formData.companyName);
-      formDataObj.append("domain", formData.domain || "");
-      formDataObj.append("meetingNotes", formData.meetingNotes || "");
       formDataObj.append("source", formData.source || "");
       formDataObj.append("stage", formData.stage);
 
@@ -76,8 +72,6 @@ function AddContact({ onClose }: ContactProps) {
         email: "",
         phoneNumber: "",
         companyName: "",
-        domain: "",
-        meetingNotes: "",
         source: "",
         stage: "",
       });
@@ -182,38 +176,6 @@ function AddContact({ onClose }: ContactProps) {
                   }
                   className="form-inputs"
                   required
-                />
-              </div>
-
-              <div>
-                <input
-                  id="domain"
-                  placeholder="Domain"
-                  type="text"
-                  value={formData.domain || ""}
-                  onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      domain: e.target.value,
-                    }))
-                  }
-                  className="form-inputs"
-                />
-              </div>
-
-              <div>
-                <textarea
-                  id="meetingNotes"
-                  placeholder="Meeting Notes"
-                  value={formData.meetingNotes || ""}
-                  onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      meetingNotes: e.target.value,
-                    }))
-                  }
-                  className="form-inputs"
-                  rows={3}
                 />
               </div>
 

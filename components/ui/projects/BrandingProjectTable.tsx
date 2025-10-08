@@ -1,11 +1,10 @@
 "use client";
 
-import { useBrandingProjects } from "@/hooks/useInfo";
+import { useProjectsContext } from "@/context/ProjectsContext";
 import { BookOpen, Loader, Trash } from "lucide-react";
 
 export default function BrandingProjectTable() {
-  const { brandingProjects, isLoading, error, refetch } = useBrandingProjects();
-
+const { brandingProjects: { brandingProjects, isLoading, error, refetch } } = useProjectsContext();
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return `${date.getMonth() + 1}/${date.getDate()}/${date

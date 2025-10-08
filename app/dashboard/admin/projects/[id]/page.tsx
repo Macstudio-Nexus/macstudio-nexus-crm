@@ -9,7 +9,6 @@ import {
   Content,
   WebProjectDesign,
 } from "@/types";
-import { Key } from "lucide-react";
 import ProjectDesignViewer from "@/components/ui/projects/ProjectDesignViewer";
 
 export default async function ProjectPage({

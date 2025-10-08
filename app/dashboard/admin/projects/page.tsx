@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
+import { ProjectsProvider } from "@/context/ProjectsContext";
 import Logout from "@/components/auth/Logout";
 import WebDevProjectTable from "@/components/ui/projects/WebDevProjectTable";
 import BrandingProjectTable from "@/components/ui/projects/BrandingProjectTable";
@@ -22,7 +22,7 @@ export default function Projects() {
   };
 
   return (
-    <>
+    <ProjectsProvider>
       <div className="flex flex-col gap-5 md:gap-15 text-text-light font-plex w-full px-5 lg:px-8 py-5 lg:py-8">
         <div className="flex items-center justify-between">
           <div className="flex flex-col items-center md:items-start gap-1">
@@ -44,7 +44,9 @@ export default function Projects() {
           </div>
         </div>
         <div className="flex md:hidden">
-          <h1 className="uppercase text-center text-3xl mt-10">Full projects page only available on tablet screens and larger</h1>
+          <h1 className="uppercase text-center text-3xl mt-10">
+            Full projects page only available on tablet screens and larger
+          </h1>
         </div>
         <div className="hidden md:flex flex-col justify-center items-start">
           <div className="flex justify-center items-center gap-5">
@@ -94,6 +96,6 @@ export default function Projects() {
         </div>
       </div>
       {isAddShowing === "project" && <NewProject onClose={handleFormClose} />}
-    </>
+    </ProjectsProvider>
   );
 }
