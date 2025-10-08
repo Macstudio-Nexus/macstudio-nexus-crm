@@ -47,6 +47,10 @@ function SideBar() {
     setIsOpen((prev: boolean) => !prev);
   };
 
+  const handleClose = () => {
+    setTimeout(() => setIsOpen(false), 750);
+  };
+
   return (
     <>
       <div
@@ -83,6 +87,7 @@ function SideBar() {
             {options.map((option, index) => (
               <Link
                 key={index}
+                onClick={handleClose}
                 className={`flex justify-start items-center gap-2 md:gap-4 text-[14px] md:text-xl ${
                   isOpen ? "justify-start px-2 md:pr-10" : "justify-center px-2"
                 } items-center sidebar-link   ${
