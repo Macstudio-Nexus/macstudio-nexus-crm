@@ -103,7 +103,7 @@ export default function WebDevProjectTable() {
                 value={project.stage}
                 onChange={(e) => handleUpdate(project.id, e.target.value)}
                 className={`
-                  text-xl rounded px-2 py-1
+                  text-xl rounded px-2 py-1 cursor-pointer
               `}
               >
                 <option value="Not Started" className="text-red-400">

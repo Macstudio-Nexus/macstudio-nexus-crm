@@ -58,4 +58,7 @@
   .scrollbar-hide {
     @apply [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none];
   }
+  .design-table-button {
+    @apply border border-border rounded-xl hover:bg-main-bg;
+  }
 }

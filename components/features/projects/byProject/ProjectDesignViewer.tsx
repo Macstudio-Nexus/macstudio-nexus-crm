@@ -36,9 +36,6 @@ export default function ProjectDesignViewer({
     formData.append("sitemap", sitemapLink);
     formData.append("wireframes", wireframesLink);
     formData.append("responsive", isResponsive.toString());
-    // Add colorScheme and typography when you're ready to implement them
-    // formData.append("colorScheme", JSON.stringify(colorScheme));
-    // formData.append("typography", JSON.stringify(typography));
 
     try {
       const { updateWebProjectDesign } = await import("@/actions/projects/webProjects");

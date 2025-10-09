@@ -3,11 +3,13 @@ import ProjectContactViewer from "@/components/features/projects/byProject/Proje
 import ProjectDocumentsViewer from "@/components/features/projects/byProject/ProjectDocumentsViewer";
 import ProjectExpensesViewer from "@/components/features/projects/byProject/ProjectExpensesViewer";
 import ProjectContentViewer from "@/components/features/projects/byProject/ProjectContentViewer";
+import ProjectDevViewer from "@/components/features/projects/byProject/ProjectDevViewer";
 import {
   BasicContact,
   WebProjectDocs,
   Content,
   WebProjectDesign,
+  WebProjectDev,
 } from "@/types";
 import ProjectDesignViewer from "@/components/features/projects/byProject/ProjectDesignViewer";
 
@@ -50,6 +52,17 @@ export default async function ProjectPage({
     responsive: project?.webProject?.responsive ?? null,
   };
 
+  const dev: WebProjectDev = {
+    domain: project?.webProject?.domain ?? null,
+    githubLink: project?.webProject?.githubLink ?? null,
+    hostingLink: project?.webProject?.hostingLink ?? null,
+    integrations: project?.webProject?.integrations as Record<
+      string,
+      string
+    > | null,
+    SEOstrat: project?.webProject?.SEOstrat ?? null,
+  };
+
   return (
     <>
       <div className="flex flex-col gap-20 text-text-light font-plex w-full min-h-screen px-5 lg:px-8 py-5 lg:py-8">
@@ -84,6 +97,9 @@ export default async function ProjectPage({
             </div>
             <div className="justify-self-center row-span-2">
               <ProjectDesignViewer {...design} id={id} />
+            </div>
+            <div className="col-span-2">
+              <ProjectDevViewer {...dev} id={id}/>
             </div>
           </div>
         </div>

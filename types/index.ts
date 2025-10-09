@@ -62,11 +62,11 @@ export interface WebProjectDesign {
 }
 
 export interface WebProjectDev {
-  domain: string | null;
-  githubLink: string | null;
-  pages?: Record<string, string[]>;
-  vercelLink: string | null;
-  integrations?: Record<string, string>;
+  domain?: string | null;
+  githubLink?: string | null;
+  hostingLink?: string | null;
+  integrations?: Record<string, string> | null;
+  SEOstrat?: string | null;
 }
 
 export interface Content {

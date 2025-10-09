@@ -111,20 +111,18 @@ export async function updateTypography(id: string, formData: FormData) {
 // UPDATE ITEM(S) FROM DEV VIEWER
 export async function updateWebProjectDev(id: string, formData: FormData) {
   await requireAuth();
-  const data: WebProjectDev = {
+  const data = {
     domain: formData.get("domain") as string,
-    githubLink: formData.get("githubLink") as string,
-    pages: formData.get("pages")
-      ? JSON.parse(formData.get("pages") as string)
-      : undefined,
+    githubLink: formData.get("github") as string,
     integrations: formData.get("integrations")
       ? JSON.parse(formData.get("integrations") as string)
       : undefined,
-    vercelLink: formData.get("vercelLink") as string,
+    hostingLink: formData.get("hostingLink") as string,
+    SEOstrat: formData.get("SEOstrat") as string,
   };
 
   await prisma.webProject.update({
-    where: { id },
+    where: { projectId: id },
     data,
   });
 
@@ -209,3 +207,41 @@ export async function deleteContent(id: string, contentIndex: string) {
 
   revalidatePath(`/dashboard/admin/projects/${id}`);
 }
+
+// ADD ITEM TO INTEGRATIONS
+  export async function updateIntegrations(id: string, formData: FormData) {
+    await requireAuth();
+    const integrations = formData.get("integrations")
+      ? JSON.parse(formData.get("integrations") as string)
+      : {};
+
+    await prisma.webProject.update({
+      where: { projectId: id },
+      data: { integrations },
+    });
+
+    revalidatePath(`/dashboard/admin/projects/${id}`);
+  }
+
+  // DELETE ITEM FROM INTEGRATIONS
+  export async function deleteIntegration(id: string, integrationKey: string) {
+    await requireAuth();
+    const webProject = await prisma.webProject.findUnique({
+      where: { projectId: id },
+      select: { integrations: true },
+    });
+
+    if (!webProject) {
+      throw new Error("Project not found");
+    }
+
+    const currentIntegrations = (webProject.integrations as Record<string, string>) || {};    
+    delete currentIntegrations[integrationKey];
+
+    await prisma.webProject.update({
+      where: { projectId: id },
+      data: { integrations: currentIntegrations },
+    });
+
+    revalidatePath(`/dashboard/admin/projects/${id}`);
+  }
