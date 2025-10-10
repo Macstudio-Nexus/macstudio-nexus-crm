@@ -79,7 +79,7 @@ export default function ProjectContentViewer({
   return (
     <div className="flex flex-col gap-2 bg-component-bg rounded-xl border border-border p-4 w-full min-h-full 2xl:-mt-15">
       <div className="flex items-center justify-start gap-3 min-w-full">
-        <FileText className="size-12 text-blue-400 bg-blue-400/20 rounded-xl p-2" />
+        <FileText className="size-12 text-neon-green bg-neon-green-trans rounded-xl p-2" />
         <h1 className="text-2xl">Content</h1>
         <button
           onClick={() => {

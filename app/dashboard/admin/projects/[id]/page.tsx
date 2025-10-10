@@ -77,11 +77,13 @@ export default async function ProjectPage({
         </div>
         <div className="items-center justify-center hidden xl:flex">
           <div className="flex flex-col 2xl:grid 2xl:grid-cols-[minmax(300px,400px)_minmax(300px,400px)_minmax(250px,400px)] 2xl:grid-rows-[auto_minmax(250px,auto)] items-stretch gap-5 max-w-fit">
-            <div>
-              <ProjectContactViewer {...contact} />
-            </div>
-            <div>
-              <ProjectDocumentsViewer {...docs} />
+            <div className="flex gap-6 2xl:contents">
+              <div>
+                <ProjectContactViewer {...contact} />
+              </div>
+              <div>
+                <ProjectDocumentsViewer {...docs} />
+              </div>
             </div>
             <ProjectExpensesViewer
               expenses={project?.webProject?.expenses as Record<string, number>}
@@ -99,7 +101,7 @@ export default async function ProjectPage({
               <ProjectDesignViewer {...design} id={id} />
             </div>
             <div className="col-span-2">
-              <ProjectDevViewer {...dev} id={id}/>
+              <ProjectDevViewer {...dev} id={id} />
             </div>
           </div>
         </div>

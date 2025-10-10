@@ -2,7 +2,6 @@
 
 import { HandCoins, Trash } from "lucide-react";
 import { useState } from "react";
-// import ProjectExpensesForm from "./ProjectExpensesForm";
 
 export default function ProjectExpensesViewer({
   expenses,

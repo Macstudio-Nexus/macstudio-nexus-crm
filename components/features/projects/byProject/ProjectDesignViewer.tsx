@@ -1,7 +1,7 @@
 "use client";
 
 import { WebProjectDesign } from "@/types";
-import { Wallpaper, Link, Upload, Trash } from "lucide-react";
+import { Wallpaper, Link, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function ProjectDesignViewer({
@@ -144,7 +144,7 @@ export default function ProjectDesignViewer({
   return (
     <div
       className="flex flex-col items-center justify-center gap-5 bg-component-bg rounded-xl    
-   border border-border w-fit max-w-full 2xl:min-w-sm p-4"
+   border border-border w-full max-w-full 2xl:min-w-sm p-4"
     >
       <div className="flex items-center justify-left gap-3 w-full">
         <Wallpaper className="text-neon-green size-12 bg-neon-green-trans rounded-xl p-2" />

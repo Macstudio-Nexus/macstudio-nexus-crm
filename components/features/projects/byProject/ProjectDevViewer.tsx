@@ -1,8 +1,7 @@
 "use client";
 
 import { WebProjectDev } from "@/types";
-import { useEffect, useState } from "react";
-
+import { useState } from "react";
 import { CodeXml, Link, Trash } from "lucide-react";
 
 export default function ProjectDevViewer({
@@ -104,7 +103,7 @@ export default function ProjectDevViewer({
   return (
     <div className="flex flex-col items-center justify-center bg-component-bg border border-border p-4 rounded-xl 2xl:-mt-15">
       <div className="flex items-center justify-start gap-3 min-w-full pb-2">
-        <CodeXml className="size-12 text-blue-400 bg-blue-400/20 rounded-xl p-2" />
+        <CodeXml className="size-12 text-neon-green bg-neon-green-trans rounded-xl p-2" />
         <h1 className="text-2xl">{title}</h1>
       </div>
       <div className="w-full flex flex-col items-start justify-around gap-2">
@@ -275,12 +274,8 @@ export default function ProjectDevViewer({
           </form>
 
           {/* Integrations List */}
-          <div
-            className="w-full overflow-y-auto scrollbar-hide max-h-40 bg-main-bg borderborder-border"
-          >
-            <div
-              className="sticky top-0 grid grid-cols-[minmax(100px,0.7fr)_minmax(120px,1.4fr)_minmax(60px,0.5fr)_40px] items-center gap-3 border-b py-1 border-border px-4 text-accent bg-main-bg"
-            >
+          <div className="w-full overflow-y-auto scrollbar-hide max-h-40 bg-main-bg borderborder-border">
+            <div className="sticky top-0 grid grid-cols-[minmax(100px,0.7fr)_minmax(120px,1.4fr)_minmax(60px,0.5fr)_40px] items-center gap-3 border-b py-1 border-border px-4 text-accent bg-main-bg">
               <span className="text-sm font-semibold">Name</span>
               <span className="text-sm font-semibold">Description</span>
               <span className="text-sm font-semibold">Price</span>
