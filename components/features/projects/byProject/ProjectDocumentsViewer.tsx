@@ -1,5 +1,6 @@
 import { Files } from "lucide-react";
 import { WebProjectDocs } from "@/types";
+import NewQuoteButton from "../../quotes/NewQuoteButton";
 
 export default function ProjectDocumentsViewer({
   questionnaire,
@@ -22,7 +23,7 @@ export default function ProjectDocumentsViewer({
         {quote ? (
           <a className="proejct-page-button" href={quote}>View Quote</a>
         ) : (
-          <button className="project-page-button">Create Quote</button>
+          <NewQuoteButton />
         )}
         {contract ? (
           <a className="proejct-page-button" href={contract}>View contract</a>

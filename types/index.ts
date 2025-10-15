@@ -74,3 +74,21 @@ export interface Content {
   section: string;
   content: string;
 }
+
+// Quote related interfaces
+export interface QuoteExpense {
+  description: string;
+  quantity: number;
+  price: number;
+}
+
+export interface Quote {
+  id?: string;
+  date?: Date;
+  quoteId?: number;
+  type: string;
+  expenses: QuoteExpense[];
+  link: string;
+  contactId: string;
+  projectId: string;
+}

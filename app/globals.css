@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* @layer base {
+  * {
+    display: inline-block;
+  }
+} */
+
 @theme inline {
   --font-plex: "IBM Plex Sans", sans-serif;
   --font-space: "Space Grotesk", sans-serif;
@@ -60,5 +66,11 @@
   }
   .design-table-button {
     @apply border border-border rounded-xl hover:bg-main-bg;
+  }
+  .quote-header {
+    @apply w-full py-3 pl-4 font-bold text-white bg-black;
+  }
+  .quote-cell {
+    @apply w-full h-full py-2 pb-3 text-base text-black border-b border-x border-black;
   }
 }
